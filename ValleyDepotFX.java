@@ -92,6 +92,20 @@ public class ValleyDepotFX extends Application {
             custpane1.setVgap(10);
         });
         
+        Label lblFName = new Label("First Name");
+        Label lblLName = new Label("Last Name");
+        Label lblAddress = new Label("Address");
+        Label lblPhone = new Label("Phone Number");
+        Label lblEmail = new Label("E-mail");
+        Label lblNotes = new Label("Notes");
+        TextField txtFName = new TextField();
+        TextField txtLName = new TextField();
+        TextField txtAddress = new TextField();
+        TextField txtPhone = new TextField();
+        TextField txtEmail = new TextField();
+        TextField txtNotes = new TextField();
+        
+        GridPane custpane2 = new GridPane();
         createCust.setOnAction(e -> {
             primaryStage.setTitle("Create Customer");
             
