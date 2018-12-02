@@ -66,23 +66,28 @@ public class ValleyDepotFX extends Application {
         primaryPane.setHgap(10);
         primaryPane.setVgap(10);
         
-        //objects for 1nd window for manage customers
-        
-        Label customerLabel = new Label("Manage Customers System");
+        //objects for 1st window for manage customers
         Button createCust = new Button("Create New Customer");
         Button editCust = new Button("Edit Customer");
+        Button createCon = new Button("Create New Contractor");
+        Button editCon = new Button("Edit Contractor");
+        Button main = new Button("Return to Main Menu");
         GridPane custPane1 = new GridPane();
         Label lbl = new Label("1.)");
         Label lbl2 = new Label("2.)");
         Label lbl3 = new Label("3.)");
-        Button main = new Button("Return to Main Menu");
-        custPane1.add(customerLabel, 1, 0);
-        custPane1.add(createCust, 1, 1);
-        custPane1.add(editCust, 1, 2);
-        custPane1.add(lbl, 0, 1);
-        custPane1.add(lbl2, 0, 2);
-        custPane1.add(lbl3,0,3);
-        custPane1.add(main, 1, 3);
+        Label lbl4 = new Label("4.)");
+        Label lbl5 = new Label("5.)");
+        custPane1.add(createCust, 1, 0);
+        custPane1.add(editCust, 1, 1);
+        custPanel.add(createCon, 1, 2);
+        custPanel.add(editCon, 1, 3);
+        custPanel.add(main, 1, 4);
+        custPane1.add(lbl, 0, 0);
+        custPane1.add(lbl2, 0, 1);
+        custPane1.add(lbl3, 0, 2);
+        custPanel.add(lbl4, 0, 3);
+        custPanel.add(lbl5, 0, 4);
         Scene scene1 = new Scene(custPane1, 400, 400);
         
         //manage customers button
@@ -95,10 +100,45 @@ public class ValleyDepotFX extends Application {
         });
          
         main.setOnAction(e -> {
-              primaryStage.setScene(primaryScene);
-              primaryStage.show();
-          });
+            primaryStage.setScene(primaryScene);
+            primaryStage.show();
+        });
         
+        //objects for create customer window
+        GridPane createCustPanel = new GridPane();
+        Label lblFName = new Label("First Name");
+        Label lblLName = new Label("Last Name");
+        Label lblAdd = new Label("Address");
+        Label lblPhone = new Label("Phone Number");
+        Label lblEmail = new Label("Email");
+        Label lblNote = new Label("Additional Notes");
+        TextField txtFName = new TextField();
+        TextField txtLName = new TextField();
+        TextField txtAdd = new TextField();
+        TextField txtPhone = new TextField();
+        TextField txtEmail = new TextField();
+        TextField txtNote = new TextField();
+        createCustPanel.add(lblFName, 0, 0);
+        createCustPanel.add(lblLName, 0, 1);
+        createCustPanel.add(lblAdd, 0, 2);
+        createCustPanel.add(lblPhone, 0, 3);
+        createCustPanel.add(lblEmail, 0, 4);
+        createCustPanel.add(lblNote, 0, 5);
+        createCustPanel.add(txtFName, 1, 0);
+        createCustPanel.add(txtLName, 1, 1);
+        createCustPanel.add(txtAdd, 1, 2);
+        createCustPanel.add(txtPhone, 1, 3);
+        createCustPanel.add(txtEmail, 1, 4);
+        createCustPanel.add(txtNote, 1, 5);
+        Scene createCustomer = new Scene(createCustPanel, 400, 400);
+        
+        createCust.setOnAction(e -> {
+            primaryStage.setTitle("Create Customers");
+            primaryStage.setScene(createCustomer);
+            primaryStage.show();
+            custPanel.setHgap(10);
+            custPanel.setVgap(10);
+        });    
         
         //manage inventory 
         Label inventoryLabel = new Label("Manage Inventory System");
@@ -204,86 +244,12 @@ public class ValleyDepotFX extends Application {
                  primaryStage.show();
              });
         
-        //manage vendor items
-        Label vendorLabel = new Label("Manage Vendors");
-        Button createVendor = new Button("Create new Vendor");
-        Button editVendor = new Button("Edit a Vendor");
-        GridPane vendorPane1 = new GridPane();
-        Label ven1 = new Label("1.)");
-        Label ven2 = new Label("2.)");
-        Label ven3 = new Label("3.)");
-        Button dismiss = new Button("Return to Main Menu");
-        vendorPane1.add(vendorLabel, 1, 0);
-        vendorPane1.add(createVendor, 1, 1);
-        vendorPane1.add(editVendor, 1, 2);
-        vendorPane1.add(ven1, 0, 1);
-        vendorPane1.add(ven2, 0, 2);
-        vendorPane1.add(ven3, 0, 3);
-        vendorPane1.add(dismiss, 1,3);
-        Scene scene5 = new Scene(vendorPane1, 400, 400);
         
-        //manage inventory button
-        btn5.setOnAction(e -> {
-            primaryStage.setTitle("Manage Inventory Items");
-            primaryStage.setScene(scene5);
-            primaryStage.show();
-            vendorPane1.setHgap(10);
-            vendorPane1.setVgap(10);
-        });
         
-        //return back to main menu
-         dismiss.setOnAction(e -> {
-              primaryStage.setScene(primaryScene);
-              primaryStage.show();
-          });
         
-         //print report
-        Label reportLabel = new Label("Print Report");
-        Button createCusHis = new Button("Purchase History Of A Customer Report");
-        Button createConHis = new Button("Purchase History Of A Contractor Report");
-        Button createItemHis = new Button("Purchase History For Any Given Item Report");
-        Button createInvLevel = new Button("Inventory Item Levels Report");
-        GridPane reportPane1 = new GridPane();
-        Label report1 = new Label("1.)");
-        Label report2 = new Label("2.)");
-        Label report3 = new Label("3.)");
-        Label report4 = new Label("4.)");
-        Label report5 = new Label("5.)");
-        Button after = new Button("Return to Main Menu");
-        reportPane1.add(reportLabel, 1, 0);
-        reportPane1.add(createCusHis, 1, 1);
-        reportPane1.add(createConHis, 1, 2);
-        reportPane1.add(createItemHis, 1, 3);
-        reportPane1.add(createInvLevel, 1, 4);
-        reportPane1.add(report1, 0, 1);
-        reportPane1.add(report2, 0, 2);
-        reportPane1.add(report3, 0, 3);
-        reportPane1.add(report4, 0, 4);
-        reportPane1.add(report5, 0, 5);
-        reportPane1.add(after, 1,5);
-        Scene scene6 = new Scene(reportPane1, 400, 400);
         
-        //manage vendor button
-        btn6.setOnAction(e -> {
-            primaryStage.setTitle("Print a Report");
-            primaryStage.setScene(scene6);
-            primaryStage.show();
-            reportPane1.setHgap(10);
-            reportPane1.setVgap(10);
-        });
         
-        //return to main menu button
-         after.setOnAction(e -> {
-              primaryStage.setScene(primaryScene);
-              primaryStage.show();
-          });
-         
-        //exit system
-        btn7.setOnAction(e -> {
-            System.out.println("Thank you for using The Valley Depot System!");
-            primaryStage.close();
-        });
-       
+      
     }
 
     /**
