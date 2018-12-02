@@ -199,7 +199,7 @@ public class ValleyDepotFX extends Application {
             String Email = txtEmail.getText();
             String Note = txtNote.getText();
             
-            if(Email.contains("@") && Phone.length() == 10 && !FName.isEmpty() && !LName.isEmpty()) {
+            if(txtEmail.getText().contains("@") && txtPhone.getText().length() == 10 && !FName.isEmpty() && !LName.isEmpty()) {
                 customer.add(new Customer(FName, LName, Add, Phone, Email, Note));
             }
             else
