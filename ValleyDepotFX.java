@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ValleyDepotIS;
 
 import javafx.application.Application;
@@ -14,11 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-/**
- *
- * @author BridgetLaMaina
- */
-public class FXApplication extends Application {
+public class ValleyDepotFX extends Application {
     
     @Override
     public void start(Stage primaryStage) {
