@@ -92,6 +92,7 @@ public class ValleyDepotFX extends Application {
             custpane1.setVgap(10);
         });
         
+        GridPane custpane2 = new GridPane();
         Label lblFName = new Label("First Name");
         Label lblLName = new Label("Last Name");
         Label lblAddress = new Label("Address");
@@ -104,10 +105,26 @@ public class ValleyDepotFX extends Application {
         TextField txtPhone = new TextField();
         TextField txtEmail = new TextField();
         TextField txtNotes = new TextField();
-        
-        GridPane custpane2 = new GridPane();
+        custpane2.add(lblFName, 0, 1);
+        custpane2.add(lblLName, 0, 2);
+        custpane2.add(lblAddress, 0, 3);
+        custpane2.add(lblPhone, 0, 4);
+        custpane2.add(lblEmail, 0, 5);
+        custpane2.add(lblNotes, 0, 6);
+        custpane2.add(txtFName, 1, 1);
+        custpane2.add(txtLName, 1, 2);
+        custpane2.add(txtPhone, 1, 3);
+        custpane2.add(txtEmail, 1, 4);
+        custpane2.add(txtNotes, 1, 5);
+        Scene scene2 = new Scene(custpane2, 400, 400);
+
         createCust.setOnAction(e -> {
             primaryStage.setTitle("Create Customer");
+            primaryStage.setScene(scene2);
+            primaryStage.show();
+            custpane2.setHgap(10);
+            custpane2.setVgap(10);
+        });
             
         
         Label inventoryLabel = new Label("Manage Inventory System");
