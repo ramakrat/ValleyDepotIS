@@ -190,8 +190,8 @@ public class ValleyDepotFX extends Application {
             primaryStage.setTitle("Create Customers");
             primaryStage.setScene(createCustomer);
             primaryStage.show();
-            custPanel.setHgap(10);
-            custPanel.setVgap(10);
+            createCustPanel.setHgap(10);
+            createCustPanel.setVgap(10);
             String FName = txtFName.getText();
             String LName = txtLName.getText();
             String Add = txtAdd.getText();
@@ -199,8 +199,8 @@ public class ValleyDepotFX extends Application {
             String Email = txtEmail.getText();
             String Note = txtNote.getText();
             
-            if(email.contains("@") && number.length() == 10 && !firstName.isEmpty() && !lastName.isEmpty()) {
-                customer.add(new Customer(firstName, lastName, address, number, email, notes));
+            if(Email.contains("@") && Phone.length() == 10 && !FName.isEmpty() && !LName.isEmpty()) {
+                customer.add(new Customer(FName, LName, Add, Phone, Email, Note));
             }
             else
                 System.out.println("\nYou have entered incompatible data, please reenter");
