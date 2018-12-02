@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package ValleyDepotIS;
 
 import javafx.application.Application;
@@ -9,7 +14,11 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-public class ValleyDepotFX extends Application {
+/**
+ *
+ * @author BridgetLaMaina
+ */
+public class FXApplication extends Application {
     
     @Override
     public void start(Stage primaryStage) {
@@ -51,6 +60,10 @@ public class ValleyDepotFX extends Application {
         primaryPane.add(title7, 0, 7);
         primaryPane.add(btn7, 1, 7);
         
+        
+        
+        
+        
         //create scenes
         Scene primaryScene = new Scene(primaryPane, 400, 400);
         
@@ -67,80 +80,37 @@ public class ValleyDepotFX extends Application {
         Label customerLabel = new Label("Manage Customers System");
         Button createCust = new Button("Create New Customer");
         Button editCust = new Button("Edit Customer");
-        Button createCon = new Button("Create New Contractor");
-        Button editCon = new Button("Edit Contractor");
-        GridPane custpane1 = new GridPane();
+        GridPane custPane1 = new GridPane();
         Label lbl = new Label("1.)");
         Label lbl2 = new Label("2.)");
         Label lbl3 = new Label("3.)");
-        Label lbl4 = new Label("4.)");
-        custpane1.add(customerLabel, 1, 0);
-        custpane1.add(createCust, 1, 1);
-        custpane1.add(editCust, 1, 2);
-        custpane1.add(createCon, 1, 3);
-        custpanel.add(editCon, 1, 4);
-        custpane1.add(lbl, 0, 1);
-        custpane1.add(lbl2, 0, 2);
-        custpanel.add(lbl3, 0, 3);
-        custpanel.add(lbl4, 0, 4);
-        Scene scene1 = new Scene(custpane1, 400, 400);
+        Button main = new Button("Return to Main Menu");
+        custPane1.add(customerLabel, 1, 0);
+        custPane1.add(createCust, 1, 1);
+        custPane1.add(editCust, 1, 2);
+        custPane1.add(lbl, 0, 1);
+        custPane1.add(lbl2, 0, 2);
+        custPane1.add(lbl3,0,3);
+        custPane1.add(main, 1, 3);
+        Scene scene1 = new Scene(custPane1, 400, 400);
+        
+        //manage customers button
         btn1.setOnAction(e -> {
             primaryStage.setTitle("Manage Customers");
             primaryStage.setScene(scene1);
             primaryStage.show();
-            custpane1.setHgap(10);
-            custpane1.setVgap(10);
+            custPane1.setHgap(10);
+            custPane1.setVgap(10);
         });
+         
+        main.setOnAction(e -> {
+              primaryStage.setScene(primaryScene);
+              primaryStage.show();
+          });
         
-        GridPane custpane2 = new GridPane();
-        Label lblFName = new Label("First Name");
-        Label lblLName = new Label("Last Name");
-        Label lblAddress = new Label("Address");
-        Label lblPhone = new Label("Phone Number");
-        Label lblEmail = new Label("E-mail");
-        Label lblNotes = new Label("Notes");
-        TextField txtFName = new TextField();
-        TextField txtLName = new TextField();
-        TextField txtAddress = new TextField();
-        TextField txtPhone = new TextField();
-        TextField txtEmail = new TextField();
-        TextField txtNotes = new TextField();
-        custpane2.add(lblFName, 0, 1);
-        custpane2.add(lblLName, 0, 2);
-        custpane2.add(lblAddress, 0, 3);
-        custpane2.add(lblPhone, 0, 4);
-        custpane2.add(lblEmail, 0, 5);
-        custpane2.add(lblNotes, 0, 6);
-        custpane2.add(txtFName, 1, 1);
-        custpane2.add(txtLName, 1, 2);
-        custpane2.add(txtPhone, 1, 3);
-        custpane2.add(txtEmail, 1, 4);
-        custpane2.add(txtNotes, 1, 5);
-        Scene scene2 = new Scene(custpane2, 400, 400);
-
-        createCust.setOnAction(e -> {
-            primaryStage.setTitle("Create Customer");
-            primaryStage.setScene(scene2);
-            primaryStage.show();
-            custpane2.setHgap(10);
-            custpane2.setVgap(10);
-        });
-            
         
+        //manage inventory 
         Label inventoryLabel = new Label("Manage Inventory System");
-        Button createInventory = new Button("Create new Inventory Item");
-        Button editInventory = new Button("Edit an inventory Item");
-        GridPane inventorypane1 = new GridPane();
-        Label inv1 = new Label("1.)");
-        Label inv2 = new Label("2.)");
-        //inventorypane1 = inventoryLabel, 1, 0);
-        
-        
-        
-        
-      
-    }
-    Label inventoryLabel = new Label("Manage Inventory System");
         Button createInventory = new Button("Create new Inventory Item");
         Button editInventory = new Button("Edit an inventory Item");
         GridPane inventoryPane1 = new GridPane();
@@ -165,6 +135,11 @@ public class ValleyDepotFX extends Application {
             inventoryPane1.setHgap(10);
             inventoryPane1.setVgap(10);
         });
+        
+         exit.setOnAction(e -> {
+              primaryStage.setScene(primaryScene);
+              primaryStage.show();
+          });
           
         //create a sale
           Label saleLabel = new Label("Create a Sale");
@@ -195,6 +170,8 @@ public class ValleyDepotFX extends Application {
           salesPane1.add(forSale, 1, 5);
           salesPane1.add(sale6, 0, 6);
           salesPane1.add(quantity, 1, 6);
+          salesPane1.add(leave, 0, 8);
+          leave.setAlignment(Pos.CENTER_RIGHT);
           Scene scene3 = new Scene(salesPane1, 400, 400);
           
           //create a sale button
@@ -202,9 +179,47 @@ public class ValleyDepotFX extends Application {
             primaryStage.setTitle("Create a Sale");
             primaryStage.setScene(scene3);
             primaryStage.show();
-            inventoryPane1.setHgap(10);
-            inventoryPane1.setVgap(10);
+            salesPane1.setHgap(20);
+            salesPane1.setVgap(20);
         });
+        
+          //button to return to main menu
+          leave.setOnAction(e -> {
+              primaryStage.setScene(primaryScene);
+              primaryStage.show();
+          });
+          
+        //print a sale receipt
+           Label receiptLabel = new Label("Sales Receipt");
+           GridPane receiptPane1 = new GridPane();
+           Button menu = new Button("Return to Main Menu");
+           receiptPane1.add(menu, 0,8);
+           menu.setAlignment(Pos.CENTER_RIGHT);
+           Scene scene4 = new Scene(receiptPane1, 400, 400);
+
+           //print sale receipt button
+           btn4.setOnAction(e -> {
+               primaryStage.setTitle("Sales Receipt");
+               primaryStage.setScene(scene4);
+               primaryStage.show();
+               receiptPane1.setHgap(10);
+               receiptPane1.setVgap(10);
+           });
+           
+           //return to main menu button
+           
+            menu.setOnAction(e -> {
+                 primaryStage.setScene(primaryScene);
+                 primaryStage.show();
+             });
+        
+        
+        
+        
+        
+        
+      
+    }
 
     /**
      * @param args the command line arguments
