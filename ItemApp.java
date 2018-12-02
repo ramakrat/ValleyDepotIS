@@ -550,7 +550,7 @@ public class ItemApp
                 System.out.println("Vendor's availble for edit");
                     System.out.println("Vendor ID\tVendor Name");
                     System.out.println("=============================");
-                    for(int i = 0; i <= Vendor.venCount; i++){
+                    for(int i = 0; i < vendor.size(); i++){
                         if(vendor.get(i) != null) {
                         System.out.println(vendor.get(i).id + "\t\t\t" + vendor.get(i).businessName);                            
                         }
