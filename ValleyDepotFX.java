@@ -204,12 +204,86 @@ public class ValleyDepotFX extends Application {
                  primaryStage.show();
              });
         
+        //manage vendor items
+        Label vendorLabel = new Label("Manage Vendors");
+        Button createVendor = new Button("Create new Vendor");
+        Button editVendor = new Button("Edit a Vendor");
+        GridPane vendorPane1 = new GridPane();
+        Label ven1 = new Label("1.)");
+        Label ven2 = new Label("2.)");
+        Label ven3 = new Label("3.)");
+        Button dismiss = new Button("Return to Main Menu");
+        vendorPane1.add(vendorLabel, 1, 0);
+        vendorPane1.add(createVendor, 1, 1);
+        vendorPane1.add(editVendor, 1, 2);
+        vendorPane1.add(ven1, 0, 1);
+        vendorPane1.add(ven2, 0, 2);
+        vendorPane1.add(ven3, 0, 3);
+        vendorPane1.add(dismiss, 1,3);
+        Scene scene5 = new Scene(vendorPane1, 400, 400);
         
+        //manage inventory button
+        btn5.setOnAction(e -> {
+            primaryStage.setTitle("Manage Inventory Items");
+            primaryStage.setScene(scene5);
+            primaryStage.show();
+            vendorPane1.setHgap(10);
+            vendorPane1.setVgap(10);
+        });
         
+        //return back to main menu
+         dismiss.setOnAction(e -> {
+              primaryStage.setScene(primaryScene);
+              primaryStage.show();
+          });
         
+         //print report
+        Label reportLabel = new Label("Print Report");
+        Button createCusHis = new Button("Purchase History Of A Customer Report");
+        Button createConHis = new Button("Purchase History Of A Contractor Report");
+        Button createItemHis = new Button("Purchase History For Any Given Item Report");
+        Button createInvLevel = new Button("Inventory Item Levels Report");
+        GridPane reportPane1 = new GridPane();
+        Label report1 = new Label("1.)");
+        Label report2 = new Label("2.)");
+        Label report3 = new Label("3.)");
+        Label report4 = new Label("4.)");
+        Label report5 = new Label("5.)");
+        Button after = new Button("Return to Main Menu");
+        reportPane1.add(reportLabel, 1, 0);
+        reportPane1.add(createCusHis, 1, 1);
+        reportPane1.add(createConHis, 1, 2);
+        reportPane1.add(createItemHis, 1, 3);
+        reportPane1.add(createInvLevel, 1, 4);
+        reportPane1.add(report1, 0, 1);
+        reportPane1.add(report2, 0, 2);
+        reportPane1.add(report3, 0, 3);
+        reportPane1.add(report4, 0, 4);
+        reportPane1.add(report5, 0, 5);
+        reportPane1.add(after, 1,5);
+        Scene scene6 = new Scene(reportPane1, 400, 400);
         
+        //manage vendor button
+        btn6.setOnAction(e -> {
+            primaryStage.setTitle("Print a Report");
+            primaryStage.setScene(scene6);
+            primaryStage.show();
+            reportPane1.setHgap(10);
+            reportPane1.setVgap(10);
+        });
         
-      
+        //return to main menu button
+         after.setOnAction(e -> {
+              primaryStage.setScene(primaryScene);
+              primaryStage.show();
+          });
+         
+        //exit system
+        btn7.setOnAction(e -> {
+            System.out.println("Thank you for using The Valley Depot System!");
+            primaryStage.close();
+        });
+       
     }
 
     /**
