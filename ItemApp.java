@@ -175,7 +175,7 @@ public class ItemApp
                 input.nextLine();
                 
                 if(action == 1) {
-                    if(customer.get(0) == null) {
+                    if(customer.isEmpty() == true) {
                         System.out.print("There are currently no customers in the database. Please add customers!");
                         break;
                     }  
@@ -220,7 +220,7 @@ public class ItemApp
                         System.out.println("\nYou have entered incompatible data, please reenter");
                 }
                 else if (action == 2) {
-                    if(contractor.get(0) == null)
+                    if(contractor.isEmpty() == true)
                     {
                         System.out.print("There are currently no contractors in the database. Please add contractors!");
                         break;
@@ -269,7 +269,7 @@ public class ItemApp
                 break;
             case 3: 
                 //validation that vendors exist, because items can't exist without vendors
-                if(vendor.get(0) == null) {
+                if(vendor.isEmpty() == true) {
                     System.out.println("\nThere are no vendors selling items. Please add a vendor!");
                     break;
                 }
@@ -317,7 +317,7 @@ public class ItemApp
             case 4:
                 //validation items exist in database
                 System.out.println("");
-                if(item.get(0) == null) {
+                if(item.isEmpty() == true) {
                     System.out.print("There are currently no items in the database. Please add items!");
                     break;
                 }
@@ -378,12 +378,12 @@ public class ItemApp
                 break;
 
             case 5:
-                if(item.get(0) == null) {
+                if(item.isEmpty() == true) {
                     System.out.print("There are currently no items for sale in the database. Please add items!");
                     break;
                 }
                 
-                if(customer.get(0) == null) {
+                if(customer.isEmpty() == true) {
                     System.out.print("There are currently no customers in the database. Please add customers!");
                     break;
                 } 
@@ -542,7 +542,7 @@ public class ItemApp
                         System.out.println("\nYou have entered incompatible data, please reenter");
                break;
             case 8:
-                if(vendor.get(0) == null) {
+                if(vendor.isEmpty() == true) {
                     System.out.println("There are no vendors. Please add vendors!");
                     break;
                 }
@@ -593,14 +593,14 @@ public class ItemApp
                 
                 int choice = input.nextInt();
                 
-                if(item.get(0) == null) {
+                if(item.isEmpty() == true) {
                     System.out.print("There are currently no items in the database. Please add items!");
                     break;
                 }  
                 
                 switch(choice){
                     case 1:
-                        if(customer.get(0) == null) {
+                        if(customer.isEmpty() == true) {
                             System.out.print("\nThere are currently no customers in the database. Please add customers!");
                             break;
                         } 
@@ -635,7 +635,7 @@ public class ItemApp
                                 }    
                             break;
                             case 2:
-                                if(contractor.get(0) == null) {
+                                if(contractor.isEmpty() == true) {
                                     System.out.print("There are currently no contractors in the database. Please add customers!");
                                     break;
                                 } 
