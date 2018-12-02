@@ -51,10 +51,6 @@ public class ValleyDepotFX extends Application {
         primaryPane.add(title7, 0, 7);
         primaryPane.add(btn7, 1, 7);
         
-        
-        
-        
-        
         //create scenes
         Scene primaryScene = new Scene(primaryPane, 400, 400);
         
@@ -71,14 +67,22 @@ public class ValleyDepotFX extends Application {
         Label customerLabel = new Label("Manage Customers System");
         Button createCust = new Button("Create New Customer");
         Button editCust = new Button("Edit Customer");
+        Button createCon = new Button("Create New Contractor");
+        Button editCon = new Button("Edit Contractor");
         GridPane custpane1 = new GridPane();
         Label lbl = new Label("1.)");
         Label lbl2 = new Label("2.)");
+        Label lbl3 = new Label("3.)");
+        Label lbl4 = new Label("4.)");
         custpane1.add(customerLabel, 1, 0);
         custpane1.add(createCust, 1, 1);
         custpane1.add(editCust, 1, 2);
+        custpane1.add(createCon, 1, 3);
+        custpanel.add(editCon, 1, 4);
         custpane1.add(lbl, 0, 1);
         custpane1.add(lbl2, 0, 2);
+        custpanel.add(lbl3, 0, 3);
+        custpanel.add(lbl4, 0, 4);
         Scene scene1 = new Scene(custpane1, 400, 400);
         btn1.setOnAction(e -> {
             primaryStage.setTitle("Manage Customers");
@@ -87,6 +91,10 @@ public class ValleyDepotFX extends Application {
             custpane1.setHgap(10);
             custpane1.setVgap(10);
         });
+        
+        createCust.setOnAction(e -> {
+            primaryStage.setTitle("Create Customer");
+            
         
         Label inventoryLabel = new Label("Manage Inventory System");
         Button createInventory = new Button("Create new Inventory Item");
