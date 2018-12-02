@@ -8,11 +8,65 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import java.util.*;
 
 public class ValleyDepotFX extends Application {
     
     @Override
     public void start(Stage primaryStage) {
+        
+        ArrayList<Contractor> contractor = new ArrayList<>();
+        ArrayList<Customer> customer = new ArrayList<>();
+        ArrayList<Item> item = new ArrayList<>();
+        ArrayList<Vendor> vendor = new ArrayList<>();
+        ArrayList<ArrayList<Sale>> sales = new ArrayList<>();
+        
+        //pre-population of objects
+        customer.add(new Customer("Bob", "Smith", "8324 Newark Lane, Harrisonburg, VA, 22801", "5712239034", "smith.bob@gmail.com", ""));
+        customer.add(new Customer("Colin", "Skipper", "8324 Newark Lane, Harrisonburg, VA, 22801", "5712239034", "Colin.Skip@gmail.com", ""));
+        customer.add(new Customer("Adam", "Rodgers", "2 Rodestraat, Antwerp, Belgium", "3017286228", "adam.rodgers@gmail.com", ""));
+        customer.add(new Customer("Sandy", "Smith", "32 Kingsville Drive, Huntingston, WV, 25701", "2403331023", "smithsvillesandy32@hotmail.com", ""));
+        customer.add(new Customer("Megan", "Parks", "422 Devon Street, Harrisonburg, VA, 22801", "7032203901", "parks.megan@hotmail.com", ""));
+        
+        vendor.add(new Vendor("Prestige WorldWide", "10283 SpringField MA 01103", "4133252922"));
+        vendor.add(new Vendor("Nike", "2484 Wembly St Houston TX 77036", "8323457634"));
+        vendor.add(new Vendor("Burton", "2844 Irish Lane Madison WI 53718", "7156137491"));
+        
+        item.add(new Item("Shoe",4.5,"Off-Whites",40.5,50.6, 33, vendor.get(0)));
+        item.add(new Item("Shirt", 1.5, "Polo", 30.5, 32.5, 200, vendor.get(1)));
+        item.add(new Item("Computer", 4.5, "Off-Whites", 40.5, 50.6, 24, vendor.get(1)));
+        item.add(new Item("Waterbottle", 1.0, "Dasani", 1.0, 2.3, 320, vendor.get(2)));
+        item.add(new Item("Backpack", 2.7, "North Face", 50.5, 60.6, 45, vendor.get(2)));
+        item.add(new Item("Chair", 12.5, "Luxury", 40.3, 38.5, 30, vendor.get(2)));
+        item.add(new Item("Ovaltine", 4.5,"Delicious Drink", 3.5, 5.6, 1000, vendor.get(1)));
+        item.add(new Item("CD", 2.1,"Great Music", 1.2, 1.5, 160, vendor.get(2)));
+        item.add(new Item("Poster", 1.0,"Coca-Cola", 15.5, 13.5, 55, vendor.get(0)));
+        item.add(new Item("ToothPaste", 1.0, "Minty Fresh", 1.2, 1.6, 75, vendor.get(1)));
+
+        ArrayList<Sale> sales1 = new ArrayList<>();
+        sales1.add(new Sale(item.get(0), 4, "4/12/2018", customer.get(0)));
+        sales.add(sales1);
+        item.get(0).quantAvail -= 4;
+        
+        ArrayList<Sale> sales2 = new ArrayList<>();
+        sales2.add(new Sale(item.get(3), 6, "7/3/2018", customer.get(1)));
+        sales.add(sales2);
+        item.get(0).quantAvail -= 6;
+        
+        ArrayList<Sale> sales3 = new ArrayList<>();
+        sales3.add(new Sale(item.get(2), 2, "4/21/2018", customer.get(2)));
+        sales.add(sales3);
+        item.get(0).quantAvail -= 2;
+        
+        ArrayList<Sale> sales4 = new ArrayList<>();
+        sales4.add(new Sale(item.get(5), 7, "5/3/2018", customer.get(0)));
+        sales.add(sales4);
+        item.get(0).quantAvail -= 7;
+        
+        ArrayList<Sale> sales5 = new ArrayList<>();
+        sales5.add(new Sale(item.get(4), 1, "1/4/2018", customer.get(3)));
+        sales.add(sales5);
+        item.get(0).quantAvail -= 1;
         
         Label title = new Label("Valley Depot System");
         Button btn1 = new Button("Manage Customers");
@@ -138,6 +192,18 @@ public class ValleyDepotFX extends Application {
             primaryStage.show();
             custPanel.setHgap(10);
             custPanel.setVgap(10);
+            String FName = txtFName.getText();
+            String LName = txtLName.getText();
+            String Add = txtAdd.getText();
+            String Phone = txtPhone.getText();
+            String Email = txtEmail.getText();
+            String Note = txtNote.getText();
+            
+            if(email.contains("@") && number.length() == 10 && !firstName.isEmpty() && !lastName.isEmpty()) {
+                customer.add(new Customer(firstName, lastName, address, number, email, notes));
+            }
+            else
+                System.out.println("\nYou have entered incompatible data, please reenter");
         });    
         
         //manage inventory 
