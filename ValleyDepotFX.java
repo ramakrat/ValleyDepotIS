@@ -204,7 +204,88 @@ public class ValleyDepotFX extends Application {
             }
             else
                 System.out.println("\nYou have entered incompatible data, please reenter");
+        }); 
+        
+        //option for creating a new contractor
+        GridPane createConPanel = new GridPane();
+        Button addContractor = new Button("Add Contractor");
+        Label conFirst = new Label("First Name");
+        Label conLast = new Label("Last Name");
+        Label conAdd = new Label("Address");
+        Label conPhone = new Label("Phone Number");
+        Label conEmail = new Label("Email");
+        Label conBusAdd = new Label("Business Address");
+        Label conBusName = new Label("BusinessName");
+        Label conNotes = new Label("Contractor Notes");
+        Text success = new Text("Success. You have added a new contractor.");
+        TextField txtConFirst = new TextField();
+        TextField txtConLast = new TextField();
+        TextField txtConAdd = new TextField();
+        TextField txtConPhone = new TextField();
+        TextField txtConEmail = new TextField();
+        TextField txtConNotes = new TextField();
+        TextField txtConBusAdd = new TextField();
+        TextField txtConBusName = new TextField();
+        createConPanel.add(conFirst, 0, 0);
+        createConPanel.add(conLast, 0, 1);
+        createConPanel.add(conAdd, 0, 2);
+        createConPanel.add(conPhone, 0, 3);
+        createConPanel.add(conEmail, 0, 4);
+        createConPanel.add(conBusAdd, 0, 6);
+        createConPanel.add(conBusName, 0, 7);
+        createConPanel.add(txtConFirst, 1, 0);
+        createConPanel.add(txtConLast, 1, 1);
+        createConPanel.add(txtConAdd, 1, 2);
+        createConPanel.add(txtConPhone, 1, 3);
+        createConPanel.add(txtConEmail, 1, 4);
+        createConPanel.add(txtConNotes, 1, 5);
+        createConPanel.add(conNotes, 0, 5);
+        createConPanel.add(txtConBusAdd, 1, 6);
+        createConPanel.add(txtConBusName, 1, 7);
+        createConPanel.add(addContractor, 0, 9);
+        addContractor.setAlignment(Pos.CENTER);
+        Scene createContractor = new Scene(createConPanel, 400, 400);
+        Alert errorAlert = new Alert(AlertType.ERROR);
+        
+        createCon.setOnAction(e -> {
+            txtConFirst.setText(null);
+            txtConLast.setText(null);
+            txtConAdd.setText(null);
+            txtConPhone.setText(null);
+            txtConEmail.setText(null);
+            txtConNotes.setText(null);
+            txtConBusAdd.setText(null);
+            txtConBusName.setText(null);
+            primaryStage.setTitle("Create Contractor");
+            primaryStage.setScene(createContractor);
+            primaryStage.show();
+            createConPanel.setHgap(10);
+            createConPanel.setVgap(10);
         });    
+        
+        addContractor.setOnAction(e -> {
+            String FName = txtConFirst.getText();
+            String LName = txtConLast.getText();
+            String Add = txtConAdd.getText();
+            String Phone = txtConPhone.getText();
+            String Email = txtConEmail.getText();
+            String Notes = txtConNotes.getText();
+            String busAdd = txtConBusAdd.getText();
+            String busName = txtConBusName.getText();
+            
+            if(Email.contains("@") && Phone.length() == 10 && !FName.isEmpty() && !LName.isEmpty()) {
+                contractor.add(new Contractor(FName, LName, Add, Phone, Email, Notes, busAdd, busName));
+                primaryStage.setScene(primaryScene);
+                primaryStage.show();
+            }
+            else {
+                errorAlert.setHeaderText("Input not valid");
+                errorAlert.setContentText("Please ReEnter Contractor Information");
+                errorAlert.setResizable(true);
+                errorAlert.getDialogPane().setPrefSize(400, 400);
+                errorAlert.showAndWait();
+                }
+            });
         
         //manage inventory 
         Label inventoryLabel = new Label("Manage Inventory System");
