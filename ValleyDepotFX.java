@@ -11,6 +11,9 @@ import javafx.stage.Stage;
 import java.util.*;
 
 public class ValleyDepotFX extends Application {
+ 
+    @Override
+    public void start(Stage primaryStage) {
         
         ArrayList<Contractor> contractor = new ArrayList<>();
         ArrayList<Customer> customer = new ArrayList<>();
@@ -64,10 +67,6 @@ public class ValleyDepotFX extends Application {
         sales5.add(new Sale(item.get(4), 1, "1/4/2018", customer.get(3)));
         sales.add(sales5);
         item.get(0).quantAvail -= 1;
-    
-    @Override
-    public void start(Stage primaryStage) {
-        
         Label title = new Label("Valley Depot System");
         Button btn1 = new Button("Manage Customers");
         Label title1 = new Label("1.) ");
