@@ -9,9 +9,11 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.util.*;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.text.Text;
 
 public class ValleyDepotFX extends Application {
- 
+
     @Override
     public void start(Stage primaryStage) {
         
@@ -67,6 +69,7 @@ public class ValleyDepotFX extends Application {
         sales5.add(new Sale(item.get(4), 1, "1/4/2018", customer.get(3)));
         sales.add(sales5);
         item.get(0).quantAvail -= 1;
+        
         Label title = new Label("Valley Depot System");
         Button btn1 = new Button("Manage Customers");
         Label title1 = new Label("1.) ");
@@ -127,14 +130,14 @@ public class ValleyDepotFX extends Application {
         Label lbl5 = new Label("5.)");
         custPane1.add(createCust, 1, 0);
         custPane1.add(editCust, 1, 1);
-        custPanel.add(createCon, 1, 2);
-        custPanel.add(editCon, 1, 3);
-        custPanel.add(main, 1, 4);
+        custPane1.add(createCon, 1, 2);
+        custPane1.add(editCon, 1, 3);
+        custPane1.add(main, 1, 4);
         custPane1.add(lbl, 0, 0);
         custPane1.add(lbl2, 0, 1);
         custPane1.add(lbl3, 0, 2);
-        custPanel.add(lbl4, 0, 3);
-        custPanel.add(lbl5, 0, 4);
+        custPane1.add(lbl4, 0, 3);
+        custPane1.add(lbl5, 0, 4);
         Scene scene1 = new Scene(custPane1, 400, 400);
         
         //manage customers button
@@ -165,20 +168,21 @@ public class ValleyDepotFX extends Application {
         TextField txtAdd = new TextField();
         TextField txtPhone = new TextField();
         TextField txtEmail = new TextField();
-        TextField txtNote = new TextField();
+        TextField txtNotes = new TextField();
         Text success = new Text("Success. You have added a new customer.");
         createCustPanel.add(lblFName, 0, 0);
         createCustPanel.add(lblLName, 0, 1);
         createCustPanel.add(lblAdd, 0, 2);
         createCustPanel.add(lblPhone, 0, 3);
         createCustPanel.add(lblEmail, 0, 4);
-        createCustPanel.add(lblNote, 0, 5);
+        createCustPanel.add(lblNotes, 0, 5);
         createCustPanel.add(txtFName, 1, 0);
         createCustPanel.add(txtLName, 1, 1);
         createCustPanel.add(txtAdd, 1, 2);
         createCustPanel.add(txtPhone, 1, 3);
         createCustPanel.add(txtEmail, 1, 4);
         createCustPanel.add(txtNotes, 1, 5);
+        createCustPanel.add(addCustomer, 0, 9);
         addCustomer.setAlignment(Pos.CENTER);
         Scene createCustomer = new Scene(createCustPanel, 400, 400);
         Alert errorAlert = new Alert(AlertType.ERROR);
@@ -193,8 +197,8 @@ public class ValleyDepotFX extends Application {
             primaryStage.setTitle("Create Customer");
             primaryStage.setScene(createCustomer);
             primaryStage.show();
-            createConPanel.setHgap(10);
-            createConPanel.setVgap(10);
+            createCustPanel.setHgap(10);
+            createCustPanel.setVgap(10);
         });    
             
          addCustomer.setOnAction(e -> {
@@ -206,7 +210,7 @@ public class ValleyDepotFX extends Application {
             String Notes = txtNotes.getText();
             
             if(Email.contains("@") && Phone.length() == 10 && !FName.isEmpty() && !LName.isEmpty()) {
-                customer.add(new Customer(FName, LName, Add, Phone, Email, Note));
+                customer.add(new Customer(FName, LName, Add, Phone, Email, Notes));
                 primaryStage.setScene(primaryScene);
                 primaryStage.show();
             }
@@ -231,7 +235,7 @@ public class ValleyDepotFX extends Application {
         Label conBusAdd = new Label("Business Address");
         Label conBusName = new Label("BusinessName");
         Label conNotes = new Label("Contractor Notes");
-        Text success = new Text("Success. You have added a new contractor.");
+        Text successCon = new Text("Success. You have added a new contractor.");
         TextField txtConFirst = new TextField();
         TextField txtConLast = new TextField();
         TextField txtConAdd = new TextField();
@@ -259,7 +263,7 @@ public class ValleyDepotFX extends Application {
         createConPanel.add(addContractor, 0, 9);
         addContractor.setAlignment(Pos.CENTER);
         Scene createContractor = new Scene(createConPanel, 400, 400);
-        Alert errorAlert = new Alert(AlertType.ERROR);
+        Alert errorAlertCon = new Alert(AlertType.ERROR);
         
         createCon.setOnAction(e -> {
             txtConFirst.setText(null);
@@ -293,13 +297,13 @@ public class ValleyDepotFX extends Application {
                 primaryStage.show();
             }
             else {
-                errorAlert.setHeaderText("Input not valid");
-                errorAlert.setContentText("Please ReEnter Contractor Information");
-                errorAlert.setResizable(true);
-                errorAlert.getDialogPane().setPrefSize(400, 400);
-                errorAlert.showAndWait();
-                }
-            });
+                errorAlertCon.setHeaderText("Input not valid");
+                errorAlertCon.setContentText("Please ReEnter Contractor Information");
+                errorAlertCon.setResizable(true);
+                errorAlertCon.getDialogPane().setPrefSize(400, 400);
+                errorAlertCon.showAndWait();
+            }
+        });
         
         //manage inventory 
         Label inventoryLabel = new Label("Manage Inventory System");
