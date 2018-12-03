@@ -11,9 +11,6 @@ import javafx.stage.Stage;
 import java.util.*;
 
 public class ValleyDepotFX extends Application {
-    
-    @Override
-    public void start(Stage primaryStage) {
         
         ArrayList<Contractor> contractor = new ArrayList<>();
         ArrayList<Customer> customer = new ArrayList<>();
@@ -67,6 +64,9 @@ public class ValleyDepotFX extends Application {
         sales5.add(new Sale(item.get(4), 1, "1/4/2018", customer.get(3)));
         sales.add(sales5);
         item.get(0).quantAvail -= 1;
+    
+    @Override
+    public void start(Stage primaryStage) {
         
         Label title = new Label("Valley Depot System");
         Button btn1 = new Button("Manage Customers");
@@ -83,8 +83,6 @@ public class ValleyDepotFX extends Application {
         Label title6 = new Label("6.) ");
         Button btn7 = new Button("Exit System");
         Label title7 = new Label("7.) ");
-        
-        
         
         //create 1st main menu window
         GridPane primaryPane = new GridPane();
@@ -104,10 +102,6 @@ public class ValleyDepotFX extends Application {
         primaryPane.add(btn6, 1, 6);
         primaryPane.add(title7, 0, 7);
         primaryPane.add(btn7, 1, 7);
-        
-        
-        
-        
         
         //create scenes
         Scene primaryScene = new Scene(primaryPane, 400, 400);
@@ -165,7 +159,7 @@ public class ValleyDepotFX extends Application {
         Label lblAdd = new Label("Address");
         Label lblPhone = new Label("Phone Number");
         Label lblEmail = new Label("Email");
-        Label lblNote = new Label("Additional Notes");
+        Label lblNotes = new Label("Additional Notes");
         TextField txtFName = new TextField();
         TextField txtLName = new TextField();
         TextField txtAdd = new TextField();
@@ -183,27 +177,44 @@ public class ValleyDepotFX extends Application {
         createCustPanel.add(txtAdd, 1, 2);
         createCustPanel.add(txtPhone, 1, 3);
         createCustPanel.add(txtEmail, 1, 4);
-        createCustPanel.add(txtNote, 1, 5);
+        createCustPanel.add(txtNotes, 1, 5);
         Scene createCustomer = new Scene(createCustPanel, 400, 400);
         
         createCust.setOnAction(e -> {
-            primaryStage.setTitle("Create Customers");
+            txtFName.setText(null);
+            txtLName.setText(null);
+            txtAdd.setText(null);
+            txtPhone.setText(null);
+            txtEmail.setText(null);
+            txtNotes.setText(null);
+            primaryStage.setTitle("Create Customer");
             primaryStage.setScene(createCustomer);
             primaryStage.show();
-            createCustPanel.setHgap(10);
-            createCustPanel.setVgap(10);
+            createConPanel.setHgap(10);
+            createConPanel.setVgap(10);
+        });    
+            
+         addContractor.setOnAction(e -> {
             String FName = txtFName.getText();
             String LName = txtLName.getText();
             String Add = txtAdd.getText();
             String Phone = txtPhone.getText();
             String Email = txtEmail.getText();
-            String Note = txtNote.getText();
+            String Notes = txtNotes.getText();
             
-            if(txtEmail.getText().contains("@") && txtPhone.getText().length() == 10 && !FName.isEmpty() && !LName.isEmpty()) {
+            if(Email.contains("@") && Phone.length() == 10 && !FName.isEmpty() && !LName.isEmpty()) {
                 customer.add(new Customer(FName, LName, Add, Phone, Email, Note));
+                primaryStage.setScene(primaryScene);
+                primaryStage.show();
             }
-            else
-                System.out.println("\nYou have entered incompatible data, please reenter");
+            else {
+                errorAlert.setHeaderText("Input not valid");
+                errorAlert.setContentText("Please Re-Enter Customer Information");
+                errorAlert.setResizable(true);
+                errorAlert.getDialogPane().setPrefSize(400, 400);
+                errorAlert.showAndWait();
+            }
+        
         }); 
         
         //option for creating a new contractor
