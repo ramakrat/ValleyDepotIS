@@ -154,6 +154,7 @@ public class ValleyDepotFX extends Application {
         
         //objects for create customer window
         GridPane createCustPanel = new GridPane();
+        Button addCustomer = new Button("Add Customer");
         Label lblFName = new Label("First Name");
         Label lblLName = new Label("Last Name");
         Label lblAdd = new Label("Address");
@@ -166,6 +167,7 @@ public class ValleyDepotFX extends Application {
         TextField txtPhone = new TextField();
         TextField txtEmail = new TextField();
         TextField txtNote = new TextField();
+        Text success = new Text("Success. You have added a new customer.");
         createCustPanel.add(lblFName, 0, 0);
         createCustPanel.add(lblLName, 0, 1);
         createCustPanel.add(lblAdd, 0, 2);
@@ -178,7 +180,9 @@ public class ValleyDepotFX extends Application {
         createCustPanel.add(txtPhone, 1, 3);
         createCustPanel.add(txtEmail, 1, 4);
         createCustPanel.add(txtNotes, 1, 5);
+        addCustomer.setAlignment(Pos.CENTER);
         Scene createCustomer = new Scene(createCustPanel, 400, 400);
+        Alert errorAlert = new Alert(AlertType.ERROR);
         
         createCust.setOnAction(e -> {
             txtFName.setText(null);
@@ -194,7 +198,7 @@ public class ValleyDepotFX extends Application {
             createConPanel.setVgap(10);
         });    
             
-         addContractor.setOnAction(e -> {
+         addCustomer.setOnAction(e -> {
             String FName = txtFName.getText();
             String LName = txtLName.getText();
             String Add = txtAdd.getText();
