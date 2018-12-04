@@ -67,6 +67,6 @@ public class Item {
      
     @Override
     public String toString(){
-        return("This is a Item object");
+        return("ID: " + this.id + ", Item Name: " + this.itemName + ", Quantity: " + this.quantity);
     }
 }
