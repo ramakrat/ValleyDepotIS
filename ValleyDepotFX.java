@@ -91,7 +91,7 @@ public class FXApplication extends Application {
         Label title4 = new Label("4.) ");
         Button btn5 = new Button("Manage Vendors");
         Label title5 = new Label("5.) ");
-        Button btn6 = new Button("Print Reprot");
+        Button btn6 = new Button("Print Receipt");
         Label title6 = new Label("6.) ");
         Button btn7 = new Button("Exit System");
         Label title7 = new Label("7.) ");
@@ -401,24 +401,25 @@ public class FXApplication extends Application {
         TextField vendorID = new TextField();
         Label venID = new Label("Vendor ID");
         Button createInvItem = new Button("Add Inventory Item");
-          inventoryPane1.add(createInvItem, 0, 8);
-          inventoryPane1.add(inventoryLabel, 1, 0);
-          inventoryPane1.add(inv1, 0, 1);
-          inventoryPane1.add(itemName, 1, 1);
-          inventoryPane1.add(inv2, 0, 2);
-          inventoryPane1.add(weight, 1, 2);
-          inventoryPane1.add(inv3, 0, 3);
-          inventoryPane1.add(description, 1, 3);
-          inventoryPane1.add(inv4, 0, 4);
-          inventoryPane1.add(price, 1, 4);
-          inventoryPane1.add(inv5, 0, 5);
-          inventoryPane1.add(forSale, 1, 5);
-          inventoryPane1.add(inv6, 0, 6);
-          inventoryPane1.add(quantity, 1, 6);
-          inventoryPane1.add(venID, 0, 7);
-          inventoryPane1.add(vendorID, 1, 7);
-          Scene scene3 = new Scene(inventoryPane1, 400, 400);
-          Alert errorAlertItem = new Alert(AlertType.ERROR);
+        ComboBox getVendor = new ComboBox(vendorList);
+        inventoryPane1.add(getVendor, 1 , 7);
+        inventoryPane1.add(createInvItem, 0, 8);
+        inventoryPane1.add(inventoryLabel, 1, 0);
+        inventoryPane1.add(inv1, 0, 1);
+        inventoryPane1.add(itemName, 1, 1);
+        inventoryPane1.add(inv2, 0, 2);
+        inventoryPane1.add(weight, 1, 2);
+        inventoryPane1.add(inv3, 0, 3);
+        inventoryPane1.add(description, 1, 3);
+        inventoryPane1.add(inv4, 0, 4);
+        inventoryPane1.add(price, 1, 4);
+        inventoryPane1.add(inv5, 0, 5);
+        inventoryPane1.add(forSale, 1, 5);
+        inventoryPane1.add(inv6, 0, 6);
+        inventoryPane1.add(quantity, 1, 6);
+        inventoryPane1.add(venID, 0, 7);
+        Scene scene3 = new Scene(inventoryPane1, 600, 400);
+        Alert errorAlertItem = new Alert(AlertType.ERROR);
           //create a sale button
           btn2.setOnAction(e -> {
             primaryStage.setTitle("Item System");
@@ -428,8 +429,14 @@ public class FXApplication extends Application {
             inventoryPane2.setVgap(10);
         });
           
-         //add a sale button
+         //add an item button
          createItem.setOnAction(e -> {
+           itemName.setText(null);
+           weight.setText(null);
+           description.setText(null);
+           price.setText(null);
+           forSale.setText(null);
+           quantity.setText(null);
            primaryStage.setTitle("Add Item System");
            primaryStage.setScene(scene3);
            primaryStage.show();
@@ -438,16 +445,16 @@ public class FXApplication extends Application {
            
          });
          createInvItem.setOnAction(e -> {
-              if(itemName.getText() != null && weight.getText().length() > 0 && price.getText().length() > 0 
-                    && forSale.getText().length() > 0){
+            
+              if(itemName.getText() != null && weight.getText() != null && price.getText() != null 
+                    && forSale.getText() != null) {
                 String invName = itemName.getText(); 
                 double itemWeight = Double.parseDouble(weight.getText());
                 String itemDescription = description.getText();
                 double itemPrice = Double.parseDouble(price.getText());
                 double itemForSalePrice = Double.parseDouble(forSale.getText());
                 int itemQuantity = Integer.parseInt(quantity.getText());
-                int venNum = Integer.parseInt(vendorID.getText());
-                venNum = ((venNum-10)/5);
+                int venNum = getVendor.getSelectionModel().getSelectedIndex();
                 item.add(Item.itemCount, new Item(invName, itemWeight, itemDescription, itemPrice, 
                         itemForSalePrice, itemQuantity, vendor.get(venNum)));
                 primaryStage.setScene(primaryScene);
@@ -457,14 +464,94 @@ public class FXApplication extends Application {
                 errorAlertItem.setHeaderText("Input not valid");
                 errorAlertItem.setContentText("Please ReEnter Contractor Information");
                 errorAlertItem.setResizable(true);
-                errorAlertItem.getDialogPane().setPrefSize(400, 500);
+                errorAlertItem.getDialogPane().setPrefSize(600, 600);
                 errorAlertItem.showAndWait();
             }
                    
          });
+         // edit an inventory item
+        Label editInventoryLabel = new Label("Manage Inventory System");
+        GridPane editInventoryPane1 = new GridPane();
+        Label editInv1 = new Label("Item Name ");
+        TextField editItemName = new TextField();
+        Label editInv2 = new Label("Item Weight");
+        TextField editWeight = new TextField();
+        Label editInv3 = new Label("Item Description");
+        TextField editDescription = new TextField();
+        Label editInv4 = new Label("Item Price");
+        Label editInv5 = new Label("Item For-Sale Price");
+        TextField editPrice = new TextField();
+        TextField editForSale = new TextField();
+        Label editInv6 = new Label("Quantity of Items Available");
+        TextField editQuantity = new TextField();
+        TextField editVendorID = new TextField();
+        Label editVenID = new Label("Vendor that Item was purchased from");
+        Label editItemID= new Label("Item you want to edit");
+        Button completeEdit = new Button("Edit Item");
+        ComboBox editGetVendor = new ComboBox(vendorList);
+        ComboBox itemInfo = new ComboBox(itemList);
+        editInventoryPane1.add(editGetVendor, 1 , 7);
+        editInventoryPane1.add(completeEdit, 0, 9);
+        editInventoryPane1.add(editInventoryLabel, 1, 0);
+        editInventoryPane1.add(editInv1, 0, 1);
+        editInventoryPane1.add(editItemName, 1, 1);
+        editInventoryPane1.add(editInv2, 0, 2);
+        editInventoryPane1.add(editWeight, 1, 2);
+        editInventoryPane1.add(editInv3, 0, 3);
+        editInventoryPane1.add(editDescription, 1, 3);
+        editInventoryPane1.add(editInv4, 0, 4);
+        editInventoryPane1.add(editPrice, 1, 4);
+        editInventoryPane1.add(editInv5, 0, 5);
+        editInventoryPane1.add(editForSale, 1, 5);
+        editInventoryPane1.add(editInv6, 0, 6);
+        editInventoryPane1.add(editQuantity, 1, 6);
+        editInventoryPane1.add(editVenID, 0, 7);
+        editInventoryPane1.add(editItemID, 0, 8);
+        editInventoryPane1.add(itemInfo, 1, 8);
+        Scene editScene3 = new Scene(editInventoryPane1, 600, 400);
+        Alert editErrorAlertItem = new Alert(AlertType.ERROR);
         
+        //button to initiate edit
+        editItem.setOnAction(e -> {
+           editItemName.setText(null);
+           editWeight.setText(null);
+           editDescription.setText(null);
+           editPrice.setText(null);
+           editForSale.setText(null);
+           editQuantity.setText(null);
+           editGetVendor.setValue(null);
+           itemInfo.setValue(null);
+           primaryStage.setTitle("Edit Inventory Item");
+           primaryStage.setScene(editScene3);
+           primaryStage.show();
+        });
         
-          //button to return to main menu
+        completeEdit.setOnAction(e -> {
+              if(editItemName.getText() != null && editWeight.getText() != null && editPrice.getText() != null 
+                    && editForSale.getText() != null) {
+                String editnam = editItemName.getText(); 
+                double editway = Double.parseDouble(editWeight.getText());
+                String editdes = editDescription.getText();
+                double editpri = Double.parseDouble(editPrice.getText());
+                double editsp = Double.parseDouble(editForSale.getText());
+                int editqt = Integer.parseInt(editQuantity.getText());
+                int editVenNum = editGetVendor.getSelectionModel().getSelectedIndex();
+                int editItemNum = itemInfo.getSelectionModel().getSelectedIndex();
+                item.set(editItemNum, new Item(editnam, editway, editdes, editpri, 
+                        editsp, editqt, ((editItemNum * 5) +3), vendor.get(editVenNum)));
+                primaryStage.setScene(primaryScene);
+                primaryStage.show();
+              }
+              else {
+                editErrorAlertItem.setHeaderText("Input not valid");
+                editErrorAlertItem.setContentText("Please correct information");
+                editErrorAlertItem.setResizable(true);
+                editErrorAlertItem.getDialogPane().setPrefSize(600, 600);
+                editErrorAlertItem.showAndWait();
+            }  
+        });
+        
+         //button to return to main menu
           leave.setOnAction(e -> {
               primaryStage.setScene(primaryScene);
               primaryStage.show();
@@ -634,3 +721,4 @@ public class FXApplication extends Application {
     }
     
 }
+
