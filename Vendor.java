@@ -19,8 +19,8 @@ public class Vendor {
         this.businessAddress = businessAddress;
         this.phoneNumber = phoneNumber;
         
-        vendorID += 5;
         id = vendorID;
+        vendorID += 5;
         venCount++;
     }
     
