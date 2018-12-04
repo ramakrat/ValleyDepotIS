@@ -453,7 +453,6 @@ public class ValleyDepotFX extends Application {
                  primaryStage.setScene(primaryScene);
                  primaryStage.show();
             });  
-          
         //manage vendor items
         Label vendorLabel = new Label("Manage Vendors");
         Button createVendor = new Button("Create new Vendor");
@@ -472,6 +471,26 @@ public class ValleyDepotFX extends Application {
         vendorPane1.add(dismiss, 1,3);
         Scene scene5 = new Scene(vendorPane1, 400, 400);
         
+        //create new vendor button and window
+        GridPane vendorPane2 = new GridPane();
+        Label venName = new Label("Vendor's Name");
+        Label venAddress = new Label("Vendor's Address");
+        Label venPhone = new Label("Vendor's Phone Number");
+        Button addVendor = new Button("Add Vendor");
+        TextField txtName = new TextField();
+        TextField txtAddress = new TextField();
+        TextField txtPhone = new TextField();
+        vendorPane2.add(venName, 0, 1);
+        vendorPane2.add(venAddress, 0, 2);
+        vendorPane2.add(venPhone, 0, 3);
+        vendorPane2.add(txtName, 1, 1);
+        vendorPane2.add(txtAddress, 1,2);
+        vendorPane2.add(txtPhone, 1, 3);
+        vendorPane2.add(addVendor, 0, 5);
+        addVendor.setAlignment(Pos.CENTER_RIGHT);
+        Scene vendorScene = new Scene(vendorPane2, 400, 400);
+        
+        
         //manage inventory button
         btn5.setOnAction(e -> {
             primaryStage.setTitle("Manage Inventory Items");
@@ -480,8 +499,37 @@ public class ValleyDepotFX extends Application {
             vendorPane1.setHgap(10);
             vendorPane1.setVgap(10);
         });
+        createVendor.setOnAction(e -> {
+            txtName.setText(null);
+            txtAddress.setText(null);
+            txtPhone.setText(null);
+            primaryStage.setTitle("Create a New Vendor");
+            primaryStage.setScene(vendorScene);
+            primaryStage.show();
+            vendorPane2.setHgap(10);
+            vendorPane2.setVgap(10);
+        });
+        //add vendor to array list button
+        addVendor.setOnAction(e -> {
+          String vendorName = txtName.getText();  
+          String vendorAdd = txtAddress.getText();
+          String vendorPhone = txtPhone.getText();
+          if(!vendorName.isEmpty() && vendorPhone.length() == 10){
+                vendor.add(Vendor.venCount, new Vendor(vendorName, vendorAdd, vendorPhone));
+                primaryStage.setScene(primaryScene);
+                primaryStage.show();
+            }
+          else {
+                errorAlert.setHeaderText("Input not valid");
+                errorAlert.setContentText("Please enter vendor information again");
+                errorAlert.setResizable(true);
+                errorAlert.getDialogPane().setPrefSize(400, 400);
+                errorAlert.showAndWait();
+                }
+          
+        });
         
-        //return back to main menu
+        //return back to main menu from vendor
          dismiss.setOnAction(e -> {
               primaryStage.setScene(primaryScene);
               primaryStage.show();
