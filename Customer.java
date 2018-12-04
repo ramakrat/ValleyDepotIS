@@ -47,6 +47,6 @@ public class Customer
     
     @Override
     public String toString(){
-        return("This is a customer object");
+        return("ID: " + this.id + ", " + this.firstName + " " + this.lastName);
     }
 }
