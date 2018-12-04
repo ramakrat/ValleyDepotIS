@@ -1,5 +1,7 @@
 package ValleyDepotIS;
 
+package ValleyDepotIS;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,8 +13,9 @@ import javafx.stage.Stage;
 import java.util.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.text.Text;
+import javafx.collections.*;
 
-public class ValleyDepotFX extends Application {
+public class FXApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) {
@@ -164,6 +167,7 @@ public class ValleyDepotFX extends Application {
         //objects for create customer window
         GridPane createCustPanel = new GridPane();
         Button addCustomer = new Button("Add Customer");
+        Button home = new Button("Return to Main Menu");
         Label lblFName = new Label("First Name");
         Label lblLName = new Label("Last Name");
         Label lblAdd = new Label("Address");
@@ -190,6 +194,8 @@ public class ValleyDepotFX extends Application {
         createCustPanel.add(txtEmail, 1, 4);
         createCustPanel.add(txtNotes, 1, 5);
         createCustPanel.add(addCustomer, 0, 9);
+        createCustPanel.add(home, 0, 10);
+        home.setAlignment(Pos.CENTER);
         addCustomer.setAlignment(Pos.CENTER);
         Scene createCustomer = new Scene(createCustPanel, 400, 400);
         Alert errorAlert = new Alert(AlertType.ERROR);
@@ -209,14 +215,14 @@ public class ValleyDepotFX extends Application {
         });    
             
          addCustomer.setOnAction(e -> {
-            String FName = txtFName.getText();
-            String LName = txtLName.getText();
-            String Add = txtAdd.getText();
-            String Phone = txtPhone.getText();
-            String Email = txtEmail.getText();
-            String Notes = txtNotes.getText();
-            
-            if(Email.contains("@") && Phone.length() == 10 && !FName.isEmpty() && !LName.isEmpty()) {
+         if(txtEmail.getText().contains("@") && txtPhone.getText().length() == 10 && txtFName.getText() != null 
+                 && txtLName.getText() != null) {
+                String FName = txtFName.getText();
+                String LName = txtLName.getText();
+                String Add = txtAdd.getText();
+                String Phone = txtPhone.getText();
+                String Email = txtEmail.getText();
+                String Notes = txtNotes.getText();
                 customer.add(new Customer(FName, LName, Add, Phone, Email, Notes));
                 primaryStage.setScene(primaryScene);
                 primaryStage.show();
@@ -225,11 +231,18 @@ public class ValleyDepotFX extends Application {
                 errorAlert.setHeaderText("Input not valid");
                 errorAlert.setContentText("Please Re-Enter Customer Information");
                 errorAlert.setResizable(true);
-                errorAlert.getDialogPane().setPrefSize(400, 400);
+                errorAlert.getDialogPane().setPrefSize(400, 500);
                 errorAlert.showAndWait();
             }
         
         }); 
+         home.setOnAction(e -> {
+              primaryStage.setScene(primaryScene);
+              primaryStage.show();
+         });
+         
+         //option for editing a customer
+         
         
         //option for creating a new contractor
         GridPane createConPanel = new GridPane();
@@ -289,25 +302,26 @@ public class ValleyDepotFX extends Application {
         });    
         
         addContractor.setOnAction(e -> {
-            String FName = txtConFirst.getText();
-            String LName = txtConLast.getText();
-            String Add = txtConAdd.getText();
-            String Phone = txtConPhone.getText();
-            String Email = txtConEmail.getText();
-            String Notes = txtConNotes.getText();
-            String busAdd = txtConBusAdd.getText();
-            String busName = txtConBusName.getText();
-            
-            if(Email.contains("@") && Phone.length() == 10 && !FName.isEmpty() && !LName.isEmpty()) {
-                contractor.add(new Contractor(FName, LName, Add, Phone, Email, Notes, busAdd, busName));
-                primaryStage.setScene(primaryScene);
-                primaryStage.show();
+            if(txtConEmail.getText().contains("@") && txtConPhone.getText().length() == 10 && txtConFirst.getText() != null 
+                 && txtConLast.getText() != null) {
+                    String conFirstName = txtConFirst.getText();
+                    String conLastName = txtConLast.getText();
+                    String conAddress = txtConAdd.getText();
+                    String conPhoneNumber = txtConPhone.getText();
+                    String conEmailAdd = txtConEmail.getText();
+                    String contractorNotes = txtConNotes.getText();
+                    String busAdd = txtConBusAdd.getText();
+                    String busName = txtConBusName.getText();
+                    contractor.add(new Contractor(conFirstName, conLastName, conAddress, conPhoneNumber, conEmailAdd, contractorNotes,
+                        busAdd, busName));
+                    primaryStage.setScene(primaryScene);
+                    primaryStage.show();
             }
             else {
                 errorAlertCon.setHeaderText("Input not valid");
                 errorAlertCon.setContentText("Please ReEnter Contractor Information");
                 errorAlertCon.setResizable(true);
-                errorAlertCon.getDialogPane().setPrefSize(400, 400);
+                errorAlertCon.getDialogPane().setPrefSize(400, 500);
                 errorAlertCon.showAndWait();
             }
         });
@@ -352,43 +366,45 @@ public class ValleyDepotFX extends Application {
               primaryStage.show();
           });
         
-            //initial item menu options
-            GridPane inventoryPane2 = new GridPane();
-            Button createItem = new Button("Create new item");
-            Button editItem = new Button("Edit existing item");
-            Button leave = new Button("Return to Main Menu");
-            Label num1 = new Label("1.)");
-            Label num2 = new Label("2.)");
-            Label num3 = new Label("3.)");
-            inventoryPane2.add(createItem, 1, 1);
-            inventoryPane2.add(editItem, 1, 2);
-            inventoryPane2.add(num1, 0, 1);
-            inventoryPane2.add(num2, 0, 2);
-            inventoryPane2.add(num3, 0, 3);
-            inventoryPane2.add(leave, 1, 3);
-            leave.setAlignment(Pos.CENTER_RIGHT);
-            Scene invScene = new Scene(inventoryPane2, 400,400);
+        //initial item menu options
+        GridPane inventoryPane2 = new GridPane();
+        Button createItem = new Button("Create new item");
+        Button editItem = new Button("Edit existing item");
+        Button leave = new Button("Return to Main Menu");
+        Label num1 = new Label("1.)");
+        Label num2 = new Label("2.)");
+        Label num3 = new Label("3.)");
+        inventoryPane2.add(createItem, 1, 1);
+        inventoryPane2.add(editItem, 1, 2);
+        inventoryPane2.add(num1, 0, 1);
+        inventoryPane2.add(num2, 0, 2);
+        inventoryPane2.add(num3, 0, 3);
+        inventoryPane2.add(leave, 1, 3);
+        leave.setAlignment(Pos.CENTER_RIGHT);
+        Scene invScene = new Scene(inventoryPane2, 400,400);
           
         //create an inventory item
         Label inventoryLabel = new Label("Manage Inventory System");
         GridPane inventoryPane1 = new GridPane();
         Label inv1 = new Label("Item Name ");
-        TextField name = new TextField();
+        TextField itemName = new TextField();
         Label inv2 = new Label("Item Weight");
         TextField weight = new TextField();
         Label inv3 = new Label("Item Description");
         TextField description = new TextField();
         Label inv4 = new Label("Item Price");
         Label inv5 = new Label("Item For-Sale Price");
-          TextField price = new TextField();
-          TextField forSale = new TextField();
-          Label inv6 = new Label("Quantity of Items Available");
-          TextField quantity = new TextField();
-          Button createInvItem = new Button("Add Inventory Item");
-          inventoryPane1.add(createInvItem, 0, 7);
+        TextField price = new TextField();
+        TextField forSale = new TextField();
+        Label inv6 = new Label("Quantity of Items Available");
+        TextField quantity = new TextField();
+        TextField vendorID = new TextField();
+        Label venID = new Label("Vendor ID");
+        Button createInvItem = new Button("Add Inventory Item");
+          inventoryPane1.add(createInvItem, 0, 8);
           inventoryPane1.add(inventoryLabel, 1, 0);
           inventoryPane1.add(inv1, 0, 1);
-          inventoryPane1.add(name, 1, 1);
+          inventoryPane1.add(itemName, 1, 1);
           inventoryPane1.add(inv2, 0, 2);
           inventoryPane1.add(weight, 1, 2);
           inventoryPane1.add(inv3, 0, 3);
@@ -399,8 +415,10 @@ public class ValleyDepotFX extends Application {
           inventoryPane1.add(forSale, 1, 5);
           inventoryPane1.add(inv6, 0, 6);
           inventoryPane1.add(quantity, 1, 6);
+          inventoryPane1.add(venID, 0, 7);
+          inventoryPane1.add(vendorID, 1, 7);
           Scene scene3 = new Scene(inventoryPane1, 400, 400);
-          //Alert error = new Alert(AlertType.ERROR);
+          Alert errorAlertItem = new Alert(AlertType.ERROR);
           //create a sale button
           btn2.setOnAction(e -> {
             primaryStage.setTitle("Item System");
@@ -420,7 +438,29 @@ public class ValleyDepotFX extends Application {
            
          });
          createInvItem.setOnAction(e -> {
-             
+              if(itemName.getText() != null && weight.getText().length() > 0 && price.getText().length() > 0 
+                    && forSale.getText().length() > 0){
+                String invName = itemName.getText(); 
+                double itemWeight = Double.parseDouble(weight.getText());
+                String itemDescription = description.getText();
+                double itemPrice = Double.parseDouble(price.getText());
+                double itemForSalePrice = Double.parseDouble(forSale.getText());
+                int itemQuantity = Integer.parseInt(quantity.getText());
+                int venNum = Integer.parseInt(vendorID.getText());
+                venNum = ((venNum-10)/5);
+                item.add(Item.itemCount, new Item(invName, itemWeight, itemDescription, itemPrice, 
+                        itemForSalePrice, itemQuantity, vendor.get(venNum)));
+                primaryStage.setScene(primaryScene);
+                primaryStage.show();
+              }
+              else {
+                errorAlertItem.setHeaderText("Input not valid");
+                errorAlertItem.setContentText("Please ReEnter Contractor Information");
+                errorAlertItem.setResizable(true);
+                errorAlertItem.getDialogPane().setPrefSize(400, 500);
+                errorAlertItem.showAndWait();
+            }
+                   
          });
         
         
@@ -477,18 +517,19 @@ public class ValleyDepotFX extends Application {
         Label venAddress = new Label("Vendor's Address");
         Label venPhone = new Label("Vendor's Phone Number");
         Button addVendor = new Button("Add Vendor");
-        TextField txtName = new TextField();
-        TextField txtAddress = new TextField();
-        TextField txtPhone = new TextField();
+        TextField txtVenName = new TextField();
+        TextField txtVenAddress = new TextField();
+        TextField txtVenPhone2 = new TextField();
         vendorPane2.add(venName, 0, 1);
         vendorPane2.add(venAddress, 0, 2);
         vendorPane2.add(venPhone, 0, 3);
-        vendorPane2.add(txtName, 1, 1);
-        vendorPane2.add(txtAddress, 1,2);
-        vendorPane2.add(txtPhone, 1, 3);
+        vendorPane2.add(txtVenName, 1, 1);
+        vendorPane2.add(txtVenAddress, 1,2);
+        vendorPane2.add(txtVenPhone2, 1, 3);
         vendorPane2.add(addVendor, 0, 5);
         addVendor.setAlignment(Pos.CENTER_RIGHT);
         Scene vendorScene = new Scene(vendorPane2, 400, 400);
+        Alert errorAlertVendor = new Alert(AlertType.ERROR);
         
         
         //manage inventory button
@@ -500,9 +541,9 @@ public class ValleyDepotFX extends Application {
             vendorPane1.setVgap(10);
         });
         createVendor.setOnAction(e -> {
-            txtName.setText(null);
-            txtAddress.setText(null);
-            txtPhone.setText(null);
+            txtVenName.setText(null);
+            txtVenAddress.setText(null);
+            txtVenPhone2.setText(null);
             primaryStage.setTitle("Create a New Vendor");
             primaryStage.setScene(vendorScene);
             primaryStage.show();
@@ -511,20 +552,20 @@ public class ValleyDepotFX extends Application {
         });
         //add vendor to array list button
         addVendor.setOnAction(e -> {
-          String vendorName = txtName.getText();  
-          String vendorAdd = txtAddress.getText();
-          String vendorPhone = txtPhone.getText();
-          if(!vendorName.isEmpty() && vendorPhone.length() == 10){
+         if(txtVenName.getText() != null && txtVenPhone2.getText().length() == 10){
+                String vendorName = txtVenName.getText();  
+                String vendorAdd = txtVenAddress.getText();
+                String vendorPhone = txtVenPhone2.getText();
                 vendor.add(Vendor.venCount, new Vendor(vendorName, vendorAdd, vendorPhone));
                 primaryStage.setScene(primaryScene);
                 primaryStage.show();
             }
           else {
-                errorAlert.setHeaderText("Input not valid");
-                errorAlert.setContentText("Please enter vendor information again");
-                errorAlert.setResizable(true);
-                errorAlert.getDialogPane().setPrefSize(400, 400);
-                errorAlert.showAndWait();
+                errorAlertVendor.setHeaderText("Input not valid");
+                errorAlertVendor.setContentText("Please enter vendor information again");
+                errorAlertVendor.setResizable(true);
+                errorAlertVendor.getDialogPane().setPrefSize(400, 500);
+                errorAlertVendor.showAndWait();
                 }
           
         });
