@@ -48,8 +48,6 @@ public class Sale {
     //memeber method
     @Override
     public String toString(){
-       return ("Customer: " + customer.firstName + " " + customer.lastName + "\nItem Sold: " + itemSold.itemName + 
-                   "\nPrice: $" + itemSold.getSalePrice() + "\nQuantity: " + quantity + 
-                   "\nSale Total: $" + (quantity * itemSold.getSalePrice()) + "\n");
+       return ("ID: " + this.id + ", Name: " + this.customer.firstName + " " + this.customer.lastName + ", Date: " + this.date);
     }
 }
