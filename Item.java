@@ -29,8 +29,8 @@ public class Item {
         this.quantAvail = quantAvail;
         this.vendor = vendor;
         
+        id = itemID;
         itemID += 5;
-        id = itemID ;
         itemCount++;
     }
     
