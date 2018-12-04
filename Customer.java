@@ -30,8 +30,8 @@ public class Customer
         //only commenting id math here, so each class starts at a number 1-5
         //each time they increment, it is by 5 so they never overlap and this is infinitely scalable
         //can be applied if we switch our current process of arrays to arraylists
-        custID += 5;
         id = custID;
+        custID += 5;
         custCount++;
         }
 
