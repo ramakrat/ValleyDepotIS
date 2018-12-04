@@ -20,8 +20,8 @@ public Contractor (String firstName, String lastName, String address,String phon
     super(firstName, lastName, address, phoneNumber, email, notes);
     this.businessAddress = businessAddress;
     this.businessName = businessName;
-    conID += 5;
     id = conID;
+    conID += 5;
     conCount++;
     }
 
