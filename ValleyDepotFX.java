@@ -23,6 +23,13 @@ public class ValleyDepotFX extends Application {
         ArrayList<Vendor> vendor = new ArrayList<>();
         ArrayList<ArrayList<Sale>> sales = new ArrayList<>();
         
+        //observable array lists
+        ObservableList<Contractor> contractorList = FXCollections.observableList(contractor); 
+        ObservableList<Customer> customerList = FXCollections.observableList(customer);
+        ObservableList<Item> itemList = FXCollections.observableList(item); 
+        ObservableList<Vendor> vendorList = FXCollections.observableList(vendor); 
+        ObservableList<ArrayList<Sale>> saleList = FXCollections.observableList(sales); 
+        
         //pre-population of objects
         customer.add(new Customer("Bob", "Smith", "8324 Newark Lane, Harrisonburg, VA, 22801", "5712239034", "smith.bob@gmail.com", ""));
         customer.add(new Customer("Colin", "Skipper", "8324 Newark Lane, Harrisonburg, VA, 22801", "5712239034", "Colin.Skip@gmail.com", ""));
