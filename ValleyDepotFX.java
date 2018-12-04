@@ -1,6 +1,5 @@
 package ValleyDepotIS;
 
-package ValleyDepotIS;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
