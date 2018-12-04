@@ -32,6 +32,6 @@ public class Vendor {
     }
     
     public String toString(){
-        return ("This is a vendor instance object!");
+        return ("ID: " + this.id + ", Vendor Name: " + this.businessName);
     }
 }
