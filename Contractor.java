@@ -36,7 +36,7 @@ public Contractor (String firstName, String lastName, String address,String phon
     
     @Override
     public String toString(){
-       return("THis is a customer object!");
+       return("ID: " + this.id + ", " + this.firstName + " " + this.lastName);
     }
 }
 
