@@ -28,8 +28,8 @@ public class Sale {
         this.customer = customer;
         this.typeC = true;
         
-        saleID += 5;
         id = saleID;
+        saleID += 5;
         saleCount++;
     }
     
