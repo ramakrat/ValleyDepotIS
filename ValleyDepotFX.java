@@ -211,7 +211,6 @@ public class FXApplication extends Application {
         home.setAlignment(Pos.CENTER);
         addCustomer.setAlignment(Pos.CENTER);
         Scene createCustomer = new Scene(createCustPanel, 400, 400);
-        Alert errorAlert = new Alert(AlertType.ERROR);
         
         createCust.setOnAction(e -> {
             txtFName.setText(null);
@@ -290,7 +289,6 @@ public class FXApplication extends Application {
         editCustPanel.add(editCustomerInfo, 0, 8);
         editCustPanel.add(home, 0, 10);
         Scene editCustomerScene = new Scene(editCustPanel, 400, 400);
-        Alert errorAlertCustomer = new Alert(AlertType.ERROR);
         
         editCust.setOnAction(e -> {
             txtCusFirst.setText(null);
@@ -372,7 +370,6 @@ public class FXApplication extends Application {
         createConPanel.add(addContractor, 0, 9);
         addContractor.setAlignment(Pos.CENTER);
         Scene createContractor = new Scene(createConPanel, 400, 400);
-        Alert errorAlertCon = new Alert(AlertType.ERROR);
         
         createCon.setOnAction(e -> {
             txtConFirst.setText(null);
@@ -458,7 +455,6 @@ public class FXApplication extends Application {
         editConPanel.add(confirmEdit, 0, 11);
         confirmEdit.setAlignment(Pos.CENTER_RIGHT);
         Scene editContractorScene = new Scene(editConPanel, 400, 400);
-        Alert editErrorAlertCon = new Alert(AlertType.ERROR);
         
         editCon.setOnAction(e -> {
             txtEditConFirst.setText(null);
@@ -724,7 +720,7 @@ public class FXApplication extends Application {
         inventoryPane1.add(quantity, 1, 6);
         inventoryPane1.add(venID, 0, 7);
         Scene scene3 = new Scene(inventoryPane1, 600, 400);
-        Alert errorAlertItem = new Alert(AlertType.ERROR);
+
           //create a sale button
           btn2.setOnAction(e -> {
             primaryStage.setTitle("Item System");
@@ -814,7 +810,6 @@ public class FXApplication extends Application {
         editInventoryPane1.add(editItemID, 0, 8);
         editInventoryPane1.add(itemInfo, 1, 8);
         Scene editScene3 = new Scene(editInventoryPane1, 600, 400);
-        Alert editErrorAlertItem = new Alert(AlertType.ERROR);
         
         //button to initiate edit
         editItem.setOnAction(e -> {
@@ -921,7 +916,6 @@ public class FXApplication extends Application {
         vendorPane2.add(addVendor, 0, 5);
         addVendor.setAlignment(Pos.CENTER_RIGHT);
         Scene vendorScene = new Scene(vendorPane2, 400, 400);
-        Alert errorAlertVendor = new Alert(AlertType.ERROR);
         
         
         //manage inventory button
