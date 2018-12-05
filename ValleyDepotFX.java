@@ -241,7 +241,81 @@ public class FXApplication extends Application {
          });
          
          //option for editing a customer
-         
+         //edit customer 
+        ComboBox editCustomer = new ComboBox(customerList);
+        Label combo = new Label("Select the customer to edit");
+        GridPane editCustPanel = new GridPane();
+        Button editCustomerInfo = new Button("Edit Customer");
+        Label editCusFirst = new Label("First Name");
+        Label editCusLast = new Label("Last Name");
+        Label editCusAddress= new Label("Address");
+        Label editCusPhone = new Label("Phone Number");
+        Label editCusEmail = new Label("Email");
+        Label editCusNotes = new Label("Additional Notes");
+        TextField txtCusFirst = new TextField();
+        TextField txtCusLast = new TextField();
+        TextField txtCusAddress = new TextField();
+        TextField txtCusPhone = new TextField();
+        TextField txtCusEmail = new TextField();
+        TextField txtCusNotes = new TextField();
+        editCustPanel.add(editCustomer, 1 ,0);
+        editCustPanel.add(combo, 0,0);
+        editCustPanel.add(editCusFirst, 0, 1);
+        editCustPanel.add(txtCusFirst, 1, 1);
+        editCustPanel.add(editCusLast, 0, 2);
+        editCustPanel.add(txtCusLast, 1, 2);
+        editCustPanel.add(editCusAddress, 0, 3);
+        editCustPanel.add(txtCusAddress, 1, 3);
+        editCustPanel.add(editCusPhone, 0, 4);
+        editCustPanel.add(txtCusPhone, 1, 4);
+        editCustPanel.add(editCusEmail, 0, 5);
+        editCustPanel.add(txtCusEmail, 1, 5);
+        editCustPanel.add(editCusNotes, 0, 6);
+        editCustPanel.add(txtCusNotes, 1, 6);
+        editCustPanel.add(editCustomerInfo, 0, 8);
+        editCustPanel.add(home, 0, 10);
+        Scene editCustomerScene = new Scene(editCustPanel, 400, 400);
+        Alert errorAlertCustomer = new Alert(AlertType.ERROR);
+        
+        editCust.setOnAction(e -> {
+            txtCusFirst.setText(null);
+            txtCusLast.setText(null);
+            txtCusAddress.setText(null);
+            txtCusPhone.setText(null);
+            txtCusEmail.setText(null);
+            txtCusNotes.setText(null);
+            editCustomer.setValue(null);
+            primaryStage.setTitle("Edit Customer Info");
+            primaryStage.setScene(editCustomerScene);
+            primaryStage.show();
+            editCustPanel.setHgap(10);
+            editCustPanel.setVgap(10);
+        });
+        
+        editCustomerInfo.setOnAction(e -> {
+             if(txtCusEmail.getText().contains("@") && txtCusPhone.getText().length() == 10 && txtCusFirst.getText() != null 
+                 && txtCusLast.getText() != null) {
+                String editCusF = txtCusFirst.getText();
+                String editCusL = txtCusLast.getText();
+                String editCusAdd = txtAdd.getText();
+                String editCustomerPhone = txtPhone.getText();
+                String editCustomerEmail = txtEmail.getText();
+                String editCustomerNotes = txtNotes.getText();
+                int editCustNum = editCustomer.getSelectionModel().getSelectedIndex();
+                customer.set(editCustNum, new Customer(editCusF, editCusL, editCusAdd, editCustomerPhone, 
+                        editCustomerEmail, editCustomerNotes, ((5 * editCustNum) + 1)));
+                primaryStage.setScene(primaryScene);
+                primaryStage.show();
+             }
+             else {
+                errorAlertCustomer.setHeaderText("Input not valid");
+                errorAlertCustomer.setContentText("Please enter valid information");
+                errorAlertCustomer.setResizable(true);
+                errorAlertCustomer.getDialogPane().setPrefSize(400, 500);
+                errorAlertCustomer.showAndWait();
+            }
+             
+        });
         
         //option for creating a new contractor
         GridPane createConPanel = new GridPane();
