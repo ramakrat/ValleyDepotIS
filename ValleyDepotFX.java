@@ -499,9 +499,7 @@ public class FXApplication extends Application {
               
         });
         
-        
-        
-        //data fields for choosing customer or contractor sale 
+                //data fields for choosing customer or contractor sale 
         Label saleLabel = new Label("Create Sales System");
         Button createCusSale = new Button("Create new Customer Sale");
         Button createConSale = new Button("Create a new Contractor Sale");
@@ -534,10 +532,10 @@ public class FXApplication extends Application {
             primaryStage.show();
         });
         
-        //data fields for choosing a customer
+        //data fields for customer sale data
         GridPane custSalePanel = new GridPane();
         Label lblChooseCust = new Label("Choose Customer");
-        ComboBox chooseCust = new ComboBox(customerList);
+        ComboBox chooseCust = new ComboBox(custList);
         Label lblChooseCustDate = new Label("Date");
         TextField custSaleDate = new TextField();
         Label custItem = new Label("Item");
@@ -555,10 +553,11 @@ public class FXApplication extends Application {
         custSalePanel.add(custQuant, 0, 4);
         custSalePanel.add(custQuantE, 1, 4);
         custSalePanel.add(continueCustSale, 0, 5);
-        custSalePanel.add(endCustSale, 1, 6);
+        custSalePanel.add(endCustSale, 1, 5);
         custSalePanel.setAlignment(Pos.CENTER);
         Scene custSaleScene = new Scene(custSalePanel, 400, 400);
         
+        //enter all sale data
         createCusSale.setOnAction(e -> {
             chooseCust.setValue(null);
             custSaleDate.setText(null);
@@ -571,18 +570,11 @@ public class FXApplication extends Application {
             custSalePanel.setVgap(10);
         });
         
-        //prompt another sale
-        GridPane optionCustSale = new GridPane();
-        Button addCustSale = new Button("Enter Another Sale");
-        Button returnCustSale = new Button("Return to Main Menu");
-        optionCustSale.add(addCustSale, 1, 2);
-        optionCustSale.add(returnCustSale, 1, 3);
-        optionCustSale.setAlignment(Pos.CENTER);
-        Scene continueCustSaleScene = new Scene(optionCustSale, 400, 400);
+        //end current sale entry
         Alert errorAlertCustSale = new Alert(AlertType.ERROR);
         Alert successCustSale = new Alert(AlertType.INFORMATION);
         
-        continueCustSale.setOnAction(e -> {
+        endCustSale.setOnAction(e -> {
             if(item.get(custItemBox.getSelectionModel().getSelectedIndex()).quantAvail -
                     Integer.parseInt(custQuantE.getText()) >= 0) {
                 int custID = chooseCust.getSelectionModel().getSelectedIndex();
@@ -592,22 +584,22 @@ public class FXApplication extends Application {
                 sales.add(new ArrayList<>());
                 sales.get(sales.size()-1).add(new Sale(item.get(itemID), quantity, date, customer.get(custID)));
                 item.get(itemID).quantAvail -= quantity; 
-                primaryStage.setTitle("Customer Sale");
-                primaryStage.setScene(continueCustSaleScene);
+                primaryStage.setScene(primaryScene);
                 primaryStage.show();
                 
                 successCustSale.setHeaderText("Sale Created!");
                 successCustSale.setContentText("Sale Added!");
                 successCustSale.setResizable(true);
-                
+                successCustSale.getDialogPane().setPrefSize(400,400);
+                successCustSale.showAndWait();
             }
             else {
-               primaryStage.setTitle("Error");
-                primaryStage.setScene(errorScene);
-                primaryStage.show();
-                errorPane.setHgap(10);
-                errorPane.setVgap(10);
-                }
+                errorAlertCustSale.setHeaderText("Sale Error");
+                errorAlertCustSale.setContentText("Quantity Requested Exceeds Quantity Available");
+                errorAlertCustSale.setResizable(true);
+                errorAlertCustSale.getDialogPane().setPrefSize(400, 400);
+                errorAlertCustSale.showAndWait();
+            } 
         });
         
         //add second sale
@@ -616,54 +608,114 @@ public class FXApplication extends Application {
         ComboBox newItemA = new ComboBox(itemList);
         Label newQuant = new Label("Quantity");
         TextField newQuantA = new TextField();
-        Button addCustoSale = new Button("Add Sale");
+        Button addCustoSale = new Button("Continue Sale");
+        Button endCustoSale = new Button("Finish Sale");
+        Label custName = new Label();
+        Label custDate = new Label();
+        addCustoPane.add(custName, 0, 1);
+        addCustoPane.add(custDate, 0, 2);
         addCustoPane.add(newItem, 0, 3);
         addCustoPane.add(newItemA, 1, 3);
         addCustoPane.add(newQuant, 0, 4);
         addCustoPane.add(newQuantA, 1, 4);
         addCustoPane.add(addCustoSale, 0, 5);
+        addCustoPane.add(endCustoSale, 1, 5);
+        Scene custScene = new Scene(addCustoPane, 400, 400);
         
-        addCustSale.setOnAction(e -> {
-           Label custName = new Label("" + customer.get(chooseCust.getSelectionModel().getSelectedIndex()).toString());
-           Label custDate = new Label(custSaleDate.getText());
-           addCustoPane.add(custName, 0, 1);
-           addCustoPane.add(custDate, 0, 2);
-           primaryStage.setTitle("Add Another Customer Sale");
-           primaryStage.setScene(new Scene(addCustoPane, 400, 400));
-           primaryStage.show();
+        continueCustSale.setOnAction(e -> {
+           if(item.get(custItemBox.getSelectionModel().getSelectedIndex()).quantAvail -
+                    Integer.parseInt(custQuantE.getText()) >= 0) {
+                int custID = chooseCust.getSelectionModel().getSelectedIndex();
+                String date = custSaleDate.getText();
+                int itemID = custItemBox.getSelectionModel().getSelectedIndex();
+                int quantity = Integer.parseInt(custQuantE.getText());
+                sales.add(new ArrayList<>());
+                sales.get(sales.size()-1).add(new Sale(item.get(itemID), quantity, date, customer.get(custID)));
+                item.get(itemID).quantAvail -= quantity; 
+                
+                successCustSale.setHeaderText("Sale Created!");
+                successCustSale.setContentText("Sale Added!");
+                successCustSale.setResizable(true);
+                successCustSale.getDialogPane().setPrefSize(400,400);
+                successCustSale.showAndWait();
+                
+                custName.setText("" + customer.get(chooseCust.getSelectionModel().getSelectedIndex()).toString());
+                custDate.setText(custSaleDate.getText());
+                primaryStage.setTitle("Add Another Customer Sale");
+                primaryStage.setScene(custScene);
+                primaryStage.show();
+            }
+            else {
+                errorAlertCustSale.setHeaderText("Sale Error");
+                errorAlertCustSale.setContentText("Quantity Requested Exceeds Quantity Available");
+                errorAlertCustSale.setResizable(true);
+                errorAlertCustSale.getDialogPane().setPrefSize(400, 400);
+                errorAlertCustSale.showAndWait();
+            } 
         });
         
-        GridPane custoSalePane = new GridPane();
-        Label newItemC = new Label("Item");
-        ComboBox newItemD = new ComboBox(itemList);
-        Label newQuantC = new Label("Quantity");
-        TextField newQuantD = new TextField();
-        Button addCustoSaleA = new Button("Add Sale");
-        addCustoPane.add(newItemC, 0, 3);
-        addCustoPane.add(newItemD, 1, 3);
-        addCustoPane.add(newQuantC, 0, 4);
-        addCustoPane.add(newQuantD, 1, 4);
-        addCustoPane.add(addCustoSaleA, 0, 5);
-        
-        addCustoSale.setOnAction( e -> {
-            Label custName = new Label("" + customer.get(chooseCust.getSelectionModel().getSelectedIndex()).toString());
-            Label custDate = new Label(custSaleDate.getText());
-            custoSalePane.add(custName, 0, 1);
-            custoSalePane.add(custDate, 0, 2);
-            primaryStage.setTitle("Customer Sale");
-            primaryStage.setScene(new Scene(custoSalePane, 400, 400));
-            primaryStage.show();
+        addCustoSale.setOnAction(e -> {
+           if(item.get(newItemA.getSelectionModel().getSelectedIndex()).quantAvail -
+                    Integer.parseInt(newQuantA.getText()) >= 0) {
+                int custID = chooseCust.getSelectionModel().getSelectedIndex();
+                String date = custSaleDate.getText();
+                int itemID = newItemA.getSelectionModel().getSelectedIndex();
+                int quantity = Integer.parseInt(newQuantA.getText());
+                sales.get(sales.size()-1).add(new Sale(item.get(itemID), quantity, date, customer.get(custID)));
+                item.get(itemID).quantAvail -= quantity; 
+                
+                successCustSale.setHeaderText("Sale Created!");
+                successCustSale.setContentText("Sale Added!");
+                successCustSale.setResizable(true);
+                successCustSale.getDialogPane().setPrefSize(400,400);
+                successCustSale.showAndWait();
+                
+                newQuantA.setText(null);
+                newItemA.setValue(null);
+                
+                custName.setText("" + customer.get(chooseCust.getSelectionModel().getSelectedIndex()).toString());
+                custDate.setText(custSaleDate.getText());
+                primaryStage.setTitle("Add Another Customer Sale");
+                primaryStage.setScene(custScene);
+                primaryStage.show();
+            }
+            else {
+                errorAlertCustSale.setHeaderText("Sale Error");
+                errorAlertCustSale.setContentText("Quantity Requested Exceeds Quantity Available");
+                errorAlertCustSale.setResizable(true);
+                errorAlertCustSale.getDialogPane().setPrefSize(400, 400);
+                errorAlertCustSale.showAndWait();
+            } 
         });
         
-        addCustoSaleA.setOnAction( e -> {
-            
+        endCustoSale.setOnAction(e -> {
+            if(item.get(newItemA.getSelectionModel().getSelectedIndex()).quantAvail -
+                    Integer.parseInt(custQuantE.getText()) >= 0) {
+                int custID = chooseCust.getSelectionModel().getSelectedIndex();
+                String date = custSaleDate.getText();
+                int itemID = newItemA.getSelectionModel().getSelectedIndex();
+                int quantity = Integer.parseInt(custQuantE.getText());
+                sales.add(new ArrayList<>());
+                sales.get(sales.size()-1).add(new Sale(item.get(itemID), quantity, date, customer.get(custID)));
+                item.get(itemID).quantAvail -= quantity; 
+                primaryStage.setScene(primaryScene);
+                primaryStage.show();
+                
+                successCustSale.setHeaderText("Sale Created!");
+                successCustSale.setContentText("Sale Added!");
+                successCustSale.setResizable(true);
+                successCustSale.getDialogPane().setPrefSize(400,400);
+                successCustSale.showAndWait();
+            }
+            else {
+                errorAlertCustSale.setHeaderText("Sale Error");
+                errorAlertCustSale.setContentText("Quantity Requested Exceeds Quantity Available");
+                errorAlertCustSale.setResizable(true);
+                errorAlertCustSale.getDialogPane().setPrefSize(400, 400);
+                errorAlertCustSale.showAndWait();
+            } 
         });
-        
-        //return to the main menu
-        returnCustSale.setOnAction(e -> {
-            primaryStage.setScene(primaryScene);
-            primaryStage.show();
-        });
+
   
         createConSale.setOnAction(e -> {
         });
