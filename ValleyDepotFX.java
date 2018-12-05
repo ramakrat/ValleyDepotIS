@@ -1061,21 +1061,43 @@ public class FXApplication extends Application {
         Scene invLevel = new Scene(inventoryLevel, 400, 400);
         
         //inventory item levels reprot
+         
+        //stuff to have new report
+        GridPane inventoryLevel = new GridPane();
+        Label itemTitle = new Label();
+        Label itemNameR = new Label();
+        Label levels = new Label();
+        Button returnHome = new Button("Return to Main Menu");
+        inventoryLevel.add(itemTitle, 0, 0);
+        inventoryLevel.add(itemNameR, 0, 2);
+        inventoryLevel.add(levels, 1, 2);
+        inventoryLevel.add(returnHome, 0 , 12);
+        returnHome.setAlignment(Pos.BASELINE_LEFT);
+        Scene invLevel = new Scene(inventoryLevel, 400, 400);
+        
+        //inventory item levels reprot
         createInvLevel.setOnAction(e -> {
-            String tempString = ("Current Inventory Levels for All Items:"
-                    + "\nItem Name\t\tInventory Levels"
-                    + "\n========================================");
+            String tempString = "Current Inventory Levels for All Items: \n";
+            itemTitle.setText(tempString);
+            String tempStringCol1 = ("Item Name"
+                    + "\n====================");
+            String tempStringCol2 = "Inventory Levels"
+                    + "\n==============";
             for(int i = 0; i < item.size(); i++) {
-                tempString += String.format("\n" + item.get(i).itemName + "\t\t" + item.get(i).quantAvail);
-              levels.setText(tempString);
-              
+                tempStringCol1 += ("\n" + item.get(i).itemName);
+                tempStringCol2 += ("\n" + item.get(i).quantAvail);
+                itemNameR.setText(tempStringCol1);
+                levels.setText(tempStringCol2);
             }
+            primaryStage.setTitle("Current Inventory Levels");
             primaryStage.setScene(invLevel);
             primaryStage.show();
-            reportPane1.setHgap(20);
-            reportPane1.setVgap(20);
-            
         }); 
+        
+        returnHome.setOnAction(e -> {
+           primaryStage.setScene(primaryScene);
+              primaryStage.show(); 
+        });
         
         //return to main menu button
          after.setOnAction(e -> {
