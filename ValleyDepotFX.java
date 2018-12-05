@@ -95,6 +95,20 @@ public class FXApplication extends Application {
         Button btn7 = new Button("Exit System");
         Label title7 = new Label("7.) ");
         
+          
+        //ERRROR STUFF DON'T  TOUCH
+        Button btnError = new Button("OK");
+        GridPane errorPane = new GridPane();
+        Label lblError = new Label("Error: Incompatible data, please try again.");
+        errorPane.add(lblError, 0 , 2);
+        errorPane.add(btnError, 0, 3 );
+        Scene errorScene = new Scene(errorPane, 400, 400);
+        errorPane.setAlignment(Pos.CENTER);
+        btnError.setOnAction(e -> {
+                   primaryStage.setScene(primaryScene);
+                   primaryStage.show();
+                });
+        
         //create 1st main menu window
         GridPane primaryPane = new GridPane();
         primaryPane.setAlignment(Pos.CENTER);
@@ -163,6 +177,7 @@ public class FXApplication extends Application {
             primaryStage.show();
         });
         
+        
         //objects for create customer window
         GridPane createCustPanel = new GridPane();
         Button addCustomer = new Button("Add Customer");
@@ -227,12 +242,13 @@ public class FXApplication extends Application {
                 primaryStage.show();
             }
             else {
-                errorAlert.setHeaderText("Input not valid");
-                errorAlert.setContentText("Please Re-Enter Customer Information");
-                errorAlert.setResizable(true);
-                errorAlert.getDialogPane().setPrefSize(400, 500);
-                errorAlert.showAndWait();
-            }
+                primaryStage.setTitle("Error");
+                primaryStage.setScene(errorScene);
+                primaryStage.show();
+                errorPane.setHgap(10);
+                errorPane.setVgap(10);
+                }
+            
         
         }); 
          home.setOnAction(e -> {
@@ -308,12 +324,13 @@ public class FXApplication extends Application {
                 primaryStage.show();
              }
              else {
-                errorAlertCustomer.setHeaderText("Input not valid");
-                errorAlertCustomer.setContentText("Please enter valid information");
-                errorAlertCustomer.setResizable(true);
-                errorAlertCustomer.getDialogPane().setPrefSize(400, 500);
-                errorAlertCustomer.showAndWait();
-            }
+               primaryStage.setTitle("Error");
+                primaryStage.setScene(errorScene);
+                primaryStage.show();
+                errorPane.setHgap(10);
+                errorPane.setVgap(10);
+                }
+            
              
         });
         
@@ -391,12 +408,12 @@ public class FXApplication extends Application {
                     primaryStage.show();
             }
             else {
-                errorAlertCon.setHeaderText("Input not valid");
-                errorAlertCon.setContentText("Please ReEnter Contractor Information");
-                errorAlertCon.setResizable(true);
-                errorAlertCon.getDialogPane().setPrefSize(400, 500);
-                errorAlertCon.showAndWait();
-            }
+               primaryStage.setTitle("Error");
+                primaryStage.setScene(errorScene);
+                primaryStage.show();
+                errorPane.setHgap(10);
+                errorPane.setVgap(10);
+                }
         });
         
          //edit contractor function
@@ -477,12 +494,12 @@ public class FXApplication extends Application {
                 primaryStage.show();
               }
                else {
-                editErrorAlertCon.setHeaderText("Input not valid");
-                editErrorAlertCon.setContentText("Please enter valid information");
-                editErrorAlertCon.setResizable(true);
-                editErrorAlertCon.getDialogPane().setPrefSize(600, 600);
-                editErrorAlertCon.showAndWait();
-            }
+                primaryStage.setTitle("Error");
+                primaryStage.setScene(errorScene);
+                primaryStage.show();
+                errorPane.setHgap(10);
+                errorPane.setVgap(10);
+                }
               
         });
         
@@ -589,12 +606,12 @@ public class FXApplication extends Application {
                 
             }
             else {
-                errorAlertCustSale.setHeaderText("Sale Error");
-                errorAlertCustSale.setContentText("Quantity Requested Exceeds Quantity Available");
-                errorAlertCustSale.setResizable(true);
-                errorAlertCustSale.getDialogPane().setPrefSize(400, 400);
-                errorAlertCustSale.showAndWait();
-            } 
+               primaryStage.setTitle("Error");
+                primaryStage.setScene(errorScene);
+                primaryStage.show();
+                errorPane.setHgap(10);
+                errorPane.setVgap(10);
+                }
         });
         
         //add second sale
@@ -750,12 +767,12 @@ public class FXApplication extends Application {
                 primaryStage.show();
               }
               else {
-                errorAlertItem.setHeaderText("Input not valid");
-                errorAlertItem.setContentText("Please ReEnter Contractor Information");
-                errorAlertItem.setResizable(true);
-                errorAlertItem.getDialogPane().setPrefSize(600, 600);
-                errorAlertItem.showAndWait();
-            }
+                primaryStage.setTitle("Error");
+                primaryStage.setScene(errorScene);
+                primaryStage.show();
+                errorPane.setHgap(10);
+                errorPane.setVgap(10);
+                }
                    
          });
          // edit an inventory item
@@ -832,12 +849,12 @@ public class FXApplication extends Application {
                 primaryStage.show();
               }
               else {
-                editErrorAlertItem.setHeaderText("Input not valid");
-                editErrorAlertItem.setContentText("Please correct information");
-                editErrorAlertItem.setResizable(true);
-                editErrorAlertItem.getDialogPane().setPrefSize(600, 600);
-                editErrorAlertItem.showAndWait();
-            }  
+               primaryStage.setTitle("Error");
+                primaryStage.setScene(errorScene);
+                primaryStage.show();
+                errorPane.setHgap(10);
+                errorPane.setVgap(10);
+                }
         });
         
          //button to return to main menu
@@ -937,13 +954,12 @@ public class FXApplication extends Application {
                 primaryStage.show();
             }
           else {
-                errorAlertVendor.setHeaderText("Input not valid");
-                errorAlertVendor.setContentText("Please enter vendor information again");
-                errorAlertVendor.setResizable(true);
-                errorAlertVendor.getDialogPane().setPrefSize(400, 500);
-                errorAlertVendor.showAndWait();
-                }
-          
+               primaryStage.setTitle("Error");
+                primaryStage.setScene(errorScene);
+                primaryStage.show();
+                errorPane.setHgap(10);
+                errorPane.setVgap(10);
+                }       
         });
         
         //return back to main menu from vendor
