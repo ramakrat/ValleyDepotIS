@@ -910,22 +910,77 @@ public class FXApplication extends Application {
               primaryStage.show();
           });
           
-        //print a sale receipt
-           Label receiptLabel = new Label("Sales Receipt");
-           GridPane receiptPane1 = new GridPane();
-           Button menu = new Button("Return to Main Menu");
-           receiptPane1.add(menu, 0,8);
-           menu.setAlignment(Pos.CENTER_RIGHT);
-           Scene scene4 = new Scene(receiptPane1, 400, 400);
-
+        Label receiptLabel = new Label("Sales Report");
+        GridPane receiptPane1 = new GridPane();
+        Label Sale = new Label("Sale");
+        ComboBox saleListBox = new ComboBox(saleList);
+        Button selectSale = new Button("Select a Sale");
+                   
+        Scene scene4 = new Scene(receiptPane1, 400, 400);
+        Button menu = new Button("Return to Main Menu");
+           
+        receiptPane1.add(Sale, 0, 0);
+        receiptPane1.add(saleListBox, 1, 0);
+        receiptPane1.add(selectSale, 1, 1);
+        receiptPane1.add(menu, 0,4);
+        menu.setAlignment(Pos.CENTER_RIGHT);
+        GridPane selSale = new GridPane();
+          
+           
+    
            //print sale receipt button
            btn4.setOnAction(e -> {
                primaryStage.setTitle("Sales Receipt");
                primaryStage.setScene(scene4);
                primaryStage.show();
-               receiptPane1.setHgap(10);
+               receiptPane1.setHgap(5);
                receiptPane1.setVgap(10);
            });
+           // Select Sale button
+           GridPane salePane = new GridPane();
+           Label saleCol1 = new Label();
+           Label saleCol2 = new Label();
+           Label saleCol3 = new Label();
+           Label saleCol4 = new Label();
+           salePane.setPadding(new Insets(10));
+           
+           salePane.add(saleCol1, 0, 0);
+           salePane.add(saleCol2, 1, 0);
+           salePane.add(saleCol3, 2, 0);
+           salePane.add(saleCol4, 3, 0);
+           Scene saleScene = new Scene(salePane, 600, 600);
+           
+           selectSale.setOnAction(e -> {
+               double total = 0;
+               String tempStringCol1 = ("Item Name");
+                      
+               String tempStringCol2 = ("\tPrice");
+               String tempStringCol3 = ("Quantity");
+                     
+               String tempStringCol4 = ("\tTotal Price");
+                      
+               
+               for(int i = 0; i < sales.get(saleListBox.getSelectionModel().getSelectedIndex()).size(); i++) {
+                    tempStringCol1 += "\n" + sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).itemSold.itemName; 
+                    tempStringCol2 += "\n\t" + sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).itemSold.getSalePrice(); 
+                    tempStringCol3 += "\n\t" + sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).quantity;
+                    tempStringCol4 += "\n\t" + sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).itemSold.getSalePrice()                        
+                           *  sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).quantity;
+                    total +=  (sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).itemSold.getSalePrice() 
+                           * sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).quantity);
+                    }
+               tempStringCol1 += "\nTotal Sales: ";
+               tempStringCol4 += "\n\t" + total;
+               saleCol1.setText(tempStringCol1);
+               saleCol2.setText(tempStringCol2);
+               saleCol3.setText(tempStringCol3);
+               saleCol4.setText(tempStringCol4);
+               primaryStage.setTitle("Sale Report");
+               primaryStage.setScene(saleScene);
+               primaryStage.show();
+               salePane.setHgap(10);
+               salePane.setVgap(10);
+               
            
            //return to main menu button
            
