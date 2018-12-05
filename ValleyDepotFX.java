@@ -1214,7 +1214,64 @@ public class FXApplication extends Application {
               primaryStage.setScene(primaryScene);
               primaryStage.show();
           });
+               
+               
+         //Begin contractor history printreport 
+         //Creating new report Customer History
+         //Creating controls
+        GridPane contractorHistory = new GridPane();
+        Label contHistory = new Label("Select contractor to view the purchase history of");
+        Label viewAllConHis = new Label();
+        Button viewConHistory = new Button("View History");
+        Button exitConHistory = new Button("Return to Main Menu");
+        ComboBox comboConHistory = new ComboBox(contractorList);
+        //adding controls 
+        contractorHistory.add(contHistory, 0, 0);
+        contractorHistory.add(comboConHistory, 1, 0);
+        contractorHistory.add(viewConHistory, 0 ,2);
+        contractorHistory.add(viewAllConHis, 0, 10);
+        contractorHistory.add(exitConHistory, 0, 12);
+        exitConHistory.setAlignment(Pos.BASELINE_LEFT);
+        Scene contractorHistoryInfo = new Scene(contractorHistory, 600, 600);
+    
+        //Get into customer history pane
+        createConHis.setOnAction(e ->{
+        comboConHistory.setValue(null);
+        primaryStage.setScene(contractorHistoryInfo);
+        primaryStage.show();
+        });
+    
+        //Contractor History Report details 
+        viewConHistory.setOnAction(e -> {
+            String tempString = ("Contractor Purchase History:"
+                    + "\nContractor Name\t\tItem Sold\t\t quantity\t\t date\t\tSale price"
+                    + "\n=====================================================");
+             for(int i = 0; i < sales.get(comboConHistory.getSelectionModel().getSelectedIndex()).size(); i++){
+                tempString += "\n" + String.format(sales.get(comboConHistory.getSelectionModel().getSelectedIndex()).get(i).contractor.firstName 
+                        + " " + sales.get(comboConHistory.getSelectionModel().getSelectedIndex()).get(i).contractor.lastName 
+                         + "\t\t\t" + sales.get(comboConHistory.getSelectionModel().getSelectedIndex()).get(i).itemSold.itemName 
+                        +"\t\t" + sales.get(comboConHistory.getSelectionModel().getSelectedIndex()).get(i).quantity + "\t\t" 
+                           + sales.get(comboConHistory.getSelectionModel().getSelectedIndex()).get(i).date + "\t\t" 
+                        + sales.get(comboConHistory.getSelectionModel().getSelectedIndex()).get(i).quantity 
+                                * sales.get(comboConHistory.getSelectionModel().getSelectedIndex()).get(i).itemSold.getSalePrice());
+              viewAllConHis.setText(tempString);
+              
+             }
+             //showing pane
+            primaryStage.setScene(contractorHistoryInfo);
+            primaryStage.show();
+            reportPane1.setHgap(20);
+            reportPane1.setVgap(20);
+            
+        });
+        //back to main menu 
+        exitConHistory.setOnAction(e -> {
+              primaryStage.setScene(primaryScene);
+              primaryStage.show();
+          });
         
+        
+                 
         //stuff to have new report
         GridPane inventoryLevel = new GridPane();
         Label itemTitle = new Label();
