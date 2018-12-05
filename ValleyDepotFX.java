@@ -1157,6 +1157,63 @@ public class FXApplication extends Application {
             reportPane1.setHgap(10);
             reportPane1.setVgap(10);
         });
+               
+               
+               
+               
+               
+         //Creating new report Customer History
+         //Creating controls
+        GridPane customerHistory = new GridPane();
+        Label custHistory = new Label("Select customer to view the purchase history of");
+        Label viewAllHis = new Label();
+        Button viewCustHistory = new Button("View History");
+        Button exitCustHistory = new Button("Return to Main Menu");
+        ComboBox comboHistory = new ComboBox(customerList);
+        //adding controls 
+        customerHistory.add(custHistory, 0, 0);
+        customerHistory.add(comboHistory, 1, 0);
+        customerHistory.add(viewCustHistory, 0 ,2);
+        customerHistory.add(viewAllHis, 0, 10);
+        customerHistory.add(exitCustHistory, 0, 12);
+        exitCustHistory.setAlignment(Pos.BASELINE_LEFT);
+        Scene customerHistoryInfo = new Scene(customerHistory, 600, 600);
+    
+        //Get into customer history pane
+        createCusHis.setOnAction(e ->{
+        comboHistory.setValue(null);
+        primaryStage.setScene(customerHistoryInfo);
+        primaryStage.show();
+        });
+    
+        //Contractor History Report details 
+        viewCustHistory.setOnAction(e -> {
+            String tempString = ("Customer Purchase History:"
+                    + "\nCustomer Name\t\tItem Sold\t\t quantity\t\t date\t\tSale price"
+                    + "\n=====================================================");
+             for(int i = 0; i < sales.get(comboHistory.getSelectionModel().getSelectedIndex()).size(); i++){
+                tempString += "\n" + String.format(sales.get(comboHistory.getSelectionModel().getSelectedIndex()).get(i).customer.firstName 
+                        + " " + sales.get(comboHistory.getSelectionModel().getSelectedIndex()).get(i).customer.lastName 
+                         + "\t\t\t" + sales.get(comboHistory.getSelectionModel().getSelectedIndex()).get(i).itemSold.itemName 
+                        +"\t\t" + sales.get(comboHistory.getSelectionModel().getSelectedIndex()).get(i).quantity + "\t\t" 
+                           + sales.get(comboHistory.getSelectionModel().getSelectedIndex()).get(i).date + "\t\t" 
+                        + sales.get(comboHistory.getSelectionModel().getSelectedIndex()).get(i).quantity 
+                                * sales.get(comboHistory.getSelectionModel().getSelectedIndex()).get(i).itemSold.getSalePrice());
+              viewAllHis.setText(tempString);
+              
+             }
+             //showing pane
+            primaryStage.setScene(customerHistoryInfo);
+            primaryStage.show();
+            reportPane1.setHgap(20);
+            reportPane1.setVgap(20);
+            
+        });
+        //back to main menu (end of customer print report)
+        exitCustHistory.setOnAction(e -> {
+              primaryStage.setScene(primaryScene);
+              primaryStage.show();
+          });
         
         //stuff to have new report
         GridPane inventoryLevel = new GridPane();
