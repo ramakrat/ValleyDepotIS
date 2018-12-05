@@ -325,6 +325,95 @@ public class FXApplication extends Application {
             }
         });
         
+         //edit contractor function
+        ComboBox editContractor = new ComboBox(contractorList);
+        Label combo = new Label("Select the Contractor to edit");
+        GridPane editConPanel = new GridPane();
+        Button editContractorInfo = new Button("Edit Contractor");
+        Button confirmEdit = new Button("Edit Contractor");
+        Label editConFirst = new Label("First Name");
+        Label editConLast = new Label("Last Name");
+        Label editConAdd = new Label("Address");
+        Label editConPhone = new Label("Phone Number");
+        Label editConEmail = new Label("Email");
+        Label editConBusAdd = new Label("Business Address");
+        Label editConBusName = new Label("BusinessName");
+        Label editConNotes = new Label("Contractor Notes");
+        TextField txtEditConFirst = new TextField();
+        TextField txtEditConLast = new TextField();
+        TextField txtEditConAdd = new TextField();
+        TextField txtEditConPhone = new TextField();
+        TextField txtEditConEmail = new TextField();
+        TextField txtEditConNotes = new TextField();
+        TextField txtEditConBusAdd = new TextField();
+        TextField txtEditConBusName = new TextField();
+        editConPanel.add(editContractor, 1, 9);
+        editConPanel.add(combo, 0, 9);
+        editConPanel.add(editConFirst, 0, 0);
+        editConPanel.add(editConLast, 0, 1);
+        editConPanel.add(editConAdd, 0, 2);
+        editConPanel.add(editConPhone, 0, 3);
+        editConPanel.add(editConEmail, 0, 4);
+        editConPanel.add(editConBusAdd, 0, 6);
+        editConPanel.add(editConBusName, 0, 7);
+        editConPanel.add(txtEditConFirst, 1, 0);
+        editConPanel.add(txtEditConLast, 1, 1);
+        editConPanel.add(txtEditConAdd, 1, 2);
+        editConPanel.add(txtEditConPhone, 1, 3);
+        editConPanel.add(txtEditConEmail, 1, 4);
+        editConPanel.add(txtEditConNotes, 1, 5);
+        editConPanel.add(editConNotes, 0, 5);
+        editConPanel.add(txtEditConBusAdd, 1, 6);
+        editConPanel.add(txtEditConBusName, 1, 7);
+        editConPanel.add(confirmEdit, 0, 11);
+        confirmEdit.setAlignment(Pos.CENTER_RIGHT);
+        Scene editContractorScene = new Scene(editConPanel, 400, 400);
+        Alert editErrorAlertCon = new Alert(AlertType.ERROR);
+        
+        editCon.setOnAction(e -> {
+            txtEditConFirst.setText(null);
+            txtEditConLast.setText(null);
+            txtEditConAdd.setText(null);
+            txtEditConPhone.setText(null);
+            txtEditConEmail.setText(null);
+            txtEditConNotes.setText(null);
+            txtEditConBusAdd.setText(null);
+            txtEditConBusName.setText(null);
+            primaryStage.setTitle("Edit Contractor");
+            primaryStage.setScene(editContractorScene);
+            primaryStage.show();
+            createConPanel.setHgap(10);
+            createConPanel.setVgap(10);
+        });    
+         confirmEdit.setOnAction(e -> {
+              if(txtEditConFirst.getText() != null && txtEditConLast.getText() != null && txtEditConBusName.getText() != null 
+                    && txtEditConEmail.getText().contains("@")) {
+                String editConsF = txtEditConFirst.getText(); 
+                String editConsL = txtEditConLast.getText();
+                String editConsAd = txtEditConAdd.getText();
+                String editTele = txtEditConPhone.getText();
+                String editEmai = txtEditConEmail.getText();
+                String editNot = txtEditConNotes.getText();
+                String editConBusAddy = txtEditConBusAdd.getText();
+                String editConBusNam = txtEditConBusName.getText();
+                int editConInfo = editContractor.getSelectionModel().getSelectedIndex();
+                contractor.set(editConInfo, new Contractor(editConsF, editConsL, editConsAd, editTele, 
+                        editEmai, editNot, editConBusAddy, editConBusNam, ((editConInfo * 5)+ 2)));
+                primaryStage.setScene(primaryScene);
+                primaryStage.show();
+              }
+               else {
+                editErrorAlertCon.setHeaderText("Input not valid");
+                editErrorAlertCon.setContentText("Please enter valid information");
+                editErrorAlertCon.setResizable(true);
+                editErrorAlertCon.getDialogPane().setPrefSize(600, 600);
+                editErrorAlertCon.showAndWait();
+            }
+              
+        });
+        
+        
+        
         //data fields for choosing customer or contractor sale 
         Label saleLabel = new Label("Create Sales System");
         Button createCusSale = new Button("Create new Customer Sale");
