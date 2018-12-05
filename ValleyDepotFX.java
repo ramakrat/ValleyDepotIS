@@ -457,6 +457,7 @@ public class FXApplication extends Application {
         Scene editContractorScene = new Scene(editConPanel, 400, 400);
         
         editCon.setOnAction(e -> {
+            editContractor.setValue(null);
             txtEditConFirst.setText(null);
             txtEditConLast.setText(null);
             txtEditConAdd.setText(null);
@@ -953,6 +954,60 @@ public class FXApplication extends Application {
                 errorPane.setHgap(10);
                 errorPane.setVgap(10);
                 }       
+        });
+        //edit vendor
+        ComboBox listOfVendors = new ComboBox(vendorList);
+        GridPane vendorPane3 = new GridPane();
+        Scene editVenScene = new Scene(vendorPane3, 400, 400);
+        Label lblofVendors = new Label("Select Vendor to Edit");
+        Label editVenName = new Label("Name");
+        Label editVenAddress = new Label("Address");
+        Label editVenPhone = new Label("Phone Number");
+        TextField txtEditName = new TextField();
+        TextField txtEditAddress = new TextField();
+        TextField txtEditPhone = new TextField();
+        Button comitVendorEdit = new Button("Edit Vendor");
+        vendorPane3.add(lblofVendors, 0 , 0);
+        vendorPane3.add(listOfVendors, 1 ,0);
+        vendorPane3.add(editVenName, 0 , 1);
+        vendorPane3.add(txtEditName, 1, 1);
+        vendorPane3.add(editVenAddress, 0, 2);
+        vendorPane3.add(txtEditAddress, 1, 2);
+        vendorPane3.add(editVenPhone, 0, 3);
+        vendorPane3.add(txtEditPhone, 1, 3);
+        vendorPane3.add(comitVendorEdit, 0, 5);
+        vendorPane3.setAlignment(Pos.CENTER_RIGHT);
+        
+        editVendor.setOnAction(e -> {
+            txtEditName.setText(null);
+            txtEditAddress.setText(null);
+            txtEditPhone.setText(null);
+            listOfVendors.setValue(null);
+            primaryStage.setTitle("Edit Vendor");
+            primaryStage.setScene(editVenScene);
+            primaryStage.show();
+            vendorPane2.setHgap(10);
+            vendorPane2.setVgap(10);
+        });
+        
+        //edit vendor button
+        comitVendorEdit.setOnAction(e -> {
+            if(txtEditName.getText() != null && txtEditPhone.getText().length() == 10){
+                String venFName = txtEditName.getText();  
+                String venEditAdd = txtEditAddress.getText();
+                String venEditPhone = txtEditPhone.getText();
+                int editVendorNum = listOfVendors.getSelectionModel().getSelectedIndex();
+                vendor.set(editVendorNum, new Vendor(venFName, venEditAdd, venEditPhone, ((editVendorNum * 5) + 5)));
+                primaryStage.setScene(primaryScene);
+                primaryStage.show();
+            }
+            else {
+                primaryStage.setTitle("Error");
+                primaryStage.setScene(errorScene);
+                primaryStage.show();
+                errorPane.setHgap(10);
+                errorPane.setVgap(10);
+            }
         });
         
         //return back to main menu from vendor
