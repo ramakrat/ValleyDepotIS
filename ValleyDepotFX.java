@@ -95,20 +95,6 @@ public class FXApplication extends Application {
         Button btn7 = new Button("Exit System");
         Label title7 = new Label("7.) ");
         
-          
-        //ERRROR STUFF DON'T  TOUCH
-        Button btnError = new Button("OK");
-        GridPane errorPane = new GridPane();
-        Label lblError = new Label("Error: Incompatible data, please try again.");
-        errorPane.add(lblError, 0 , 2);
-        errorPane.add(btnError, 0, 3 );
-        Scene errorScene = new Scene(errorPane, 400, 400);
-        errorPane.setAlignment(Pos.CENTER);
-        btnError.setOnAction(e -> {
-                   primaryStage.setScene(primaryScene);
-                   primaryStage.show();
-                });
-        
         //create 1st main menu window
         GridPane primaryPane = new GridPane();
         primaryPane.setAlignment(Pos.CENTER);
@@ -138,6 +124,19 @@ public class FXApplication extends Application {
         primaryStage.show();
         primaryPane.setHgap(10);
         primaryPane.setVgap(10);
+        
+        //ERRROR STUFF DON'T  TOUCH
+        Button btnError = new Button("OK");
+        GridPane errorPane = new GridPane();
+        Label lblError = new Label("Error: Incompatible data, please try again.");
+        errorPane.add(lblError, 0 , 2);
+        errorPane.add(btnError, 0, 3 );
+        Scene errorScene = new Scene(errorPane, 400, 400);
+        errorPane.setAlignment(Pos.CENTER);
+        btnError.setOnAction(e -> {
+                   primaryStage.setScene(primaryScene);
+                   primaryStage.show();
+                });
         
         //objects for 1st window for manage customers
         Button createCust = new Button("Create New Customer");
@@ -418,7 +417,7 @@ public class FXApplication extends Application {
         
          //edit contractor function
         ComboBox editContractor = new ComboBox(contractorList);
-        Label combo = new Label("Select the Contractor to edit");
+        Label comboCon = new Label("Select the Contractor to edit");
         GridPane editConPanel = new GridPane();
         Button editContractorInfo = new Button("Edit Contractor");
         Button confirmEdit = new Button("Edit Contractor");
@@ -439,7 +438,7 @@ public class FXApplication extends Application {
         TextField txtEditConBusAdd = new TextField();
         TextField txtEditConBusName = new TextField();
         editConPanel.add(editContractor, 1, 9);
-        editConPanel.add(combo, 0, 9);
+        editConPanel.add(comboCon, 0, 9);
         editConPanel.add(editConFirst, 0, 0);
         editConPanel.add(editConLast, 0, 1);
         editConPanel.add(editConAdd, 0, 2);
@@ -541,7 +540,7 @@ public class FXApplication extends Application {
         //data fields for choosing a customer
         GridPane custSalePanel = new GridPane();
         Label lblChooseCust = new Label("Choose Customer");
-        ComboBox chooseCust = new ComboBox(custList);
+        ComboBox chooseCust = new ComboBox(customerList);
         Label lblChooseCustDate = new Label("Date");
         TextField custSaleDate = new TextField();
         Label custItem = new Label("Item");
@@ -559,7 +558,7 @@ public class FXApplication extends Application {
         custSalePanel.add(custQuant, 0, 4);
         custSalePanel.add(custQuantE, 1, 4);
         custSalePanel.add(continueCustSale, 0, 5);
-        custSalePanel.add(continueCustSale, 1, 6);
+        custSalePanel.add(endCustSale, 1, 6);
         custSalePanel.setAlignment(Pos.CENTER);
         Scene custSaleScene = new Scene(custSalePanel, 400, 400);
         
