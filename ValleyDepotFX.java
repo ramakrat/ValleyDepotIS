@@ -1051,6 +1051,32 @@ public class FXApplication extends Application {
             reportPane1.setVgap(10);
         });
         
+         //stuff to have new report
+        GridPane inventoryLevel = new GridPane();
+        Label levels = new Label();
+        Button returnHome = new Button("Return to Main Menu");
+        inventoryLevel.add(levels, 0, 0);
+        inventoryLevel.add(returnHome, 0 ,20);
+        returnHome.setAlignment(Pos.BASELINE_LEFT);
+        Scene invLevel = new Scene(inventoryLevel, 400, 400);
+        
+        //inventory item levels reprot
+        createInvLevel.setOnAction(e -> {
+            String tempString = ("Current Inventory Levels for All Items:"
+                    + "\nItem Name\t\tInventory Levels"
+                    + "\n========================================");
+            for(int i = 0; i < item.size(); i++) {
+                tempString += String.format("\n" + item.get(i).itemName + "\t\t" + item.get(i).quantAvail);
+              levels.setText(tempString);
+              
+            }
+            primaryStage.setScene(invLevel);
+            primaryStage.show();
+            reportPane1.setHgap(20);
+            reportPane1.setVgap(20);
+            
+        }); 
+        
         //return to main menu button
          after.setOnAction(e -> {
               primaryStage.setScene(primaryScene);
