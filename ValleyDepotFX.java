@@ -86,11 +86,11 @@ public class FXApplication extends Application {
         Label title2 = new Label("2.) ");
         Button btn3 = new Button("Create a Sale");
         Label title3 = new Label("3.) ");
-        Button btn4 = new Button("Print Sales Report");
+        Button btn4 = new Button("Print Sales Receipt");
         Label title4 = new Label("4.) ");
         Button btn5 = new Button("Manage Vendors");
         Label title5 = new Label("5.) ");
-        Button btn6 = new Button("Print Receipt");
+        Button btn6 = new Button("Print Report");
         Label title6 = new Label("6.) ");
         Button btn7 = new Button("Exit System");
         Label title7 = new Label("7.) ");
