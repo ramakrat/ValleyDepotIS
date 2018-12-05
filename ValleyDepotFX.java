@@ -1103,17 +1103,6 @@ public class FXApplication extends Application {
             reportPane1.setVgap(10);
         });
         
-         //stuff to have new report
-        GridPane inventoryLevel = new GridPane();
-        Label levels = new Label();
-        Button returnHome = new Button("Return to Main Menu");
-        inventoryLevel.add(levels, 0, 0);
-        inventoryLevel.add(returnHome, 0 ,20);
-        returnHome.setAlignment(Pos.BASELINE_LEFT);
-        Scene invLevel = new Scene(inventoryLevel, 400, 400);
-        
-        //inventory item levels reprot
-         
         //stuff to have new report
         GridPane inventoryLevel = new GridPane();
         Label itemTitle = new Label();
