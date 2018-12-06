@@ -1435,7 +1435,6 @@ public class ValleyDepotFX extends Application {
             primaryStage.show();
             customerHistory.setHgap(10);
             customerHistory.setVgap(10);
-            
         });
         
         //back to main menu (end of customer print report)
@@ -1445,9 +1444,9 @@ public class ValleyDepotFX extends Application {
         });
                
                
-         //Begin contractor history printreport 
-         //Creating new report Customer History
-         //Creating controls
+        //Begin contractor history printreport 
+        //Creating new report Customer History
+        //Creating controls
         GridPane contractorHistory = new GridPane();
         HBox conHistReport = new HBox();
         Label conHistCol1 = new Label();
@@ -1474,7 +1473,6 @@ public class ValleyDepotFX extends Application {
         contractorHistory.add(viewConHistory, 0 ,2);
         contractorHistory.add(conHistReport, 0, 3);
         contractorHistory.add(exitConHistory, 0, 4);
-        exitConHistory.setAlignment(Pos.BASELINE_LEFT);
         Scene contractorHistoryInfo = new Scene(contractorHistory, 600, 600);
     
         //Get into customer history pane
@@ -1526,15 +1524,101 @@ public class ValleyDepotFX extends Application {
             contractorHistory.setVgap(20);
             
         });
+        
         //back to main menu 
         exitConHistory.setOnAction(e -> {
               primaryStage.setScene(primaryScene);
               primaryStage.show();
           });
         
+        GridPane itemHist = new GridPane();
+        HBox itemReport = new HBox();
+        Label itemCol1 = new Label();
+        Label itemCol2 = new Label();
+        Label itemCol3 = new Label();
+        Label itemCol4 = new Label();
+        Label itemCol5 = new Label();
         
+        itemReport.getChildren().addAll(itemCol1, itemCol2, itemCol3, itemCol4, itemCol5);
+        HBox.setHgrow(itemCol1, Priority.ALWAYS);
+        HBox.setHgrow(itemCol2, Priority.ALWAYS);
+        HBox.setHgrow(itemCol3, Priority.ALWAYS);
+        HBox.setHgrow(itemCol4, Priority.ALWAYS);
+        HBox.setHgrow(itemCol5, Priority.ALWAYS);
+        itemReport.setSpacing(20);
+        
+        Label itemHistory = new Label("Select Item to View Purchase History:");
+        Button viewItemHist = new Button("View History");
+        Button exitItemHistory = new Button("Return to Main Menu");
+        ComboBox itemCombo = new ComboBox(itemList);
+        //adding controls 
+        itemHist.add(itemHistory, 0, 0);
+        itemHist.add(itemCombo, 0, 1);
+        itemHist.add(viewItemHist, 0 ,2);
+        itemHist.add(itemReport, 0, 3);
+        itemHist.add(exitItemHistory, 0, 4);
+        Scene itemHistScene = new Scene(itemHist, 600, 600);
+        
+        
+        createItemHis.setOnAction(e -> {
+            itemCol1.setText(null);
+            itemCol2.setText(null);
+            itemCol3.setText(null);
+            itemCol4.setText(null);
+            itemCol5.setText(null);
+            itemCombo.setValue(null);
+            primaryStage.setTitle("Item History Report");
+            primaryStage.setScene(itemHistScene);
+            primaryStage.show();
+            itemHist.setHgap(10);
+            itemHist.setVgap(10);
+        });
+        
+        viewItemHist.setOnAction(e -> {
+            String tempStringTitle = "Item Purchase History:";
+            String tempStringCol1 = "Item Sold\n==========";
+            String tempStringCol2 = "Item Name\n==========";
+            String tempStringCol3 = "Customer Name\n==========";
+            String tempStringCol4 = "Date\n=======";
+            String tempStringCol5 = "Quantity\n========";            
+            
+            for(int i = 0; i < sales.size(); i++) {
+                for(int j = 0; j < sales.get(i).size(); j++){
+                    if (sales.get(i).get(j).itemSold.id == ((itemCombo.getSelectionModel().getSelectedIndex() * 5) +3)) {
+                        if(sales.get(i).get(j).typeC == true) {
+                            tempStringCol1 += "\n" + sales.get(i).get(j).itemSold.id;
+                            tempStringCol2 += "\n" + sales.get(i).get(j).itemSold.itemName;
+                            tempStringCol3 += "\n" + sales.get(i).get(j).customer.firstName + " " 
+                                    + sales.get(i).get(j).customer.lastName;
+                            tempStringCol4 += "\n" + sales.get(i).get(j).date;
+                            tempStringCol5 += "\n" + sales.get(i).get(j).quantity;                                            
+                        }
+                        else {
+                            tempStringCol1 += "\n" + sales.get(i).get(j).itemSold.id;
+                            tempStringCol2 += "\n" + sales.get(i).get(j).itemSold.itemName;
+                            tempStringCol3 += "\n" + sales.get(i).get(j).contractor.firstName + " " 
+                                    + sales.get(i).get(j).contractor.lastName;
+                            tempStringCol4 += "\n" + sales.get(i).get(j).date;
+                            tempStringCol5 += "\n" + sales.get(i).get(j).quantity;  
+                        }
+                    }
+                }
+            }
+            
+            itemCol1.setText(tempStringCol1);
+            itemCol2.setText(tempStringCol2);
+            itemCol3.setText(tempStringCol3);
+            itemCol4.setText(tempStringCol4);
+            itemCol5.setText(tempStringCol5);
+            //showing pane
+            primaryStage.setTitle("Item History Report");
+            primaryStage.setScene(itemHistScene);
+            primaryStage.show();
+            itemHist.setHgap(20);
+            itemHist.setVgap(20);
+        });
                  
-        //stuff to have new report
+        //inventory item levels data fields
         GridPane inventoryLevel = new GridPane();
         Label itemTitle = new Label();
         Label itemNameR = new Label();
@@ -1547,7 +1631,7 @@ public class ValleyDepotFX extends Application {
         returnHome.setAlignment(Pos.BASELINE_LEFT);
         Scene invLevel = new Scene(inventoryLevel, 400, 400);
         
-        //inventory item levels reprot
+        //inventory item levels report
         createInvLevel.setOnAction(e -> {
             String tempString = "Current Inventory Levels for All Items: \n";
             itemTitle.setText(tempString);
