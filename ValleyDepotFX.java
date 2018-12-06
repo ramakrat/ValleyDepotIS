@@ -13,6 +13,7 @@ import java.util.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.text.Text;
 import javafx.collections.*;
+import javafx.geometry.Insets;
 
 public class FXApplication extends Application {
 
@@ -43,7 +44,7 @@ public class FXApplication extends Application {
         vendor.add(new Vendor("Nike", "2484 Wembly St Houston TX 77036", "8323457634"));
         vendor.add(new Vendor("Burton", "2844 Irish Lane Madison WI 53718", "7156137491"));
         
-        item.add(new Item("Shoe",4.5,"Off-Whites",40.5,50.6, 33, vendor.get(0)));
+        item.add(new Item("Shoe",4.5,"Off-Whites",40.5, 50.6, 33, vendor.get(0)));
         item.add(new Item("Shirt", 1.5, "Polo", 30.5, 32.5, 200, vendor.get(1)));
         item.add(new Item("Computer", 4.5, "Off-Whites", 40.5, 50.6, 24, vendor.get(1)));
         item.add(new Item("Waterbottle", 1.0, "Dasani", 1.0, 2.3, 320, vendor.get(2)));
@@ -499,10 +500,10 @@ public class FXApplication extends Application {
               
         });
         
-                //data fields for choosing customer or contractor sale 
+        //data fields for choosing customer or contractor sale 
         Label saleLabel = new Label("Create Sales System");
-        Button createCusSale = new Button("Create new Customer Sale");
-        Button createConSale = new Button("Create a new Contractor Sale");
+        Button createCusSale = new Button("Create New Customer Sale");
+        Button createConSale = new Button("Create New Contractor Sale");
         GridPane salePane1 = new GridPane();
         Label sale1 = new Label("1.)");
         Label sale2 = new Label("2.)");
@@ -694,7 +695,6 @@ public class FXApplication extends Application {
                 String date = custSaleDate.getText();
                 int itemID = newItemA.getSelectionModel().getSelectedIndex();
                 int quantity = Integer.parseInt(newQuantA.getText());
-                sales.add(new ArrayList<>());
                 sales.get(sales.size()-1).add(new Sale(item.get(itemID), quantity, date, customer.get(custID)));
                 item.get(itemID).quantAvail -= quantity; 
                 primaryStage.setScene(primaryScene);
@@ -886,8 +886,7 @@ public class FXApplication extends Application {
                 String date = custSaleDate.getText();
                 int itemID = newItemB.getSelectionModel().getSelectedIndex();
                 int quantity = Integer.parseInt(newQuantB.getText());
-                sales.add(new ArrayList<>());
-                sales.get(sales.size()-1).add(new Sale(item.get(itemID), quantity, date, customer.get(conID)));
+                sales.get(sales.size()-1).add(new Sale(item.get(itemID), quantity, date, contractor.get(conID)));
                 item.get(itemID).quantAvail -= quantity; 
                 primaryStage.setScene(primaryScene);
                 primaryStage.show();
@@ -1097,77 +1096,69 @@ public class FXApplication extends Application {
               primaryStage.show();
           });
           
-        Label receiptLabel = new Label("Sales Report");
         GridPane receiptPane1 = new GridPane();
         Label Sale = new Label("Sale");
         ComboBox saleListBox = new ComboBox(saleList);
         Button selectSale = new Button("Select a Sale");
-                   
-        Scene scene4 = new Scene(receiptPane1, 400, 400);
         Button menu = new Button("Return to Main Menu");
+        Label saleCol1 = new Label();
+        Label saleCol2 = new Label();
+        Label saleCol3 = new Label();
+        Label saleCol4 = new Label();
            
+        receiptPane1.add(saleCol1, 0, 3);
+        receiptPane1.add(saleCol2, 1, 3);
+        receiptPane1.add(saleCol3, 2, 3);
+        receiptPane1.add(saleCol4, 3, 3);   
         receiptPane1.add(Sale, 0, 0);
         receiptPane1.add(saleListBox, 1, 0);
         receiptPane1.add(selectSale, 1, 1);
         receiptPane1.add(menu, 0,4);
         menu.setAlignment(Pos.CENTER_RIGHT);
-        GridPane selSale = new GridPane();
-          
-           
+        Scene scene4 = new Scene(receiptPane1, 400, 400);
     
            //print sale receipt button
            btn4.setOnAction(e -> {
+               saleCol1.setText(null);
+               saleCol2.setText(null);
+               saleCol3.setText(null);
+               saleCol4.setText(null);
+               saleListBox.setValue(null);
                primaryStage.setTitle("Sales Receipt");
                primaryStage.setScene(scene4);
                primaryStage.show();
-               receiptPane1.setHgap(5);
+               receiptPane1.setHgap(10);
                receiptPane1.setVgap(10);
            });
+           
            // Select Sale button
-           GridPane salePane = new GridPane();
-           Label saleCol1 = new Label();
-           Label saleCol2 = new Label();
-           Label saleCol3 = new Label();
-           Label saleCol4 = new Label();
-           salePane.setPadding(new Insets(10));
-           
-           salePane.add(saleCol1, 0, 0);
-           salePane.add(saleCol2, 1, 0);
-           salePane.add(saleCol3, 2, 0);
-           salePane.add(saleCol4, 3, 0);
-           Scene saleScene = new Scene(salePane, 600, 600);
-           
            selectSale.setOnAction(e -> {
+              
                double total = 0;
-               String tempStringCol1 = ("Item Name");
+               String tempStringCol1 = ("Item Name\n=====");
+               String tempStringCol2 = ("Price\n=====");
+               String tempStringCol3 = ("Quantity\n=====");
+               String tempStringCol4 = ("Total Price\n=====");
                       
-               String tempStringCol2 = ("\tPrice");
-               String tempStringCol3 = ("Quantity");
-                     
-               String tempStringCol4 = ("\tTotal Price");
-                      
-               
                for(int i = 0; i < sales.get(saleListBox.getSelectionModel().getSelectedIndex()).size(); i++) {
                     tempStringCol1 += "\n" + sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).itemSold.itemName; 
-                    tempStringCol2 += "\n\t" + sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).itemSold.getSalePrice(); 
-                    tempStringCol3 += "\n\t" + sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).quantity;
-                    tempStringCol4 += "\n\t" + sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).itemSold.getSalePrice()                        
+                    tempStringCol2 += "\n" + sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).itemSold.getSalePrice(); 
+                    tempStringCol3 += "\n" + sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).quantity;
+                    tempStringCol4 += "\n" + sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).itemSold.getSalePrice()                        
                            *  sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).quantity;
                     total +=  (sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).itemSold.getSalePrice() 
                            * sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).quantity);
                     }
                tempStringCol1 += "\nTotal Sales: ";
-               tempStringCol4 += "\n\t" + total;
+               tempStringCol4 += "\n" + total;
                saleCol1.setText(tempStringCol1);
                saleCol2.setText(tempStringCol2);
                saleCol3.setText(tempStringCol3);
                saleCol4.setText(tempStringCol4);
                primaryStage.setTitle("Sale Report");
-               primaryStage.setScene(saleScene);
+               primaryStage.setScene(scene4);
                primaryStage.show();
-               salePane.setHgap(10);
-               salePane.setVgap(10);
-               
+           });   
            
            //return to main menu button
            
@@ -1175,6 +1166,7 @@ public class FXApplication extends Application {
                  primaryStage.setScene(primaryScene);
                  primaryStage.show();
             });  
+            
         //manage vendor items
         Label vendorLabel = new Label("Manage Vendors");
         Button createVendor = new Button("Create new Vendor");
@@ -1369,6 +1361,7 @@ public class FXApplication extends Application {
         //Get into customer history pane
         createCusHis.setOnAction(e ->{
         comboHistory.setValue(null);
+        viewAllHis.setText(null);
         primaryStage.setScene(customerHistoryInfo);
         primaryStage.show();
         });
@@ -1376,18 +1369,20 @@ public class FXApplication extends Application {
         //Contractor History Report details 
         viewCustHistory.setOnAction(e -> {
             String tempString = ("Customer Purchase History:"
-                    + "\nCustomer Name\t\tItem Sold\t\t quantity\t\t date\t\tSale price"
+                    + "\nCustomer Name\t\tItem Sold\t\t Quantity\t\t Date\t\tSale price"
                     + "\n=====================================================");
-             for(int i = 0; i < sales.get(comboHistory.getSelectionModel().getSelectedIndex()).size(); i++){
-                tempString += "\n" + String.format(sales.get(comboHistory.getSelectionModel().getSelectedIndex()).get(i).customer.firstName 
-                        + " " + sales.get(comboHistory.getSelectionModel().getSelectedIndex()).get(i).customer.lastName 
-                         + "\t\t\t" + sales.get(comboHistory.getSelectionModel().getSelectedIndex()).get(i).itemSold.itemName 
-                        +"\t\t" + sales.get(comboHistory.getSelectionModel().getSelectedIndex()).get(i).quantity + "\t\t" 
-                           + sales.get(comboHistory.getSelectionModel().getSelectedIndex()).get(i).date + "\t\t" 
-                        + sales.get(comboHistory.getSelectionModel().getSelectedIndex()).get(i).quantity 
-                                * sales.get(comboHistory.getSelectionModel().getSelectedIndex()).get(i).itemSold.getSalePrice());
-              viewAllHis.setText(tempString);
-              
+            for(int i = 0; i < sales.size(); i++)
+                for (int j = 0; j < sales.get(i).size(); j++) {
+                    if(sales.get(i).get(0).typeC == true && (sales.get(i).get(0).customer.id == ((comboHistory.getSelectionModel().getSelectedIndex() * 5) + 1))) {
+                        tempString += "\n" + String.format(sales.get(i).get(j).customer.firstName 
+                        + " " + sales.get(i).get(j).customer.lastName 
+                        + "\t\t\t" + sales.get(i).get(j).itemSold.itemName 
+                        +"\t\t" + sales.get(i).get(j).quantity + "\t\t" 
+                        + sales.get(i).get(j).date + "\t\t" 
+                        + sales.get(i).get(j).quantity 
+                                * sales.get(i).get(j).itemSold.getSalePrice());
+                        viewAllHis.setText(tempString);
+                }
              }
              //showing pane
             primaryStage.setScene(customerHistoryInfo);
@@ -1433,17 +1428,21 @@ public class FXApplication extends Application {
             String tempString = ("Contractor Purchase History:"
                     + "\nContractor Name\t\tItem Sold\t\t quantity\t\t date\t\tSale price"
                     + "\n=====================================================");
-             for(int i = 0; i < sales.get(comboConHistory.getSelectionModel().getSelectedIndex()).size(); i++){
-                tempString += "\n" + String.format(sales.get(comboConHistory.getSelectionModel().getSelectedIndex()).get(i).contractor.firstName 
-                        + " " + sales.get(comboConHistory.getSelectionModel().getSelectedIndex()).get(i).contractor.lastName 
-                         + "\t\t\t" + sales.get(comboConHistory.getSelectionModel().getSelectedIndex()).get(i).itemSold.itemName 
-                        +"\t\t" + sales.get(comboConHistory.getSelectionModel().getSelectedIndex()).get(i).quantity + "\t\t" 
-                           + sales.get(comboConHistory.getSelectionModel().getSelectedIndex()).get(i).date + "\t\t" 
-                        + sales.get(comboConHistory.getSelectionModel().getSelectedIndex()).get(i).quantity 
-                                * sales.get(comboConHistory.getSelectionModel().getSelectedIndex()).get(i).itemSold.getSalePrice());
-              viewAllConHis.setText(tempString);
-              
-             }
+            for(int i = 0; i < sales.size(); i++) {
+                for (int j = 0; j < sales.get(i).size(); j++) {
+                    if(sales.get(i).get(0).typeC == false && (sales.get(i).get(0).contractor.id == ((comboConHistory.getSelectionModel().getSelectedIndex() * 5) + 2))) {
+                        System.out.print(sales.get(i).get(0).contractor.id);
+                        tempString += "\n" + String.format(sales.get(i).get(j).contractor.firstName 
+                        + " " + sales.get(i).get(j).contractor.lastName 
+                        + "\t\t\t" + sales.get(i).get(j).itemSold.itemName 
+                        +"\t\t" + sales.get(i).get(j).quantity + "\t\t" 
+                        + sales.get(i).get(j).date + "\t\t" 
+                        + sales.get(i).get(j).quantity 
+                                * sales.get(i).get(j).itemSold.getSalePrice());
+                        viewAllConHis.setText(tempString);
+                    }
+                }
+            }
              //showing pane
             primaryStage.setScene(contractorHistoryInfo);
             primaryStage.show();
@@ -1519,4 +1518,3 @@ public class FXApplication extends Application {
     }
     
 }
-
