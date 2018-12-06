@@ -535,7 +535,7 @@ public class FXApplication extends Application {
         //data fields for customer sale data
         GridPane custSalePanel = new GridPane();
         Label lblChooseCust = new Label("Choose Customer");
-        ComboBox chooseCust = new ComboBox(custList);
+        ComboBox chooseCust = new ComboBox(customerList);
         Label lblChooseCustDate = new Label("Date");
         TextField custSaleDate = new TextField();
         Label custItem = new Label("Item");
@@ -571,7 +571,6 @@ public class FXApplication extends Application {
         });
         
         //end current sale entry
-        Alert errorAlertCustSale = new Alert(AlertType.ERROR);
         Alert successCustSale = new Alert(AlertType.INFORMATION);
         
         endCustSale.setOnAction(e -> {
@@ -594,11 +593,11 @@ public class FXApplication extends Application {
                 successCustSale.showAndWait();
             }
             else {
-                errorAlertCustSale.setHeaderText("Sale Error");
-                errorAlertCustSale.setContentText("Quantity Requested Exceeds Quantity Available");
-                errorAlertCustSale.setResizable(true);
-                errorAlertCustSale.getDialogPane().setPrefSize(400, 400);
-                errorAlertCustSale.showAndWait();
+                primaryStage.setTitle("Error: Quantity Requested Surpassed Current Inventory Levels");
+                primaryStage.setScene(errorScene);
+                primaryStage.show();
+                errorPane.setHgap(10);
+                errorPane.setVgap(10);
             } 
         });
         
@@ -646,11 +645,11 @@ public class FXApplication extends Application {
                 primaryStage.show();
             }
             else {
-                errorAlertCustSale.setHeaderText("Sale Error");
-                errorAlertCustSale.setContentText("Quantity Requested Exceeds Quantity Available");
-                errorAlertCustSale.setResizable(true);
-                errorAlertCustSale.getDialogPane().setPrefSize(400, 400);
-                errorAlertCustSale.showAndWait();
+                primaryStage.setTitle("Error: Quantity Requested Surpassed Current Inventory Levels");
+                primaryStage.setScene(errorScene);
+                primaryStage.show();
+                errorPane.setHgap(10);
+                errorPane.setVgap(10);
             } 
         });
         
@@ -680,21 +679,21 @@ public class FXApplication extends Application {
                 primaryStage.show();
             }
             else {
-                errorAlertCustSale.setHeaderText("Sale Error");
-                errorAlertCustSale.setContentText("Quantity Requested Exceeds Quantity Available");
-                errorAlertCustSale.setResizable(true);
-                errorAlertCustSale.getDialogPane().setPrefSize(400, 400);
-                errorAlertCustSale.showAndWait();
+                primaryStage.setTitle("Error");
+                primaryStage.setScene(errorScene);
+                primaryStage.show();
+                errorPane.setHgap(10);
+                errorPane.setVgap(10);
             } 
         });
         
         endCustoSale.setOnAction(e -> {
             if(item.get(newItemA.getSelectionModel().getSelectedIndex()).quantAvail -
-                    Integer.parseInt(custQuantE.getText()) >= 0) {
+                    Integer.parseInt(newQuantA.getText()) >= 0) {
                 int custID = chooseCust.getSelectionModel().getSelectedIndex();
                 String date = custSaleDate.getText();
                 int itemID = newItemA.getSelectionModel().getSelectedIndex();
-                int quantity = Integer.parseInt(custQuantE.getText());
+                int quantity = Integer.parseInt(newQuantA.getText());
                 sales.add(new ArrayList<>());
                 sales.get(sales.size()-1).add(new Sale(item.get(itemID), quantity, date, customer.get(custID)));
                 item.get(itemID).quantAvail -= quantity; 
@@ -708,16 +707,204 @@ public class FXApplication extends Application {
                 successCustSale.showAndWait();
             }
             else {
-                errorAlertCustSale.setHeaderText("Sale Error");
-                errorAlertCustSale.setContentText("Quantity Requested Exceeds Quantity Available");
-                errorAlertCustSale.setResizable(true);
-                errorAlertCustSale.getDialogPane().setPrefSize(400, 400);
-                errorAlertCustSale.showAndWait();
+                primaryStage.setTitle("Error: Quantity Requested Surpassed Current Inventory Levels");
+                primaryStage.setScene(errorScene);
+                primaryStage.show();
+                errorPane.setHgap(10);
+                errorPane.setVgap(10);
             } 
         });
 
-  
+        //data fields for contractor sale data
+        GridPane conSalePanel = new GridPane();
+        Label lblChooseCon = new Label("Choose Contractor");
+        ComboBox chooseCon = new ComboBox(contractorList);
+        Label lblChooseConDate = new Label("Date");
+        TextField conSaleDate = new TextField();
+        Label conItem = new Label("Item");
+        ComboBox conItemBox = new ComboBox(itemList);
+        Label conQuant = new Label("Quantity Purchased");
+        TextField conQuantE = new TextField();
+        Button continueConSale = new Button("Continue Sale");
+        Button endConSale = new Button("Finish Sale");
+        conSalePanel.add(lblChooseCon, 0, 1);
+        conSalePanel.add(chooseCon, 1, 1);
+        conSalePanel.add(lblChooseConDate, 0, 2);
+        conSalePanel.add(conSaleDate, 1, 2);
+        conSalePanel.add(conItem, 0, 3);
+        conSalePanel.add(conItemBox, 1, 3);
+        conSalePanel.add(conQuant, 0, 4);
+        conSalePanel.add(conQuantE, 1, 4);
+        conSalePanel.add(continueConSale, 0, 5);
+        conSalePanel.add(endConSale, 1, 5);
+        conSalePanel.setAlignment(Pos.CENTER);
+        Scene conSaleScene = new Scene(conSalePanel, 400, 400);
+        
+        //enter all sale data
         createConSale.setOnAction(e -> {
+            if(contractorList.isEmpty()) {
+                primaryStage.setTitle("Error: No Contractors Available to Create a Sale");
+                primaryStage.setScene(errorScene);
+                primaryStage.show();
+                errorPane.setHgap(10);
+                errorPane.setVgap(10);
+            }
+            else {
+                chooseCon.setValue(null);
+                conSaleDate.setText(null);
+                conItemBox.setValue(null);
+                conQuantE.setText(null);
+                primaryStage.setTitle("Enter Contractor Sale");
+                primaryStage.setScene(conSaleScene);
+                primaryStage.show();
+                custSalePanel.setHgap(10);
+                custSalePanel.setVgap(10);
+            }
+        });
+        
+        //end current sale entry
+        Alert successConSale = new Alert(AlertType.INFORMATION);
+        
+        endConSale.setOnAction(e -> {
+            if(item.get(conItemBox.getSelectionModel().getSelectedIndex()).quantAvail -
+                    Integer.parseInt(conQuantE.getText()) >= 0) {
+                int conID = chooseCon.getSelectionModel().getSelectedIndex();
+                String date = conSaleDate.getText();
+                int itemID = conItemBox.getSelectionModel().getSelectedIndex();
+                int quantity = Integer.parseInt(conQuantE.getText());
+                sales.add(new ArrayList<>());
+                sales.get(sales.size()-1).add(new Sale(item.get(itemID), quantity, date, contractor.get(conID)));
+                item.get(itemID).quantAvail -= quantity; 
+                primaryStage.setScene(primaryScene);
+                primaryStage.show();
+                
+                successConSale.setHeaderText("Sale Created!");
+                successConSale.setContentText("Sale Added!");
+                successConSale.setResizable(true);
+                successConSale.getDialogPane().setPrefSize(400,400);
+                successConSale.showAndWait();
+            }
+            else {
+                primaryStage.setTitle("Error: Quantity Requested Surpassed Current Inventory Levels");
+                primaryStage.setScene(errorScene);
+                primaryStage.show();
+                errorPane.setHgap(10);
+                errorPane.setVgap(10);
+            } 
+        });
+        
+        //add second sale
+        GridPane addContPane = new GridPane();
+        Label newConItem = new Label("Item");
+        ComboBox newItemB = new ComboBox(itemList);
+        Label newConQuant = new Label("Quantity");
+        TextField newQuantB = new TextField();
+        Button addContSale = new Button("Continue Sale");
+        Button endContSale = new Button("Finish Sale");
+        Label conName = new Label();
+        Label conDate = new Label();
+        addContPane.add(conName, 0, 1);
+        addContPane.add(conDate, 0, 2);
+        addContPane.add(newConItem, 0, 3);
+        addContPane.add(newItemB, 1, 3);
+        addContPane.add(newConQuant, 0, 4);
+        addContPane.add(newQuantB, 1, 4);
+        addContPane.add(addContSale, 0, 5);
+        addContPane.add(endContSale, 1, 5);
+        Scene conScene = new Scene(addContPane, 400, 400);
+        
+        continueConSale.setOnAction(e -> {
+           if(item.get(conItemBox.getSelectionModel().getSelectedIndex()).quantAvail -
+                    Integer.parseInt(conQuantE.getText()) >= 0) {
+                int conID = chooseCon.getSelectionModel().getSelectedIndex();
+                String date = conSaleDate.getText();
+                int itemID = conItemBox.getSelectionModel().getSelectedIndex();
+                int quantity = Integer.parseInt(conQuantE.getText());
+                sales.add(new ArrayList<>());
+                sales.get(sales.size()-1).add(new Sale(item.get(itemID), quantity, date, contractor.get(conID)));
+                item.get(itemID).quantAvail -= quantity; 
+                
+                successConSale.setHeaderText("Sale Created!");
+                successConSale.setContentText("Sale Added!");
+                successConSale.setResizable(true);
+                successConSale.getDialogPane().setPrefSize(400,400);
+                successConSale.showAndWait();
+                
+                conName.setText("" + contractor.get(chooseCon.getSelectionModel().getSelectedIndex()).toString());
+                conDate.setText(conSaleDate.getText());
+                primaryStage.setTitle("Add Another Contractor Sale");
+                primaryStage.setScene(conScene);
+                primaryStage.show();
+            }
+            else {
+                primaryStage.setTitle("Error: Quantity Requested Surpassed Current Inventory Levels");
+                primaryStage.setScene(errorScene);
+                primaryStage.show();
+                errorPane.setHgap(10);
+                errorPane.setVgap(10);
+            } 
+        });
+        
+        addContSale.setOnAction(e -> {
+           if(item.get(newItemB.getSelectionModel().getSelectedIndex()).quantAvail -
+                    Integer.parseInt(newQuantB.getText()) >= 0) {
+                int conID = chooseCon.getSelectionModel().getSelectedIndex();
+                String date = conSaleDate.getText();
+                int itemID = newItemB.getSelectionModel().getSelectedIndex();
+                int quantity = Integer.parseInt(newQuantB.getText());
+                sales.get(sales.size()-1).add(new Sale(item.get(itemID), quantity, date, contractor.get(conID)));
+                item.get(itemID).quantAvail -= quantity; 
+                
+                successConSale.setHeaderText("Sale Created!");
+                successConSale.setContentText("Sale Added!");
+                successConSale.setResizable(true);
+                successConSale.getDialogPane().setPrefSize(400,400);
+                successConSale.showAndWait();
+                
+                newQuantB.setText(null);
+                newItemB.setValue(null);
+                
+                conName.setText("" + contractor.get(chooseCon.getSelectionModel().getSelectedIndex()).toString());
+                conDate.setText(custSaleDate.getText());
+                primaryStage.setTitle("Add Another Contractor Sale");
+                primaryStage.setScene(conScene);
+                primaryStage.show();
+            }
+            else {
+                primaryStage.setTitle("Error: Quantity Requested Surpassed Current Inventory Levels");
+                primaryStage.setScene(errorScene);
+                primaryStage.show();
+                errorPane.setHgap(10);
+                errorPane.setVgap(10);
+            } 
+        });
+        
+        endContSale.setOnAction(e -> {
+            if(item.get(newItemB.getSelectionModel().getSelectedIndex()).quantAvail -
+                    Integer.parseInt(newQuantB.getText()) >= 0) {
+                int conID = chooseCon.getSelectionModel().getSelectedIndex();
+                String date = custSaleDate.getText();
+                int itemID = newItemB.getSelectionModel().getSelectedIndex();
+                int quantity = Integer.parseInt(newQuantB.getText());
+                sales.add(new ArrayList<>());
+                sales.get(sales.size()-1).add(new Sale(item.get(itemID), quantity, date, customer.get(conID)));
+                item.get(itemID).quantAvail -= quantity; 
+                primaryStage.setScene(primaryScene);
+                primaryStage.show();
+                
+                successCustSale.setHeaderText("Sale Created!");
+                successCustSale.setContentText("Sale Added!");
+                successCustSale.setResizable(true);
+                successCustSale.getDialogPane().setPrefSize(400,400);
+                successCustSale.showAndWait();
+            }
+            else {
+                primaryStage.setTitle("Error: Quantity Requested Surpassed Current Inventory Levels");
+                primaryStage.setScene(errorScene);
+                primaryStage.show();
+                errorPane.setHgap(10);
+                errorPane.setVgap(10);
+            } 
         });
         
         //initial item menu options
