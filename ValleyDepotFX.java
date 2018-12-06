@@ -13,9 +13,8 @@ import java.util.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.text.Text;
 import javafx.collections.*;
-import javafx.geometry.Insets;
 
-public class FXApplication extends Application {
+public class ValleyDepotFX extends Application {
 
     @Override
     public void start(Stage primaryStage) {
@@ -413,7 +412,7 @@ public class FXApplication extends Application {
                 }
         });
         
-         //edit contractor function
+        //edit contractor function
         ComboBox editContractor = new ComboBox(contractorList);
         Label comboCon = new Label("Select the Contractor to edit");
         GridPane editConPanel = new GridPane();
@@ -473,9 +472,10 @@ public class FXApplication extends Application {
             createConPanel.setHgap(10);
             createConPanel.setVgap(10);
         });    
-         confirmEdit.setOnAction(e -> {
-              if(txtEditConFirst.getText() != null && txtEditConLast.getText() != null && txtEditConBusName.getText() != null 
-                    && txtEditConEmail.getText().contains("@")) {
+        
+        confirmEdit.setOnAction(e -> {
+            if(txtEditConFirst.getText() != null && txtEditConLast.getText() != null && txtEditConBusName.getText() != null 
+                  && txtEditConEmail.getText().contains("@")) {
                 String editConsF = txtEditConFirst.getText(); 
                 String editConsL = txtEditConLast.getText();
                 String editConsAd = txtEditConAdd.getText();
@@ -489,15 +489,14 @@ public class FXApplication extends Application {
                         editEmai, editNot, editConBusAddy, editConBusNam, ((editConInfo * 5)+ 2)));
                 primaryStage.setScene(primaryScene);
                 primaryStage.show();
-              }
-               else {
+            }
+            else {
                 primaryStage.setTitle("Error");
                 primaryStage.setScene(errorScene);
                 primaryStage.show();
                 errorPane.setHgap(10);
                 errorPane.setVgap(10);
-                }
-              
+            }
         });
         
         //data fields for choosing customer or contractor sale 
@@ -644,6 +643,8 @@ public class FXApplication extends Application {
                 primaryStage.setTitle("Add Another Customer Sale");
                 primaryStage.setScene(custScene);
                 primaryStage.show();
+                addCustoPane.setHgap(10);
+                addCustoPane.setVgap(10);
             }
             else {
                 primaryStage.setTitle("Error: Quantity Requested Surpassed Current Inventory Levels");
@@ -678,6 +679,8 @@ public class FXApplication extends Application {
                 primaryStage.setTitle("Add Another Customer Sale");
                 primaryStage.setScene(custScene);
                 primaryStage.show();
+                addCustoPane.setHgap(10);
+                addCustoPane.setVgap(10);
             }
             else {
                 primaryStage.setTitle("Error");
@@ -835,6 +838,8 @@ public class FXApplication extends Application {
                 primaryStage.setTitle("Add Another Contractor Sale");
                 primaryStage.setScene(conScene);
                 primaryStage.show();
+                addContPane.setHgap(10);
+                addContPane.setVgap(10);
             }
             else {
                 primaryStage.setTitle("Error: Quantity Requested Surpassed Current Inventory Levels");
@@ -869,6 +874,8 @@ public class FXApplication extends Application {
                 primaryStage.setTitle("Add Another Contractor Sale");
                 primaryStage.setScene(conScene);
                 primaryStage.show();
+                addContPane.setHgap(10);
+                addContPane.setVgap(10);
             }
             else {
                 primaryStage.setTitle("Error: Quantity Requested Surpassed Current Inventory Levels");
@@ -961,7 +968,7 @@ public class FXApplication extends Application {
         Scene scene3 = new Scene(inventoryPane1, 600, 400);
 
           //create a sale button
-          btn2.setOnAction(e -> {
+        btn2.setOnAction(e -> {
             primaryStage.setTitle("Item System");
             primaryStage.setScene(invScene);
             primaryStage.show();
@@ -1026,7 +1033,7 @@ public class FXApplication extends Application {
         TextField editQuantity = new TextField();
         TextField editVendorID = new TextField();
         Label editVenID = new Label("Vendor that Item was purchased from");
-        Label editItemID= new Label("Item you want to edit");
+        Label editItemID = new Label("Item you want to edit");
         Button completeEdit = new Button("Edit Item");
         ComboBox editGetVendor = new ComboBox(vendorList);
         ComboBox itemInfo = new ComboBox(itemList);
@@ -1097,48 +1104,63 @@ public class FXApplication extends Application {
           });
           
         GridPane receiptPane1 = new GridPane();
+        HBox saleReportTitle = new HBox();
+        HBox saleReport = new HBox();
         Label Sale = new Label("Sale");
-        ComboBox saleListBox = new ComboBox(saleList);
-        Button selectSale = new Button("Select a Sale");
-        Button menu = new Button("Return to Main Menu");
+        ComboBox saleListBox = new ComboBox();
+        saleReportTitle.getChildren().addAll(Sale, saleListBox);
+        HBox.setHgrow(Sale, Priority.ALWAYS);
+        HBox.setHgrow(saleListBox, Priority.ALWAYS);
+        saleReportTitle.setSpacing(10);
+        
         Label saleCol1 = new Label();
         Label saleCol2 = new Label();
         Label saleCol3 = new Label();
         Label saleCol4 = new Label();
-           
-        receiptPane1.add(saleCol1, 0, 3);
-        receiptPane1.add(saleCol2, 1, 3);
-        receiptPane1.add(saleCol3, 2, 3);
-        receiptPane1.add(saleCol4, 3, 3);   
-        receiptPane1.add(Sale, 0, 0);
-        receiptPane1.add(saleListBox, 1, 0);
-        receiptPane1.add(selectSale, 1, 1);
+        saleReport.getChildren().addAll(saleCol1, saleCol2, saleCol3, saleCol4);
+        HBox.setHgrow(saleCol1, Priority.ALWAYS);
+        HBox.setHgrow(saleCol2, Priority.ALWAYS);
+        HBox.setHgrow(saleCol3, Priority.ALWAYS);
+        HBox.setHgrow(saleCol4, Priority.ALWAYS);
+        saleReport.setSpacing(20);
+        
+        Button selectSale = new Button("Select a Sale");
+        Button menu = new Button("Return to Main Menu");
+        receiptPane1.add(saleReportTitle, 0, 0);
+        receiptPane1.add(saleReport, 0, 2);
+        receiptPane1.add(selectSale, 0, 3);
         receiptPane1.add(menu, 0,4);
-        menu.setAlignment(Pos.CENTER_RIGHT);
+        saleCol1.setMaxWidth(Control.USE_PREF_SIZE);
+        saleCol2.setMaxWidth(Control.USE_PREF_SIZE);
+        saleCol3.setMaxWidth(Control.USE_PREF_SIZE);
+        saleCol4.setMaxWidth(Control.USE_PREF_SIZE);
+
         Scene scene4 = new Scene(receiptPane1, 400, 400);
-    
-           //print sale receipt button
-           btn4.setOnAction(e -> {
-               saleCol1.setText(null);
-               saleCol2.setText(null);
-               saleCol3.setText(null);
-               saleCol4.setText(null);
-               saleListBox.setValue(null);
-               primaryStage.setTitle("Sales Receipt");
-               primaryStage.setScene(scene4);
-               primaryStage.show();
-               receiptPane1.setHgap(10);
-               receiptPane1.setVgap(10);
-           });
+       
+        //print sale receipt button
+        btn4.setOnAction(e -> {
+            saleCol1.setText(null);
+            saleCol2.setText(null);
+            saleCol3.setText(null);
+            saleCol4.setText(null);
+            saleListBox.getItems().removeAll(saleList);
+            saleListBox.setValue(null);
+            saleListBox.getItems().addAll(saleList);
+            primaryStage.setTitle("Sales Receipt");
+            primaryStage.setScene(scene4);
+            primaryStage.show();
+            receiptPane1.setHgap(10);
+            receiptPane1.setVgap(10);
+        });
            
            // Select Sale button
            selectSale.setOnAction(e -> {
               
                double total = 0;
-               String tempStringCol1 = ("Item Name\n=====");
-               String tempStringCol2 = ("Price\n=====");
-               String tempStringCol3 = ("Quantity\n=====");
-               String tempStringCol4 = ("Total Price\n=====");
+               String tempStringCol1 = ("Item Name\n========");
+               String tempStringCol2 = ("Price\n========");
+               String tempStringCol3 = ("Quantity\n========");
+               String tempStringCol4 = ("Total Price\n========");
                       
                for(int i = 0; i < sales.get(saleListBox.getSelectionModel().getSelectedIndex()).size(); i++) {
                     tempStringCol1 += "\n" + sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).itemSold.itemName; 
@@ -1158,6 +1180,8 @@ public class FXApplication extends Application {
                primaryStage.setTitle("Sale Report");
                primaryStage.setScene(scene4);
                primaryStage.show();
+               receiptPane1.setHgap(10);
+               receiptPane1.setVgap(10);
            });   
            
            //return to main menu button
@@ -1303,11 +1327,11 @@ public class FXApplication extends Application {
           });
         
          //print report
-        Label reportLabel = new Label("Print Report");
-        Button createCusHis = new Button("Purchase History Of A Customer Report");
-        Button createConHis = new Button("Purchase History Of A Contractor Report");
-        Button createItemHis = new Button("Purchase History For Any Given Item Report");
-        Button createInvLevel = new Button("Inventory Item Levels Report");
+        Label reportLabel = new Label("Print Report\n");
+        Button createCusHis = new Button("Purchase History Of A Customer");
+        Button createConHis = new Button("Purchase History Of A Contractor");
+        Button createItemHis = new Button("Purchase History For Any Given Item");
+        Button createInvLevel = new Button("Inventory Item Levels");
         GridPane reportPane1 = new GridPane();
         Label report1 = new Label("1.)");
         Label report2 = new Label("2.)");
@@ -1337,117 +1361,169 @@ public class FXApplication extends Application {
             reportPane1.setVgap(10);
         });
                
-               
-               
-               
-               
-         //Creating new report Customer History
-         //Creating controls
+        //Creating new report Customer History
+        //Creating controls
         GridPane customerHistory = new GridPane();
-        Label custHistory = new Label("Select customer to view the purchase history of");
-        Label viewAllHis = new Label();
+        HBox custHistReport = new HBox();
+        Label custHistCol1 = new Label();
+        Label custHistCol2 = new Label();
+        Label custHistCol3 = new Label();
+        Label custHistCol4 = new Label();
+        Label custHistCol5 = new Label();
+        custHistReport.getChildren().addAll(custHistCol1, custHistCol2, custHistCol3, custHistCol4, custHistCol5);
+        HBox.setHgrow(custHistCol1, Priority.ALWAYS);
+        HBox.setHgrow(custHistCol2, Priority.ALWAYS);
+        HBox.setHgrow(custHistCol3, Priority.ALWAYS);
+        HBox.setHgrow(custHistCol4, Priority.ALWAYS);
+        HBox.setHgrow(custHistCol5, Priority.ALWAYS);
+        custHistReport.setSpacing(20);
+
+        Label custHistory = new Label("Select Customer to View Purchase History:");
         Button viewCustHistory = new Button("View History");
         Button exitCustHistory = new Button("Return to Main Menu");
         ComboBox comboHistory = new ComboBox(customerList);
         //adding controls 
         customerHistory.add(custHistory, 0, 0);
-        customerHistory.add(comboHistory, 1, 0);
+        customerHistory.add(comboHistory, 0, 1);
         customerHistory.add(viewCustHistory, 0 ,2);
-        customerHistory.add(viewAllHis, 0, 10);
-        customerHistory.add(exitCustHistory, 0, 12);
-        exitCustHistory.setAlignment(Pos.BASELINE_LEFT);
+        customerHistory.add(custHistReport, 0, 3);
+        customerHistory.add(exitCustHistory, 0, 4);
         Scene customerHistoryInfo = new Scene(customerHistory, 600, 600);
     
         //Get into customer history pane
         createCusHis.setOnAction(e ->{
-        comboHistory.setValue(null);
-        viewAllHis.setText(null);
-        primaryStage.setScene(customerHistoryInfo);
-        primaryStage.show();
+            custHistCol1.setText(null);
+            custHistCol2.setText(null);
+            custHistCol3.setText(null);
+            custHistCol4.setText(null);
+            custHistCol5.setText(null);
+            comboHistory.setValue(null);
+            primaryStage.setScene(customerHistoryInfo);
+            primaryStage.show();
+            customerHistory.setHgap(10);
+            customerHistory.setVgap(10);
         });
     
         //Contractor History Report details 
         viewCustHistory.setOnAction(e -> {
-            String tempString = ("Customer Purchase History:"
-                    + "\nCustomer Name\t\tItem Sold\t\t Quantity\t\t Date\t\tSale price"
-                    + "\n=====================================================");
+            String tempStringTitle = "Customer Purchase History:";
+            String tempStringCol1 = "Customer Name\n===============";
+            String tempStringCol2 = "Item Sold\n==========";
+            String tempStringCol3 = "Quantity\n==========";
+            String tempStringCol4 = "Date\n=======";
+            String tempStringCol5 = "Total Price\n========";
             for(int i = 0; i < sales.size(); i++)
                 for (int j = 0; j < sales.get(i).size(); j++) {
                     if(sales.get(i).get(0).typeC == true && (sales.get(i).get(0).customer.id == ((comboHistory.getSelectionModel().getSelectedIndex() * 5) + 1))) {
-                        tempString += "\n" + String.format(sales.get(i).get(j).customer.firstName 
-                        + " " + sales.get(i).get(j).customer.lastName 
-                        + "\t\t\t" + sales.get(i).get(j).itemSold.itemName 
-                        +"\t\t" + sales.get(i).get(j).quantity + "\t\t" 
-                        + sales.get(i).get(j).date + "\t\t" 
-                        + sales.get(i).get(j).quantity 
-                                * sales.get(i).get(j).itemSold.getSalePrice());
-                        viewAllHis.setText(tempString);
+                        tempStringCol1 += "\n" + sales.get(i).get(j).customer.firstName 
+                        + " " + sales.get(i).get(j).customer.lastName; 
+                        tempStringCol2 += "\n" + sales.get(i).get(j).itemSold.itemName; 
+                        tempStringCol3 += "\n" + sales.get(i).get(j).quantity;
+                        tempStringCol4 += "\n" + sales.get(i).get(j).date; 
+                        tempStringCol5 += "\n" + sales.get(i).get(j).quantity 
+                                * sales.get(i).get(j).itemSold.getSalePrice();
                 }
-             }
-             //showing pane
+            }
+            custHistCol1.setText(tempStringCol1);
+            custHistCol2.setText(tempStringCol2);
+            custHistCol3.setText(tempStringCol3);
+            custHistCol4.setText(tempStringCol4);
+            custHistCol5.setText(tempStringCol5);
+            
+            //showing pane
             primaryStage.setScene(customerHistoryInfo);
             primaryStage.show();
-            reportPane1.setHgap(20);
-            reportPane1.setVgap(20);
+            customerHistory.setHgap(10);
+            customerHistory.setVgap(10);
             
         });
+        
         //back to main menu (end of customer print report)
         exitCustHistory.setOnAction(e -> {
               primaryStage.setScene(primaryScene);
               primaryStage.show();
-          });
+        });
                
                
          //Begin contractor history printreport 
          //Creating new report Customer History
          //Creating controls
         GridPane contractorHistory = new GridPane();
-        Label contHistory = new Label("Select contractor to view the purchase history of");
-        Label viewAllConHis = new Label();
+        HBox conHistReport = new HBox();
+        Label conHistCol1 = new Label();
+        Label conHistCol2 = new Label();
+        Label conHistCol3 = new Label();
+        Label conHistCol4 = new Label();
+        Label conHistCol5 = new Label();
+        
+        conHistReport.getChildren().addAll(conHistCol1, conHistCol2, conHistCol3, conHistCol4, conHistCol5);
+        HBox.setHgrow(conHistCol1, Priority.ALWAYS);
+        HBox.setHgrow(conHistCol2, Priority.ALWAYS);
+        HBox.setHgrow(conHistCol3, Priority.ALWAYS);
+        HBox.setHgrow(conHistCol4, Priority.ALWAYS);
+        HBox.setHgrow(conHistCol5, Priority.ALWAYS);
+        conHistReport.setSpacing(20);
+        
+        Label contHistory = new Label("Select contractor to View Purchase History:");
         Button viewConHistory = new Button("View History");
         Button exitConHistory = new Button("Return to Main Menu");
         ComboBox comboConHistory = new ComboBox(contractorList);
         //adding controls 
         contractorHistory.add(contHistory, 0, 0);
-        contractorHistory.add(comboConHistory, 1, 0);
+        contractorHistory.add(comboConHistory, 0, 1);
         contractorHistory.add(viewConHistory, 0 ,2);
-        contractorHistory.add(viewAllConHis, 0, 10);
-        contractorHistory.add(exitConHistory, 0, 12);
+        contractorHistory.add(conHistReport, 0, 3);
+        contractorHistory.add(exitConHistory, 0, 4);
         exitConHistory.setAlignment(Pos.BASELINE_LEFT);
         Scene contractorHistoryInfo = new Scene(contractorHistory, 600, 600);
     
         //Get into customer history pane
         createConHis.setOnAction(e ->{
-        comboConHistory.setValue(null);
-        primaryStage.setScene(contractorHistoryInfo);
-        primaryStage.show();
+            conHistCol1.setText(null);
+            conHistCol2.setText(null);
+            conHistCol3.setText(null);
+            conHistCol4.setText(null);
+            conHistCol5.setText(null);
+            comboConHistory.setValue(null);
+            primaryStage.setScene(contractorHistoryInfo);
+            primaryStage.show();
+            contractorHistory.setHgap(20);
+            contractorHistory.setVgap(20);
         });
     
         //Contractor History Report details 
         viewConHistory.setOnAction(e -> {
-            String tempString = ("Contractor Purchase History:"
-                    + "\nContractor Name\t\tItem Sold\t\t quantity\t\t date\t\tSale price"
-                    + "\n=====================================================");
+            String tempStringTitle = "Customer Purchase History:";
+            String tempStringCol1 = "Customer Name\n===============";
+            String tempStringCol2 = "Item Sold\n==========";
+            String tempStringCol3 = "Quantity\n==========";
+            String tempStringCol4 = "Date\n=======";
+            String tempStringCol5 = "Total Price\n========";
+            
             for(int i = 0; i < sales.size(); i++) {
                 for (int j = 0; j < sales.get(i).size(); j++) {
                     if(sales.get(i).get(0).typeC == false && (sales.get(i).get(0).contractor.id == ((comboConHistory.getSelectionModel().getSelectedIndex() * 5) + 2))) {
-                        System.out.print(sales.get(i).get(0).contractor.id);
-                        tempString += "\n" + String.format(sales.get(i).get(j).contractor.firstName 
-                        + " " + sales.get(i).get(j).contractor.lastName 
-                        + "\t\t\t" + sales.get(i).get(j).itemSold.itemName 
-                        +"\t\t" + sales.get(i).get(j).quantity + "\t\t" 
-                        + sales.get(i).get(j).date + "\t\t" 
-                        + sales.get(i).get(j).quantity 
-                                * sales.get(i).get(j).itemSold.getSalePrice());
-                        viewAllConHis.setText(tempString);
+                        tempStringCol1 += "\n" + sales.get(i).get(j).contractor.firstName 
+                        + " " + sales.get(i).get(j).contractor.lastName; 
+                        tempStringCol2 += "\n" + sales.get(i).get(j).itemSold.itemName; 
+                        tempStringCol3 += "\n" + sales.get(i).get(j).quantity;
+                        tempStringCol4 += "\n" + sales.get(i).get(j).date; 
+                        tempStringCol5 += "\n" + sales.get(i).get(j).quantity 
+                                * sales.get(i).get(j).itemSold.getSalePrice();
                     }
                 }
             }
-             //showing pane
+            
+            conHistCol1.setText(tempStringCol1);
+            conHistCol2.setText(tempStringCol2);
+            conHistCol3.setText(tempStringCol3);
+            conHistCol4.setText(tempStringCol4);
+            conHistCol5.setText(tempStringCol5);
+            //showing pane
             primaryStage.setScene(contractorHistoryInfo);
             primaryStage.show();
-            reportPane1.setHgap(20);
-            reportPane1.setVgap(20);
+            contractorHistory.setHgap(20);
+            contractorHistory.setVgap(20);
             
         });
         //back to main menu 
@@ -1475,9 +1551,9 @@ public class FXApplication extends Application {
         createInvLevel.setOnAction(e -> {
             String tempString = "Current Inventory Levels for All Items: \n";
             itemTitle.setText(tempString);
-            String tempStringCol1 = ("Item Name"
+            String tempStringCol1 = ("\nItem Name"
                     + "\n====================");
-            String tempStringCol2 = "Inventory Levels"
+            String tempStringCol2 = "\nInventory Levels"
                     + "\n==============";
             for(int i = 0; i < item.size(); i++) {
                 tempStringCol1 += ("\n" + item.get(i).itemName);
@@ -1485,6 +1561,7 @@ public class FXApplication extends Application {
                 itemNameR.setText(tempStringCol1);
                 levels.setText(tempStringCol2);
             }
+            
             primaryStage.setTitle("Current Inventory Levels");
             primaryStage.setScene(invLevel);
             primaryStage.show();
