@@ -13,30 +13,36 @@ public class Contractor extends Customer {
     public static int conCount = 0;
     public String businessAddress;
     public String businessName;
-    
-   
-public Contractor (String firstName, String lastName, String address,String phoneNumber, 
-        String email, String notes, String businessAddress,String businessName) {
-    super(firstName, lastName, address, phoneNumber, email, notes);
-    this.businessAddress = businessAddress;
-    this.businessName = businessName;
-    id = conID;
-    conID += 5;
-    conCount++;
-    }
+    public String notesReportCon = "";
+
+    public Contractor (String firstName, String lastName, String address,String phoneNumber, 
+            String email, String notes, String businessAddress,String businessName) {
+        super(firstName, lastName, address, phoneNumber, email, notes);
+        this.businessAddress = businessAddress;
+        this.businessName = businessName;
+
+        this.notesReportCon += notes + "\n";
+        id = conID;
+        conID += 5;
+        conCount++;
+        }
 
     public Contractor (String firstName, String lastName, String address, 
-            String phoneNumber, String email, String notes, String businessAddress,String businessName, int id) {
-    
-    super(firstName, lastName, address, phoneNumber, email, notes);
-    this.businessAddress = businessAddress;
-    this.businessName = businessName;
-    this.id = id;
+            String phoneNumber, String email, String notes, String businessAddress,String businessName, int id, String notesReportCon) {
+        super(firstName, lastName, address, phoneNumber, email, notes);
+        this.businessAddress = businessAddress;
+        this.businessName = businessName;
+        this.id = id;
+        this.notesReportCon += notesReportCon + "\n" + notes + "\n";
     }
     
+    @Override
+    public String getNotesReport() {
+        return notesReportCon;
+    }
+
     @Override
     public String toString(){
        return("ID: " + this.id + ", Name: " + this.firstName + " " + this.lastName);
     }
 }
-
