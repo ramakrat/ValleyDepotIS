@@ -1,4 +1,4 @@
-package GroupProject;
+package ValleyDepotIS;
 
 
 import javafx.application.Application;
@@ -920,8 +920,8 @@ public class ValleyDepotFX extends Application {
         
         //initial item menu options
         GridPane inventoryPane2 = new GridPane();
-        Button createItem = new Button("Create new item");
-        Button editItem = new Button("Edit existing item");
+        Button createItem = new Button("Create New Item");
+        Button editItem = new Button("Edit Existing Item");
         Button leave = new Button("Return to Main Menu");
         Label num1 = new Label("1.)");
         Label num2 = new Label("2.)");
@@ -981,23 +981,28 @@ public class ValleyDepotFX extends Application {
             inventoryPane2.setHgap(10);
             inventoryPane2.setVgap(10);
         });
-          
-         //add an item button
-         createItem.setOnAction(e -> {
-           itemName.setText(null);
-           weight.setText(null);
-           description.setText(null);
-           price.setText(null);
-           forSale.setText(null);
-           quantity.setText(null);
-           primaryStage.setTitle("Add Item System");
-           primaryStage.setScene(scene3);
+        
+        leave.setOnAction(e -> {
+           primaryStage.setScene(primaryScene);
            primaryStage.show();
-           inventoryPane1.setHgap(10);
-           inventoryPane1.setVgap(10);
-           
+        });
+          
+        //add an item button
+        createItem.setOnAction(e -> {
+          itemName.setText(null);
+          weight.setText(null);
+          description.setText(null);
+          price.setText(null);
+          forSale.setText(null);
+          quantity.setText(null);
+          primaryStage.setTitle("Add Item System");
+          primaryStage.setScene(scene3);
+          primaryStage.show();
+          inventoryPane1.setHgap(10);
+          inventoryPane1.setVgap(10);
          });
-         createInvItem.setOnAction(e -> {
+         
+        createInvItem.setOnAction(e -> {
             if(itemName.getText() != null && weight.getText() != null && price.getText() != null 
                   && forSale.getText() != null) {
               String invName = itemName.getText(); 
@@ -1018,9 +1023,9 @@ public class ValleyDepotFX extends Application {
               primaryStage.show();
               errorPane.setHgap(10);
               errorPane.setVgap(10);
-              }
-                   
-        });
+            }
+
+       });
          
         exitItem.setOnAction(e -> {
             primaryStage.setScene(primaryScene);
@@ -1650,7 +1655,12 @@ public class ValleyDepotFX extends Application {
             itemHist.setHgap(20);
             itemHist.setVgap(20);
         });
-                 
+        
+        exitItemHistory.setOnAction(e -> {
+           primaryStage.setScene(primaryScene); 
+           primaryStage.show(); 
+        });
+        
         //inventory item levels data fields
         GridPane inventoryLevel = new GridPane();
         Label itemTitle = new Label();
@@ -1770,5 +1780,4 @@ public class ValleyDepotFX extends Application {
         
         launch(args);
     }
-    
 }
