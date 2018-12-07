@@ -19,6 +19,7 @@ public class Customer
     public String phoneNumber; 
     public String email;
     public String notes;
+    private String notesReport = "";
    
     public Customer(String firstName, String lastName, String address, String phoneNumber, String email, String notes) {
         this.firstName = firstName;
@@ -30,12 +31,13 @@ public class Customer
         //only commenting id math here, so each class starts at a number 1-5
         //each time they increment, it is by 5 so they never overlap and this is infinitely scalable
         //can be applied if we switch our current process of arrays to arraylists
+        this.notesReport += notes + "\n";
         id = custID;
         custID += 5;
         custCount++;
         }
 
-    public Customer(String firstName, String lastName, String address, String phoneNumber, String email, String notes, int id){
+    public Customer(String firstName, String lastName, String address, String phoneNumber, String email, String notes, int id, String notesReport){
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -43,6 +45,11 @@ public class Customer
         this.email = email;
         this.notes = notes;
         this.id = id;
+        this.notesReport += notesReport + "\n" + notes + "\n";
+    }
+    
+    public String getNotesReport() {
+        return this.notesReport;
     }
     
     @Override
