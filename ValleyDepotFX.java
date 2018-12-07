@@ -196,7 +196,6 @@ public class ValleyDepotFX extends Application {
         TextField txtPhone = new TextField();
         TextField txtEmail = new TextField();
         TextField txtNotes = new TextField();
-        Text success = new Text("Success. You have added a new customer.");
         createCustPanel.add(lblFName, 0, 0);
         createCustPanel.add(lblLName, 0, 1);
         createCustPanel.add(lblAdd, 0, 2);
@@ -210,7 +209,7 @@ public class ValleyDepotFX extends Application {
         createCustPanel.add(txtEmail, 1, 4);
         createCustPanel.add(txtNotes, 1, 5);
         createCustPanel.add(addCustomer, 0, 9);
-        createCustPanel.add(home, 0, 10);
+        createCustPanel.add(home, 1, 9);
         home.setAlignment(Pos.CENTER);
         addCustomer.setAlignment(Pos.CENTER);
         Scene createCustomer = new Scene(createCustPanel, 400, 400);
@@ -228,6 +227,11 @@ public class ValleyDepotFX extends Application {
             createCustPanel.setHgap(10);
             createCustPanel.setVgap(10);
         });    
+        
+        home.setOnAction(e -> {
+           primaryStage.setScene(primaryScene);
+           primaryStage.show();
+        });
             
          addCustomer.setOnAction(e -> {
          if(txtEmail.getText().contains("@") && txtPhone.getText().length() == 10 && txtFName.getText() != null 
@@ -248,21 +252,21 @@ public class ValleyDepotFX extends Application {
                 primaryStage.show();
                 errorPane.setHgap(10);
                 errorPane.setVgap(10);
-                }
-            
-        
+            }
         }); 
-         home.setOnAction(e -> {
-              primaryStage.setScene(primaryScene);
-              primaryStage.show();
-         });
+        
+        home.setOnAction(e -> {
+             primaryStage.setScene(primaryScene);
+             primaryStage.show();
+        });
          
-         //option for editing a customer
-         //edit customer 
+        //option for editing a customer
+        //edit customer 
         ComboBox editCustomer = new ComboBox(customerList);
         Label combo = new Label("Select the customer to edit");
         GridPane editCustPanel = new GridPane();
         Button editCustomerInfo = new Button("Edit Customer");
+        Button exitEditCust = new Button("Return to Main Menu");
         Label editCusFirst = new Label("First Name");
         Label editCusLast = new Label("Last Name");
         Label editCusAddress= new Label("Address");
@@ -290,7 +294,7 @@ public class ValleyDepotFX extends Application {
         editCustPanel.add(editCusNotes, 0, 6);
         editCustPanel.add(txtCusNotes, 1, 6);
         editCustPanel.add(editCustomerInfo, 0, 8);
-        editCustPanel.add(home, 0, 10);
+        editCustPanel.add(exitEditCust, 1, 8);
         Scene editCustomerScene = new Scene(editCustPanel, 400, 400);
         
         editCust.setOnAction(e -> {
@@ -309,36 +313,39 @@ public class ValleyDepotFX extends Application {
         });
         
         editCustomerInfo.setOnAction(e -> {
-             if(txtCusEmail.getText().contains("@") && txtCusPhone.getText().length() == 10 && txtCusFirst.getText() != null 
-                 && txtCusLast.getText() != null) {
-                String editCusF = txtCusFirst.getText();
-                String editCusL = txtCusLast.getText();
-                String editCusAdd = txtCusPhone.getText();
-                String editCustomerPhone = txtPhone.getText();
-                String editCustomerEmail = txtCusEmail.getText();
-                String editCustomerNotes = txtCusNotes.getText();
-                int editCustNum = editCustomer.getSelectionModel().getSelectedIndex();
-                String notesReport = customer.get(editCustNum).getNotesReport();
-                customer.set(editCustNum, new Customer(editCusF, editCusL, editCusAdd, editCustomerPhone, 
-                        editCustomerEmail, editCustomerNotes, ((5 * editCustNum) + 1), notesReport));
-                System.out.println(customer.get(editCustNum).getNotesReport());
-                primaryStage.setScene(primaryScene);
-                primaryStage.show();
-             }
-             else {
-               primaryStage.setTitle("Error");
-                primaryStage.setScene(errorScene);
-                primaryStage.show();
-                errorPane.setHgap(10);
-                errorPane.setVgap(10);
-                }
-            
-             
+            if(txtCusEmail.getText().contains("@") && txtCusPhone.getText().length() == 10 && txtCusFirst.getText() != null 
+                && txtCusLast.getText() != null) {
+               String editCusF = txtCusFirst.getText();
+               String editCusL = txtCusLast.getText();
+               String editCusAdd = txtCusPhone.getText();
+               String editCustomerPhone = txtPhone.getText();
+               String editCustomerEmail = txtCusEmail.getText();
+               String editCustomerNotes = txtCusNotes.getText();
+               int editCustNum = editCustomer.getSelectionModel().getSelectedIndex();
+               String notesReport = customer.get(editCustNum).getNotesReport();
+               customer.set(editCustNum, new Customer(editCusF, editCusL, editCusAdd, editCustomerPhone, 
+                       editCustomerEmail, editCustomerNotes, ((5 * editCustNum) + 1), notesReport));
+               primaryStage.setScene(primaryScene);
+               primaryStage.show();
+            }
+            else {
+              primaryStage.setTitle("Error");
+               primaryStage.setScene(errorScene);
+               primaryStage.show();
+               errorPane.setHgap(10);
+               errorPane.setVgap(10);
+            }
+        });
+        
+        exitEditCust.setOnAction(e -> {
+            primaryStage.setScene(primaryScene);
+            primaryStage.show();
         });
         
         //option for creating a new contractor
         GridPane createConPanel = new GridPane();
         Button addContractor = new Button("Add Contractor");
+        Button editAddCon = new Button("Return to Main Menu");
         Label conFirst = new Label("First Name");
         Label conLast = new Label("Last Name");
         Label conAdd = new Label("Address");
@@ -372,6 +379,7 @@ public class ValleyDepotFX extends Application {
         createConPanel.add(txtConBusAdd, 1, 6);
         createConPanel.add(txtConBusName, 1, 7);
         createConPanel.add(addContractor, 0, 9);
+        createConPanel.add(editAddCon, 1, 9);
         addContractor.setAlignment(Pos.CENTER);
         Scene createContractor = new Scene(createConPanel, 400, 400);
         
@@ -413,14 +421,20 @@ public class ValleyDepotFX extends Application {
                 primaryStage.show();
                 errorPane.setHgap(10);
                 errorPane.setVgap(10);
-                }
+            }
+        });
+        
+        editAddCon.setOnAction(e -> {
+            primaryStage.setScene(primaryScene);
+            primaryStage.show();
         });
         
         //edit contractor function
         ComboBox editContractor = new ComboBox(contractorList);
-        Label comboCon = new Label("Select the Contractor to edit");
+        Label comboCon = new Label("Select the Contractor to Edit");
         GridPane editConPanel = new GridPane();
         Button confirmEdit = new Button("Edit Contractor");
+        Button exitEditCon = new Button("Return to Main Menu");
         Label editConFirst = new Label("First Name");
         Label editConLast = new Label("Last Name");
         Label editConAdd = new Label("Address");
@@ -456,6 +470,7 @@ public class ValleyDepotFX extends Application {
         editConPanel.add(txtEditConBusAdd, 1, 6);
         editConPanel.add(txtEditConBusName, 1, 7);
         editConPanel.add(confirmEdit, 0, 11);
+        editConPanel.add(exitEditCon, 1, 11);
         confirmEdit.setAlignment(Pos.CENTER_RIGHT);
         Scene editContractorScene = new Scene(editConPanel, 400, 400);
         
@@ -504,15 +519,20 @@ public class ValleyDepotFX extends Application {
             }
         });
         
+        exitEditCon.setOnAction(e -> {
+            primaryStage.setScene(primaryScene);
+            primaryStage.show();
+        });
+        
         //data fields for choosing customer or contractor sale 
         Label saleLabel = new Label("Create Sales System");
         Button createCusSale = new Button("Create New Customer Sale");
         Button createConSale = new Button("Create New Contractor Sale");
         GridPane salePane1 = new GridPane();
+        Button exit = new Button("Return to Main Menu");
         Label sale1 = new Label("1.)");
         Label sale2 = new Label("2.)");
         Label sale3 = new Label("3.)");
-        Button exit = new Button("Return to Main Menu");
         salePane1.add(saleLabel, 1, 0);
         salePane1.add(createCusSale, 1, 1);
         salePane1.add(createConSale, 1, 2);
@@ -521,7 +541,6 @@ public class ValleyDepotFX extends Application {
         salePane1.add(sale3, 0, 3);
         salePane1.add(exit, 1,3);
         Scene scene2 = new Scene(salePane1, 400, 400);
-        
         
         //create a sale button
         btn3.setOnAction(e -> {
@@ -549,6 +568,7 @@ public class ValleyDepotFX extends Application {
         TextField custQuantE = new TextField();
         Button continueCustSale = new Button("Continue Sale");
         Button endCustSale = new Button("Finish Sale");
+        Button exitCustSale = new Button("Return to Main Menu");
         custSalePanel.add(lblChooseCust, 0, 1);
         custSalePanel.add(chooseCust, 1, 1);
         custSalePanel.add(lblChooseCustDate, 0, 2);
@@ -559,6 +579,7 @@ public class ValleyDepotFX extends Application {
         custSalePanel.add(custQuantE, 1, 4);
         custSalePanel.add(continueCustSale, 0, 5);
         custSalePanel.add(endCustSale, 1, 5);
+        custSalePanel.add(exitCustSale, 0, 6);
         custSalePanel.setAlignment(Pos.CENTER);
         Scene custSaleScene = new Scene(custSalePanel, 400, 400);
         
@@ -606,6 +627,11 @@ public class ValleyDepotFX extends Application {
             } 
         });
         
+        exitCustSale.setOnAction(e -> {
+            primaryStage.setScene(primaryScene);
+            primaryStage.show();
+        });
+        
         //add second sale
         GridPane addCustoPane = new GridPane();
         Label newItem = new Label("Item");
@@ -614,6 +640,7 @@ public class ValleyDepotFX extends Application {
         TextField newQuantA = new TextField();
         Button addCustoSale = new Button("Continue Sale");
         Button endCustoSale = new Button("Finish Sale");
+        Button exitCustoSale = new Button("Return to Main Menu");
         Label custName = new Label();
         Label custDate = new Label();
         addCustoPane.add(custName, 0, 1);
@@ -624,6 +651,7 @@ public class ValleyDepotFX extends Application {
         addCustoPane.add(newQuantA, 1, 4);
         addCustoPane.add(addCustoSale, 0, 5);
         addCustoPane.add(endCustoSale, 1, 5);
+        addCustoPane.add(exitCustoSale, 0, 6);
         Scene custScene = new Scene(addCustoPane, 400, 400);
         
         continueCustSale.setOnAction(e -> {
@@ -722,7 +750,12 @@ public class ValleyDepotFX extends Application {
                 errorPane.setVgap(10);
             } 
         });
-
+        
+        exitCustoSale.setOnAction(e -> {
+            primaryStage.setScene(primaryScene);
+            primaryStage.show();
+        });
+        
         //data fields for contractor sale data
         GridPane conSalePanel = new GridPane();
         Label lblChooseCon = new Label("Choose Contractor");
@@ -735,6 +768,7 @@ public class ValleyDepotFX extends Application {
         TextField conQuantE = new TextField();
         Button continueConSale = new Button("Continue Sale");
         Button endConSale = new Button("Finish Sale");
+        Button exitConSale = new Button("Return to Main Menu");
         conSalePanel.add(lblChooseCon, 0, 1);
         conSalePanel.add(chooseCon, 1, 1);
         conSalePanel.add(lblChooseConDate, 0, 2);
@@ -745,6 +779,7 @@ public class ValleyDepotFX extends Application {
         conSalePanel.add(conQuantE, 1, 4);
         conSalePanel.add(continueConSale, 0, 5);
         conSalePanel.add(endConSale, 1, 5);
+        conSalePanel.add(exitConSale, 0, 6);
         conSalePanel.setAlignment(Pos.CENTER);
         Scene conSaleScene = new Scene(conSalePanel, 400, 400);
         
@@ -801,6 +836,11 @@ public class ValleyDepotFX extends Application {
             } 
         });
         
+        exitConSale.setOnAction(e -> {
+           primaryStage.setScene(primaryScene);
+           primaryStage.show();
+        });
+        
         //add second sale
         GridPane addContPane = new GridPane();
         Label newConItem = new Label("Item");
@@ -809,6 +849,7 @@ public class ValleyDepotFX extends Application {
         TextField newQuantB = new TextField();
         Button addContSale = new Button("Continue Sale");
         Button endContSale = new Button("Finish Sale");
+        Button exitAddContSale = new Button("Return to Main Menu");
         Label conName = new Label();
         Label conDate = new Label();
         addContPane.add(conName, 0, 1);
@@ -819,6 +860,7 @@ public class ValleyDepotFX extends Application {
         addContPane.add(newQuantB, 1, 4);
         addContPane.add(addContSale, 0, 5);
         addContPane.add(endContSale, 1, 5);
+        addContPane.add(exitAddContSale, 0, 6);
         Scene conScene = new Scene(addContPane, 400, 400);
         
         continueConSale.setOnAction(e -> {
@@ -918,6 +960,11 @@ public class ValleyDepotFX extends Application {
             } 
         });
         
+        exitAddContSale.setOnAction(e -> {
+           primaryStage.setScene(primaryScene);
+           primaryStage.show();
+        });
+        
         //initial item menu options
         GridPane inventoryPane2 = new GridPane();
         Button createItem = new Button("Create New Item");
@@ -1005,26 +1052,25 @@ public class ValleyDepotFX extends Application {
         createInvItem.setOnAction(e -> {
             if(itemName.getText() != null && weight.getText() != null && price.getText() != null 
                   && forSale.getText() != null) {
-              String invName = itemName.getText(); 
-              double itemWeight = Double.parseDouble(weight.getText());
-              String itemDescription = description.getText();
-              double itemPrice = Double.parseDouble(price.getText());
-              double itemForSalePrice = Double.parseDouble(forSale.getText());
-              int itemQuantity = Integer.parseInt(quantity.getText());
-              int venNum = getVendor.getSelectionModel().getSelectedIndex();
-              item.add(Item.itemCount, new Item(invName, itemWeight, itemDescription, itemPrice, 
-                      itemForSalePrice, itemQuantity, vendor.get(venNum)));
-              primaryStage.setScene(primaryScene);
-              primaryStage.show();
+            String invName = itemName.getText(); 
+            double itemWeight = Double.parseDouble(weight.getText());
+            String itemDescription = description.getText();
+            double itemPrice = Double.parseDouble(price.getText());
+            double itemForSalePrice = Double.parseDouble(forSale.getText());
+            int itemQuantity = Integer.parseInt(quantity.getText());
+            int venNum = getVendor.getSelectionModel().getSelectedIndex();
+            item.add(Item.itemCount, new Item(invName, itemWeight, itemDescription, itemPrice, 
+                    itemForSalePrice, itemQuantity, vendor.get(venNum)));
+            primaryStage.setScene(primaryScene);
+            primaryStage.show();
             }
             else {
-              primaryStage.setTitle("Error");
-              primaryStage.setScene(errorScene);
-              primaryStage.show();
-              errorPane.setHgap(10);
-              errorPane.setVgap(10);
+            primaryStage.setTitle("Error");
+            primaryStage.setScene(errorScene);
+            primaryStage.show();
+            errorPane.setHgap(10);
+            errorPane.setVgap(10);
             }
-
        });
          
         exitItem.setOnAction(e -> {
@@ -1047,7 +1093,6 @@ public class ValleyDepotFX extends Application {
         TextField editForSale = new TextField();
         Label editInv6 = new Label("Quantity of Items Available");
         TextField editQuantity = new TextField();
-        TextField editVendorID = new TextField();
         Label editVenID = new Label("Vendor that Item was purchased from");
         Label editItemID = new Label("Item you want to edit");
         Button completeEdit = new Button("Edit Item");
@@ -1171,47 +1216,46 @@ public class ValleyDepotFX extends Application {
             receiptPane1.setVgap(10);
         });
            
-           // Select Sale button
-           selectSale.setOnAction(e -> {
-              
-               double total = 0;
-               String tempStringCol1 = ("Item Name\n========");
-               String tempStringCol2 = ("Price\n========");
-               String tempStringCol3 = ("Quantity\n========");
-               String tempStringCol4 = ("Total Price\n========");
-                      
-               for(int i = 0; i < sales.get(saleListBox.getSelectionModel().getSelectedIndex()).size(); i++) {
-                    tempStringCol1 += "\n" + sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).itemSold.itemName; 
-                    tempStringCol2 += "\n" + sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).itemSold.getSalePrice(); 
-                    tempStringCol3 += "\n" + sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).quantity;
-                    tempStringCol4 += "\n" + sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).itemSold.getSalePrice()                        
-                           *  sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).quantity;
-                    total +=  (sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).itemSold.getSalePrice() 
-                           * sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).quantity);
-                    }
-               tempStringCol1 += "\nTotal Sales: ";
-               tempStringCol4 += "\n" + total;
-               saleCol1.setText(tempStringCol1);
-               saleCol2.setText(tempStringCol2);
-               saleCol3.setText(tempStringCol3);
-               saleCol4.setText(tempStringCol4);
-               primaryStage.setTitle("Sale Report");
-               primaryStage.setScene(scene4);
-               primaryStage.show();
-               receiptPane1.setHgap(10);
-               receiptPane1.setVgap(10);
-           });   
+        // Select Sale button
+        selectSale.setOnAction(e -> {
+            double total = 0;
+            String tempStringCol1 = ("Item Name\n========");
+            String tempStringCol2 = ("Price\n========");
+            String tempStringCol3 = ("Quantity\n========");
+            String tempStringCol4 = ("Total Price\n========");
+
+            for(int i = 0; i < sales.get(saleListBox.getSelectionModel().getSelectedIndex()).size(); i++) {
+                tempStringCol1 += "\n" + sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).itemSold.itemName; 
+                tempStringCol2 += "\n" + sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).itemSold.getSalePrice(); 
+                tempStringCol3 += "\n" + sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).quantity;
+                tempStringCol4 += "\n" + sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).itemSold.getSalePrice()                        
+                       *  sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).quantity;
+                total +=  (sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).itemSold.getSalePrice() 
+                       * sales.get(saleListBox.getSelectionModel().getSelectedIndex()).get(i).quantity);
+            }
+            
+            tempStringCol1 += "\nTotal Sales: ";
+            tempStringCol4 += "\n" + total;
+            saleCol1.setText(tempStringCol1);
+            saleCol2.setText(tempStringCol2);
+            saleCol3.setText(tempStringCol3);
+            saleCol4.setText(tempStringCol4);
+            primaryStage.setTitle("Sale Report");
+            primaryStage.setScene(scene4);
+            primaryStage.show();
+            receiptPane1.setHgap(10);
+            receiptPane1.setVgap(10);
+        });   
            
-           //return to main menu button
-           
-            menu.setOnAction(e -> {
-                 primaryStage.setScene(primaryScene);
-                 primaryStage.show();
-            });  
+        //return to main menu button
+        menu.setOnAction(e -> {
+             primaryStage.setScene(primaryScene);
+             primaryStage.show();
+        });  
             
         //manage vendor items
         Label vendorLabel = new Label("Manage Vendors");
-        Button createVendor = new Button("Create new Vendor");
+        Button createVendor = new Button("Create New Vendor");
         Button editVendor = new Button("Edit a Vendor");
         GridPane vendorPane1 = new GridPane();
         Label ven1 = new Label("1.)");
@@ -1248,7 +1292,6 @@ public class ValleyDepotFX extends Application {
         addVendor.setAlignment(Pos.CENTER_RIGHT);
         Scene vendorScene = new Scene(vendorPane2, 400, 400);
         
-        
         //manage inventory button
         btn5.setOnAction(e -> {
             primaryStage.setTitle("Manage Inventory Items");
@@ -1258,7 +1301,6 @@ public class ValleyDepotFX extends Application {
             vendorPane1.setVgap(10);
         });
         
-          
         //return back to main menu from vendor
         dismiss.setOnAction(e -> {
             primaryStage.setScene(primaryScene);
@@ -1278,21 +1320,21 @@ public class ValleyDepotFX extends Application {
         
         //add vendor to array list button
         addVendor.setOnAction(e -> {
-         if(txtVenName.getText() != null && txtVenPhone2.getText().length() == 10){
-                String vendorName = txtVenName.getText();  
-                String vendorAdd = txtVenAddress.getText();
-                String vendorPhone = txtVenPhone2.getText();
-                vendor.add(Vendor.venCount, new Vendor(vendorName, vendorAdd, vendorPhone));
-                primaryStage.setScene(primaryScene);
-                primaryStage.show();
-            }
-          else {
-               primaryStage.setTitle("Error");
-                primaryStage.setScene(errorScene);
-                primaryStage.show();
-                errorPane.setHgap(10);
-                errorPane.setVgap(10);
-                }       
+        if(txtVenName.getText() != null && txtVenPhone2.getText().length() == 10){
+            String vendorName = txtVenName.getText();  
+            String vendorAdd = txtVenAddress.getText();
+            String vendorPhone = txtVenPhone2.getText();
+            vendor.add(Vendor.venCount, new Vendor(vendorName, vendorAdd, vendorPhone));
+            primaryStage.setScene(primaryScene);
+            primaryStage.show();
+           }
+         else {
+            primaryStage.setTitle("Error");
+            primaryStage.setScene(errorScene);
+            primaryStage.show();
+            errorPane.setHgap(10);
+            errorPane.setVgap(10);
+            }       
         });
         
         exitVendor.setOnAction(e -> {
@@ -1322,6 +1364,7 @@ public class ValleyDepotFX extends Application {
         vendorPane3.add(editVenPhone, 0, 3);
         vendorPane3.add(txtEditPhone, 1, 3);
         vendorPane3.add(comitVendorEdit, 0, 5);
+        vendorPane3.add(exitVendorEdit, 1, 5);
         vendorPane3.setAlignment(Pos.CENTER_RIGHT);
         
         editVendor.setOnAction(e -> {
@@ -1363,8 +1406,7 @@ public class ValleyDepotFX extends Application {
             primaryStage.show();
         });
 
-        
-         //print report
+        //print report
         Label reportLabel = new Label("Print Report\n");
         Button createCusHis = new Button("Purchase History Of A Customer");
         Button createConHis = new Button("Purchase History Of A Contractor");
@@ -1764,13 +1806,18 @@ public class ValleyDepotFX extends Application {
             primaryStage.setScene(primaryScene);
             primaryStage.show();
         });
-                
+         
+        Alert exitSys = new Alert(AlertType.INFORMATION);
+ 
         //exit system
         btn8.setOnAction(e -> {
-            System.out.println("Thank you for using The Valley Depot System!");
+            exitSys.setHeaderText("Exit System!");
+            exitSys.setContentText("Thank you for using The Valley Depot System!");
+            exitSys.setResizable(true);
+            exitSys.getDialogPane().setPrefSize(400,400);
+            exitSys.showAndWait();
             primaryStage.close();
         });
-         
     }
 
     /**
