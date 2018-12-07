@@ -26,22 +26,25 @@ public class ValleyDepotFX extends Application {
         ArrayList<ArrayList<Sale>> sales = new ArrayList<>();
         
         //observable array lists
-        ObservableList<Contractor> contractorList = FXCollections.observableList(contractor); 
-        ObservableList<Customer> customerList = FXCollections.observableList(customer);
-        ObservableList<Item> itemList = FXCollections.observableList(item); 
-        ObservableList<Vendor> vendorList = FXCollections.observableList(vendor); 
-        ObservableList<ArrayList<Sale>> saleList = FXCollections.observableList(sales); 
+        ObservableList contractorList = FXCollections.observableArrayList(); 
+        ObservableList customerList = FXCollections.observableArrayList(); 
+        ObservableList itemList = FXCollections.observableArrayList(); 
+        ObservableList vendorList = FXCollections.observableArrayList(); 
+        ObservableList<ArrayList<String>> saleList = FXCollections.observableArrayList(); 
         
         //pre-population of objects
-        customer.add(new Customer("Bob", "Smith", "8324 Newark Lane, Harrisonburg, VA, 22801", "5712239034", "smith.bob@gmail.com", "BSmith"));
-        customer.add(new Customer("Colin", "Skipper", "8324 Newark Lane, Harrisonburg, VA, 22801", "5712239034", "Colin.Skip@gmail.com", "CSkip"));
-        customer.add(new Customer("Adam", "Rodgers", "2 Rodestraat, Antwerp, Belgium", "3017286228", "adam.rodgers@gmail.com", "A-ROD"));
-        customer.add(new Customer("Sandy", "Smith", "32 Kingsville Drive, Huntingston, WV, 25701", "2403331023", "smithsvillesandy32@hotmail.com", "Sandy Cheeks"));
-        customer.add(new Customer("Megan", "Parks", "422 Devon Street, Harrisonburg, VA, 22801", "7032203901", "parks.megan@hotmail.com", "Megan Fox"));
+        customer.add(new Customer("Bob", "Smith", "8324 Newark Lane, Harrisonburg, VA, 22801", "5712239034", "smith.bob@gmail.com", ""));
+        customer.add(new Customer("Colin", "Skipper", "8324 Newark Lane, Harrisonburg, VA, 22801", "5712239034", "Colin.Skip@gmail.com", ""));
+        customer.add(new Customer("Adam", "Rodgers", "2 Rodestraat, Antwerp, Belgium", "3017286228", "adam.rodgers@gmail.com", ""));
+        customer.add(new Customer("Sandy", "Smith", "32 Kingsville Drive, Huntingston, WV, 25701", "2403331023", "smithsvillesandy32@hotmail.com", ""));
+        customer.add(new Customer("Megan", "Parks", "422 Devon Street, Harrisonburg, VA, 22801", "7032203901", "parks.megan@hotmail.com", ""));
+        customerList.addAll(customer.get(0).toString(), customer.get(1).toString(), customer.get(2).toString(), 
+                customer.get(3).toString(), customer.get(4).toString());
         
         vendor.add(new Vendor("Prestige WorldWide", "10283 SpringField MA 01103", "4133252922"));
         vendor.add(new Vendor("Nike", "2484 Wembly St Houston TX 77036", "8323457634"));
         vendor.add(new Vendor("Burton", "2844 Irish Lane Madison WI 53718", "7156137491"));
+        vendorList.addAll(vendor.get(0).toString(), vendor.get(1).toString(), vendor.get(2).toString());
         
         item.add(new Item("Shoe",4.5,"Off-Whites",40.5, 50.6, 33, vendor.get(0)));
         item.add(new Item("Shirt", 1.5, "Polo", 30.5, 32.5, 200, vendor.get(1)));
@@ -53,7 +56,7 @@ public class ValleyDepotFX extends Application {
         item.add(new Item("CD", 2.1,"Great Music", 1.2, 1.5, 160, vendor.get(2)));
         item.add(new Item("Poster", 1.0,"Coca-Cola", 15.5, 13.5, 55, vendor.get(0)));
         item.add(new Item("ToothPaste", 1.0, "Minty Fresh", 1.2, 1.6, 75, vendor.get(1)));
-
+        
         ArrayList<Sale> sales1 = new ArrayList<>();
         sales1.add(new Sale(item.get(0), 4, "4/12/2018", customer.get(0)));
         sales.add(sales1);
@@ -62,22 +65,39 @@ public class ValleyDepotFX extends Application {
         ArrayList<Sale> sales2 = new ArrayList<>();
         sales2.add(new Sale(item.get(3), 6, "7/3/2018", customer.get(1)));
         sales.add(sales2);
-        item.get(0).quantAvail -= 6;
+        item.get(3).quantAvail -= 6;
         
         ArrayList<Sale> sales3 = new ArrayList<>();
         sales3.add(new Sale(item.get(2), 2, "4/21/2018", customer.get(2)));
         sales.add(sales3);
-        item.get(0).quantAvail -= 2;
+        item.get(2).quantAvail -= 2;
         
         ArrayList<Sale> sales4 = new ArrayList<>();
         sales4.add(new Sale(item.get(5), 7, "5/3/2018", customer.get(0)));
         sales.add(sales4);
-        item.get(0).quantAvail -= 7;
+        item.get(5).quantAvail -= 7;
         
         ArrayList<Sale> sales5 = new ArrayList<>();
         sales5.add(new Sale(item.get(4), 1, "1/4/2018", customer.get(3)));
         sales.add(sales5);
-        item.get(0).quantAvail -= 1;
+        item.get(4).quantAvail -= 1;
+
+        itemList.addAll(item.get(0).toString(), item.get(1).toString(), item.get(2).toString(),
+                item.get(3).toString(), item.get(4).toString(), item.get(5).toString(), item.get(6).toString(),
+                item.get(7).toString(), item.get(8).toString(), item.get(9).toString());        
+        
+        ArrayList sale1String = new ArrayList<>();
+        sale1String.add(sales1.get(0).toString());
+        ArrayList sale2String = new ArrayList<>();
+        sale2String.add(sales2.get(0).toString());
+        ArrayList sale3String = new ArrayList<>();
+        sale3String.add(sales3.get(0).toString());
+        ArrayList sale4String = new ArrayList<>();
+        sale4String.add(sales4.get(0).toString());
+        ArrayList sale5String = new ArrayList<>();
+        sale5String.add(sales5.get(0).toString());
+        
+        saleList.addAll(sale1String, sale2String, sale3String, sale4String, sale5String);
         
         Label title = new Label("Valley Depot System");
         Button btn1 = new Button("Manage Customers");
@@ -179,7 +199,6 @@ public class ValleyDepotFX extends Application {
             primaryStage.show();
         });
         
-        
         //objects for create customer window
         GridPane createCustPanel = new GridPane();
         Button addCustomer = new Button("Add Customer");
@@ -243,6 +262,7 @@ public class ValleyDepotFX extends Application {
                 String Email = txtEmail.getText();
                 String Notes = txtNotes.getText();
                 customer.add(new Customer(FName, LName, Add, Phone, Email, Notes));
+                customerList.add(customer.get(customer.size()-1).toString());
                 primaryStage.setScene(primaryScene);
                 primaryStage.show();
             }
@@ -325,6 +345,7 @@ public class ValleyDepotFX extends Application {
                String notesReport = customer.get(editCustNum).getNotesReport();
                customer.set(editCustNum, new Customer(editCusF, editCusL, editCusAdd, editCustomerPhone, 
                        editCustomerEmail, editCustomerNotes, ((5 * editCustNum) + 1), notesReport));
+               customerList.set(editCustNum, customer.get(editCustNum).toString());
                primaryStage.setScene(primaryScene);
                primaryStage.show();
             }
@@ -412,6 +433,7 @@ public class ValleyDepotFX extends Application {
                     String busName = txtConBusName.getText();
                     contractor.add(new Contractor(conFirstName, conLastName, conAddress, conPhoneNumber, conEmailAdd, contractorNotes,
                         busAdd, busName));
+                    contractorList.add(contractor.get(contractor.size()-1).toString());
                     primaryStage.setScene(primaryScene);
                     primaryStage.show();
             }
@@ -506,6 +528,7 @@ public class ValleyDepotFX extends Application {
                 String notesReport = contractor.get(editConInfo).getNotesReport();
                 contractor.set(editConInfo, new Contractor(editConsF, editConsL, editConsAd, editTele, 
                         editEmai, editNot, editConBusAddy, editConBusNam, ((editConInfo * 5)+ 2), notesReport));
+                contractorList.set(editConInfo, contractor.get(editConInfo).toString());
                 primaryStage.setScene(primaryScene);
                 primaryStage.show();
                 System.out.print(contractor.get(editConInfo).getNotesReport());
@@ -608,7 +631,10 @@ public class ValleyDepotFX extends Application {
                 int quantity = Integer.parseInt(custQuantE.getText());
                 sales.add(new ArrayList<>());
                 sales.get(sales.size()-1).add(new Sale(item.get(itemID), quantity, date, customer.get(custID)));
-                item.get(itemID).quantAvail -= quantity; 
+                saleList.add(new ArrayList<>());
+                saleList.get(saleList.size()-1).add(sales.get(sales.size()-1).get(itemID).toString());
+                item.get(itemID).quantAvail -= quantity;
+                itemList.set(itemID, item.get(itemID).toString());
                 primaryStage.setScene(primaryScene);
                 primaryStage.show();
                 
@@ -654,7 +680,7 @@ public class ValleyDepotFX extends Application {
         addCustoPane.add(exitCustoSale, 0, 6);
         Scene custScene = new Scene(addCustoPane, 400, 400);
         
-        continueCustSale.setOnAction(e -> {
+        continueCustSale.setOnAction((ActionEvent e) -> {
            if(item.get(custItemBox.getSelectionModel().getSelectedIndex()).quantAvail -
                     Integer.parseInt(custQuantE.getText()) >= 0) {
                 int custID = chooseCust.getSelectionModel().getSelectedIndex();
@@ -663,8 +689,11 @@ public class ValleyDepotFX extends Application {
                 int quantity = Integer.parseInt(custQuantE.getText());
                 sales.add(new ArrayList<>());
                 sales.get(sales.size()-1).add(new Sale(item.get(itemID), quantity, date, customer.get(custID)));
+                int index = sales.get(sales.size()-1).size()-1;
+                saleList.add(new ArrayList<>());
+                saleList.get(saleList.size()-1).add(sales.get(sales.size()-1).get(index).toString());
                 item.get(itemID).quantAvail -= quantity; 
-                
+                itemList.set(itemID, item.get(itemID).toString());
                 successCustSale.setHeaderText("Sale Created!");
                 successCustSale.setContentText("Sale Added!");
                 successCustSale.setResizable(true);
@@ -696,8 +725,10 @@ public class ValleyDepotFX extends Application {
                 int itemID = newItemA.getSelectionModel().getSelectedIndex();
                 int quantity = Integer.parseInt(newQuantA.getText());
                 sales.get(sales.size()-1).add(new Sale(item.get(itemID), quantity, date, customer.get(custID)));
+                int index = sales.get(sales.size()-1).size()-1;
+                saleList.get(saleList.size()-1).add(sales.get(sales.size()-1).get(index).toString());          
                 item.get(itemID).quantAvail -= quantity; 
-                
+                itemList.set(itemID, item.get(itemID).toString());
                 successCustSale.setHeaderText("Sale Created!");
                 successCustSale.setContentText("Sale Added!");
                 successCustSale.setResizable(true);
@@ -732,7 +763,10 @@ public class ValleyDepotFX extends Application {
                 int itemID = newItemA.getSelectionModel().getSelectedIndex();
                 int quantity = Integer.parseInt(newQuantA.getText());
                 sales.get(sales.size()-1).add(new Sale(item.get(itemID), quantity, date, customer.get(custID)));
+                int index = sales.get(sales.size()-1).size()-1;
+                saleList.get(saleList.size()-1).add(sales.get(sales.size()-1).get(index).toString()); 
                 item.get(itemID).quantAvail -= quantity; 
+                itemList.set(itemID, item.get(itemID).toString());
                 primaryStage.setScene(primaryScene);
                 primaryStage.show();
                 
@@ -817,7 +851,11 @@ public class ValleyDepotFX extends Application {
                 int quantity = Integer.parseInt(conQuantE.getText());
                 sales.add(new ArrayList<>());
                 sales.get(sales.size()-1).add(new Sale(item.get(itemID), quantity, date, contractor.get(conID)));
-                item.get(itemID).quantAvail -= quantity; 
+                int index = sales.get(sales.size()-1).size()-1;
+                saleList.add(new ArrayList<>());
+                saleList.get(saleList.size()-1).add(sales.get(sales.size()-1).get(index).toString()); 
+                item.get(itemID).quantAvail -= quantity;
+                itemList.set(itemID, item.get(itemID).toString());
                 primaryStage.setScene(primaryScene);
                 primaryStage.show();
                 
@@ -872,7 +910,11 @@ public class ValleyDepotFX extends Application {
                 int quantity = Integer.parseInt(conQuantE.getText());
                 sales.add(new ArrayList<>());
                 sales.get(sales.size()-1).add(new Sale(item.get(itemID), quantity, date, contractor.get(conID)));
+                int index = sales.get(sales.size()-1).size()-1;
+                saleList.add(new ArrayList<>());
+                saleList.get(saleList.size()-1).add(sales.get(sales.size()-1).get(index).toString()); 
                 item.get(itemID).quantAvail -= quantity; 
+                itemList.set(itemID, item.get(itemID).toString());
                 
                 successConSale.setHeaderText("Sale Created!");
                 successConSale.setContentText("Sale Added!");
@@ -905,7 +947,10 @@ public class ValleyDepotFX extends Application {
                 int itemID = newItemB.getSelectionModel().getSelectedIndex();
                 int quantity = Integer.parseInt(newQuantB.getText());
                 sales.get(sales.size()-1).add(new Sale(item.get(itemID), quantity, date, contractor.get(conID)));
-                item.get(itemID).quantAvail -= quantity; 
+                int index = sales.get(sales.size()-1).size()-1;
+                saleList.get(saleList.size()-1).add(sales.get(sales.size()-1).get(index).toString()); 
+                item.get(itemID).quantAvail -= quantity;
+                itemList.set(itemID, item.get(itemID).toString());
                 
                 successConSale.setHeaderText("Sale Created!");
                 successConSale.setContentText("Sale Added!");
@@ -941,7 +986,10 @@ public class ValleyDepotFX extends Application {
                 int itemID = newItemB.getSelectionModel().getSelectedIndex();
                 int quantity = Integer.parseInt(newQuantB.getText());
                 sales.get(sales.size()-1).add(new Sale(item.get(itemID), quantity, date, contractor.get(conID)));
+                int index = sales.get(sales.size()-1).size()-1;
+                saleList.get(saleList.size()-1).add(sales.get(sales.size()-1).get(index).toString()); 
                 item.get(itemID).quantAvail -= quantity; 
+                itemList.set(itemID, item.get(itemID).toString());
                 primaryStage.setScene(primaryScene);
                 primaryStage.show();
                 
@@ -1020,7 +1068,7 @@ public class ValleyDepotFX extends Application {
         inventoryPane1.add(venID, 0, 7);
         Scene scene3 = new Scene(inventoryPane1, 600, 400);
 
-          //create a sale button
+        //create an item button
         btn2.setOnAction(e -> {
             primaryStage.setTitle("Item System");
             primaryStage.setScene(invScene);
@@ -1059,8 +1107,9 @@ public class ValleyDepotFX extends Application {
             double itemForSalePrice = Double.parseDouble(forSale.getText());
             int itemQuantity = Integer.parseInt(quantity.getText());
             int venNum = getVendor.getSelectionModel().getSelectedIndex();
-            item.add(Item.itemCount, new Item(invName, itemWeight, itemDescription, itemPrice, 
+            item.add(new Item(invName, itemWeight, itemDescription, itemPrice, 
                     itemForSalePrice, itemQuantity, vendor.get(venNum)));
+            itemList.add(item.get(item.size()-1).toString());
             primaryStage.setScene(primaryScene);
             primaryStage.show();
             }
@@ -1148,16 +1197,17 @@ public class ValleyDepotFX extends Application {
                 int editItemNum = itemInfo.getSelectionModel().getSelectedIndex();
                 item.set(editItemNum, new Item(editnam, editway, editdes, editpri, 
                         editsp, editqt, ((editItemNum * 5) +3), vendor.get(editVenNum)));
+                itemList.set(editItemNum, item.get(editItemNum).toString());
                 primaryStage.setScene(primaryScene);
                 primaryStage.show();
-              }
-              else {
-               primaryStage.setTitle("Error");
+            }
+            else {
+                primaryStage.setTitle("Error");
                 primaryStage.setScene(errorScene);
                 primaryStage.show();
                 errorPane.setHgap(10);
                 errorPane.setVgap(10);
-                }
+            }
         });
         
         //button to return to main menu
@@ -1324,7 +1374,8 @@ public class ValleyDepotFX extends Application {
             String vendorName = txtVenName.getText();  
             String vendorAdd = txtVenAddress.getText();
             String vendorPhone = txtVenPhone2.getText();
-            vendor.add(Vendor.venCount, new Vendor(vendorName, vendorAdd, vendorPhone));
+            vendor.add(new Vendor(vendorName, vendorAdd, vendorPhone));
+            vendorList.add(vendor.get(vendor.size()-1).toString());
             primaryStage.setScene(primaryScene);
             primaryStage.show();
            }
@@ -1387,6 +1438,7 @@ public class ValleyDepotFX extends Application {
                 String venEditPhone = txtEditPhone.getText();
                 int editVendorNum = listOfVendors.getSelectionModel().getSelectedIndex();
                 vendor.set(editVendorNum, new Vendor(venFName, venEditAdd, venEditPhone, ((editVendorNum * 5) + 5)));
+                vendorList.set(editVendorNum, vendor.get(editVendorNum).toString());
                 primaryStage.setScene(primaryScene);
                 primaryStage.show();
             }
